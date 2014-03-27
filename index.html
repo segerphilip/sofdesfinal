@@ -1,36 +1,82 @@
-<head>
-	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
-	<link rel="shortcut icon" href="images/icon.jpg">
-	<link rel="stylesheet" href="style/style.css" type="text/css" />
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<title>PBASH SofDes Project</title>
+		<link rel="shortcut icon" href="images/portal.png">
+		<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+		<script src="skel.min.js">
+		{
+			prefix: 'style',
+			preloadStyleSheets: true,
+			resetCSS: true,
+			boxModel: 'border',
+			grid: { gutters: 30 },
+			breakpoints: {
+				wide: { range: '1200-', containers: 1140, grid: { gutters: 50 } },
+				narrow: { range: '481-1199', containers: 960 },
+				mobile: { range: '-480', containers: 'fluid', lockViewport: true, grid: { collapse: true } }
+			}
+		}
+		</script>
 	</head>
-<body>
-<title>PBASH SofDes Project</title>
-<h1>
-	Final Software Design Project
-</h1>
-<h2>
-	Team Members: Philip, Bonnie, Austin, Shrinidhi, Hannah
-</h2>
-<h3>
-	Project Proposal: Space Team Down Video Game <br>
-	March 25, 2014
-</h3>
-<p>
-<b>The Team:</b> <br>
-The members of this group are Shrinidhi Thirumalai, Bonnie Ishiguro, Hannah Wilk, Philip Seger, and Austin Greene. Currently, we see ourselves as one big group of five working together to create one video game. However, if we split up into subgroups, each focused on a different part of the project, we plan to integrate these groups together for our final game. Our project will be on the github repo: <a href="https://github.com/segerphilip/sofdesfinal">github.com/segerphilip/sofdesfinal</a>. Since this project is focused on a video game with an artificial intelligence component, we may have some computation that overlaps with the coursework from Mechanics, a class four members of our group are currently taking. We don’t currently see any other significant overlaps.<br><br>
-
-<b>The Project:</b> <br>
-We plan to create a 2D video game with a machine learning component. We would like our video game to have a dynamic storyline with multiple endings that gets harder as the player progresses.  Our minimum deliverable would be a functional game with an AI component. In essence, we want a user to enjoy the game and have fun, but we would still like to be able to add more features down the road. Once our minimum deliverable is finished, we plan to make our game available online, have a dynamic storyline, and perhaps have a multi-player option.<br><br>
-
-<b>The Plan:</b> <br>
-To get started, we first have to figure out the storyline and mechanics of our game. Once this is done, we can then create a skeleton code of basic functions, classes, objects that we can then assign to our group members. We plan to make our naming conventions, variable names, and inputs and outputs very clear in our skeleton code to allow for easy group coding and collaboration. Our current looming question to answer is: “What is our game?”. This entails determining the game mechanics, story, and the expected user-experience. The biggest problem we currently foresee is efficient integration of code from our members into a coherent project.<br><br>
-
-We don’t foresee the need for an assigned advisor outside of the computation space because our project is not intensely interdisciplinary. However, whenever we have questions, we will ask help from our class NINJAS and attend NINJA hours outside of class time as well. We are looking for an advisor who has experience in machine learning and/or video games and is willing to help us.
-</p>
-<h3>
-	Notice <br>
-	March 25, 2014
-</h3>
-<p>
-Just as a general notice, this website is very barebones at the moment. The team will be getting together shortly and finding a template to further refine and better present our ideas and progression throughout this final project.
-</body>
+	<body>
+		<div class="container">
+			<!-- Header -->
+				<div id="header" class="row">
+					<div class="4u">
+						<h1>PBASH Project Page</h1>
+					</div>
+					<nav id="nav" class="8u">
+						<a href="index.html">Home</a>
+						<a href="about.html">About</a>
+					</nav>
+				</div>
+			<!-- Hero -->
+				<section id="hero">
+					<h2>Welcome!</h2>
+					<p>Here is the project page for the Software Design final project.<br>
+					For more information, check the <a href="about.html">about</a> page.</p>
+					<a href="#proposal" class="button">Latest entry</a>
+				</section>
+			<!-- Proposal -->
+				<div class="row">
+					<!-- Date -->
+						<section id="proposal" class="2u">
+							<h2>Project Proposal</h2>
+							<p>March 26<br>2014</p>
+						</section>
+					<!-- Content -->
+						<section class="8u">
+							<h2>The Team</h2>
+							<p>The members of this group are Shrinidhi Thirumalai, Bonnie Ishiguro, Hannah Wilk, Philip Seger, and Austin Greene. Currently, we see ourselves as one big group of five working together to create one video game. However, if we split up into subgroups, each focused on a different part of the project, we plan to integrate these groups together for our final game. Our project can be found at  <a href="https://www.google.com/url?q=https%3A%2F%2Fgithub.com%2Fsegerphilip%2Fsofdesfinal&sa=D&sntz=1&usg=AFQjCNEjVMLGJsmb6bg5VCsFwXl0Psd3Ag">github.com/segerphilip/sofdesfinal.</a> Since this project is focused on a video game with an artificial intelligence component, we may have some computation that overlaps with the coursework from Mechanics, a class four members of our group are currently taking. We don’t currently see any other significant overlaps.
+							</p><br>
+							<h2>The Project</h2>
+							<p>
+							We plan to create a 2D video game with a machine learning component. We would like our video game to have a dynamic storyline with multiple endings that gets harder as the player progresses.  Our minimum deliverable would be a functional game with an AI component. In essence, we want a user to enjoy the game and have fun, but we would still like to be able to add more features down the road. Once our minimum deliverable is finished, we plan to make our game available online, have a dynamic storyline, and perhaps have a multi-player option. Because of the team size, there are quite a few components that will be dealt with in subteams. This includes, but is not currently limited to, building a custom website, having player models and environment graphics, interesting game mechanics, adaptive storyline influenced by the user’s decisions, and machine learning which would define how one progresses through the game. This would be quite a lot of work, so splitting it would help keep everything manageable and teach the group how to properly interface with one another so the code can be easily integrated together.
+							</p><br>
+							<h2>The Plan</h2>
+							<p>
+							To get started, we first have to figure out the storyline and mechanics of our game. Once this is done, we can then create a skeleton code of basic functions, classes, and objects that we can then assign to our group members. We plan to make our naming conventions, variable names, and inputs and outputs very clear in our skeleton code to allow for easy group coding and collaboration. Our current looming question to answer is: “What is our game?”. This entails determining the game mechanics, story, and the expected user-experience. The biggest problem we currently foresee is efficient integration of code from our members into a coherent project.
+							</p><br>
+							<p>
+							We don’t foresee the need for an assigned advisor outside of the computation space because our project is not intensely interdisciplinary. However, whenever we have questions, we will ask help from our class NINJAS and attend NINJA hours outside of class time as well. We are looking for an advisor who has experience in machine learning and/or video games and is willing to help us.
+							</p><br>
+						</section>						
+				</div>
+				<!-- Test -->
+				<!--
+				<div class="row">
+					<!-- Date -->
+					<!--
+						<section id="proposal" class="2u">
+							<h2>Post 2</h2>
+							<p>March 26<br>2014</p>
+						</section>
+					<!-- Content -->
+					<!--
+						<section class="8u">
+						<p>This is how you create a second blog entry, which includes the date on one side and the content on the left.</p>
+					-->
+		</div>
+	</body>
+</html>
