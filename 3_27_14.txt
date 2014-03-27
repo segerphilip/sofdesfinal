@@ -1,0 +1,6 @@
+General idea seems to be a top down, almost map like area where the main "explorer" walks around for supplies/food/enemies. Possibilities for top down:
+	New area where you have to navigate a randomly generated maze
+	New area randomly generated with monsters
+
+Have a main "family" you need to protect/feed/shelter. The main character (you) has to get the supplies necessary. 
+Random outcomes from different events, resulting in either profit or damage to your team/character.
