@@ -1,0 +1,90 @@
+PBASH Figuring out what we want!
+Philip:
+-top down explorer
+-see whole sector when enter it, nothing is hidden
+-there is a main map, consisting of multiple sectors
+-enemies are important but specifics aren't most important
+-want to focus on building a world that the player connects with
+-also include the interaction with the world and the story
+-Main Interest:
+	--map generation and interaction
+	--music and sound fxs
+
+Bonnie:
+-top down
+-adventure/exploration type game
+-stranded in a forest, need to keep self alive to win
+-survival-based game
+-collection/building system
+-health/energy bar
+-how character interacts with world and how the world responds
+-user writes the story through their actions in the world
+-character interaction with environment -> affects story
+-probability rather than linear storyline
+-Main Interest:
+	--character interaction with environment
+	--collection/building
+	--music and sound fxs
+
+Austin:
+-top down
+-do things based on a day night cycle, every morning need to assign tasks, deaths of NPCs cause higher difficulty
+-NPCs are useful
+-different characters have unique attributes and evolve over time
+-day night cycle
+-NPC interaction iterations:
+-0.People
+-1.People do what you say
+-2.Better over time, chance
+-3.Personalities
+-Main Interest:
+	--NPC interactions with main character
+
+Shrinidhi:
+-top-down
+-choice: end goal
+-fight enemies throughout to progress farther
+-health bar that constantly decreases unless you get (end result)
+-enemies can cause extra health loss
+-try to keep health bar up forever, so no real winning in the game
+-object interactions including choices
+-choices affect the health bar
+-day pass->harder enemies
+-protection factor / defense to help you against enemies
+-interactions have some event probability after enemy interaction
+-interactions have specific outcomes within the story
+-Main Interest:
+	--computation for health bar
+	--probability section for outcomes and story relation
+
+Hannah:
+-top down
+-no upgrades on weapons
+-pick up weapons to progress in strength
+-Bastion like design/combat
+-Main Interest:
+	--combat and weapons
+
+
+Video game basics:
+<h3>top down
+1.zoomed into one part of the map
+<h3>Character
+1.female
+2.male
+<h3>Storyline
+1.spaceship crash landed on alien world, paragraph describes past up until landing
+2.video graphic showing how you crashed, prettier backstory
+<h3>Scoring
+1.health bar
+<h3>Choices
+1.  - wanted objects: weapons, food, building materials
+	- enemies fought along the way
+	- day-night cycle assignments to other characters (not in first iteration)
+	- have to make decisions depending on/in relation with objects
+		--affects storyline
+		--affects healthbar
+<h3>Storyline generation
+1.	- probability affected depending on environment interactions, decisions made
+	- constants (natural disasters)
+		--interaction specific
