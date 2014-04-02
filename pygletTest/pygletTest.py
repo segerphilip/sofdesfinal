@@ -25,16 +25,16 @@ class controller():
         if self.key_handler:
             if self.key_handler[key.LEFT]:
                 self.model.player.moveLeft()
-                print "Key Pressed!"
+                # print "Key Pressed!"
             if self.key_handler[key.RIGHT]:
                 self.model.player.moveRight()
-                print "Key Pressed!"
+                # print "Key Pressed!"
             if self.key_handler[key.UP]:
                 self.model.player.moveForward()
-                print "Key Pressed!"
+                # print "Key Pressed!"
             if self.key_handler[key.DOWN]:
                 self.model.player.moveBackward()
-                print "Key Pressed!"
+                # print "Key Pressed!"
 
 
 class player_character(rabbyt.sprites.Sprite):
@@ -84,7 +84,7 @@ class player_character(rabbyt.sprites.Sprite):
         self.vy = 0
 
 
-game_window = pyglet.window.Window(800, 600)
+game_window = pyglet.window.Window(800, 600, vsync=False)
 
 m = model(game_window)
 c = controller(m)
@@ -102,7 +102,6 @@ def on_draw():
     label.draw()
     for sprite in m.sprites:
         sprite.render()
-    # m.player.draw()
 
 
 def update(dt):
