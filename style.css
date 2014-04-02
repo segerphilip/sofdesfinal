@@ -11,6 +11,16 @@ h1, h2, h3, h4, h5, h6 {
 	font-weight: 600;
 }
 
+strong {
+	color: #fff;
+	font-weight: 900;
+}
+
+i {
+	color: #fff;
+	font-style: italic;
+}
+
 .button {
 	border-radius: 0.5em;
 	box-shadow: inset 0 0 0 2px rgba(255,255,255,0.5);
