@@ -1,15 +1,16 @@
 import pyglet
 from pyglet.window import key
 import resources
+import rabbyt
 
 
 class model():
 
     def __init__(self, window):
         self.window = window
-        self.batch = pyglet.graphics.Batch()
         self.player = player_character(
-            img=resources.player_image, x=300, y=400, batch=self.batch)
+            texture=resources.player_image, x=300, y=400)
+        self.sprites = [self.player]
 
 
 class controller():
@@ -36,7 +37,7 @@ class controller():
                 print "Key Pressed!"
 
 
-class player_character(pyglet.sprite.Sprite):
+class player_character(rabbyt.sprites.Sprite):
 
     def __init__(self, *args, **kwargs):
         super(player_character, self).__init__(*args, **kwargs)
@@ -45,10 +46,10 @@ class player_character(pyglet.sprite.Sprite):
         self.vy = 0
 
     def check_bounds(self):
-        min_x = -self.image.width / 2
-        min_y = -self.image.height / 2
-        max_x = 800 + self.image.width / 2
-        max_y = 600 + self.image.height / 2
+        min_x = -self.texture.width / 2
+        min_y = -self.texture.height / 2
+        max_x = 800 + self.texture.width / 2
+        max_y = 600 + self.texture.height / 2
         if self.x < min_x:
             self.x = max_x
         elif self.x > max_x:
@@ -92,14 +93,15 @@ label = pyglet.text.Label('Pyglet Test',
                           font_name='Liberation Mono',
                           font_size=24,
                           x=game_window.width, y=game_window.height,
-                          anchor_x='right', anchor_y='top', batch=m.batch)
+                          anchor_x='right', anchor_y='top')
 
 
 @game_window.event
 def on_draw():
     m.window.clear()
     label.draw()
-    m.batch.draw()
+    for sprite in m.sprites:
+        sprite.render()
     # m.player.draw()
 
 
