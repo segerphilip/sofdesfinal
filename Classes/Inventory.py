@@ -1,10 +1,3 @@
-import pyglet
-from pyglet.window import key
-import resources
-import rabbyt
-import ABCMeta, abstractmethod
-
-    
 class Inventory(): #IN DEVELOPMENT sets inventory for character class
   def __init__(self, Character.inventory):
     self.inventory = Character.inventory

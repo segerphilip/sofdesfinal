@@ -1,9 +1,3 @@
-import pyglet
-from pyglet.window import key
-import resources
-import rabbyt
-import ABCMeta, abstractmethod
-
 class Enemy(Actor): #This defines the Enemy Class 
 	def __init__(self, *args, **kwargs):
     	super(Enemy, self).__init__(*args, **kwargs)

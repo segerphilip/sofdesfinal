@@ -1,9 +1,3 @@
-import pyglet
-from pyglet.window import key
-import resources
-import rabbyt
-import ABCMeta, abstractmethod
-
 class Character(Actor): # character plus attributes, this includes motion and orientation
 	def __init__(self, *args, **kwargs):
     	super(Character, self).__init__(*args, **kwargs)
