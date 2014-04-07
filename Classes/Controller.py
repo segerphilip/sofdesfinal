@@ -6,7 +6,8 @@ class Controller():
         self.model.window.push_handlers(self.key_handler)
         self.event_handlers = [self, self.key_handler]
 
-    def checkKeyPress(self): #checking the key press and tells the player to move right
+    #checking the key press and tells the player to move right
+    def checkKeyPress(self):
         if self.key_handler:
             if self.key_handler[key.LEFT]:
                 self.model.player.moveLeft()
@@ -20,6 +21,6 @@ class Controller():
             if self.key_handler[key.DOWN]:
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
-                
+
     def checkMouseMove(self):
-      pass
+        pass
