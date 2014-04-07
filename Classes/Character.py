@@ -1,7 +1,10 @@
-class Character(Actor): # character plus attributes, this includes motion and orientation
-	def __init__(self, *args, **kwargs):
-    	super(Character, self).__init__(*args, **kwargs)
-        
+from Actor import Actor
+# character plus attributes, this includes motion and orientation
+class Character(Actor):
+
+    def __init__(self, *args, **kwargs):
+        super(Character, self).__init__(*args, **kwargs)
+
     def moveForward(self):
         self.vy = 40
 
@@ -19,8 +22,8 @@ class Character(Actor): # character plus attributes, this includes motion and or
         self.vy = 0
 
     def set_orientation(self, theta):
-    	pass
-      
+        pass
+
     def update(self, dt):
         self.x += self.vx * dt
         self.y += self.vy * dt
