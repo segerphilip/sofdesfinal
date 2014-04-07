@@ -1,4 +1,5 @@
 from Item import Item
+from abc import ABCMeta, abstractmethod
 
 
 class Actor(Item):
@@ -16,7 +17,7 @@ class Actor(Item):
 
         self.health = 100
 
-    metaClass = ABCMeta
+    __metaClass__ = ABCMeta
 
     @abstractmethod
     def set_orientation():

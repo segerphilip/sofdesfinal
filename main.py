@@ -3,26 +3,25 @@ import pyglet
 from pyglet.window import key
 import resources
 import rabbyt
-import ABCMeta
-import abstractmethod
-from Actor import Actor
-from Base import Base
-from Character import Character
-from Controller import Controller
-from Enemy import Enemy
-from Health_Bar import Health_Bar
-from Inventory import Inventory
-from Item import Item
-from Model import Model
-from Room import Room
-from View import View
+from abc import ABCMeta, abstractmethod
+from Classes import Actor
+from Classes import Base
+from Classes import Character
+from Classes import Controller
+from Classes import Enemy
+from Classes import Health_Bar
+from Classes import Inventory
+from Classes import Item
+from Classes import Model
+from Classes import Room
+from Classes import View
 
 # Game Objects (not in model)
 game_window = pyglet.window.Window(800, 600, vsync=False)
 
-m = model(game_window)
-c = controller(m)
-v = view(m)
+m = Model(game_window)
+c = Controller(m)
+v = View(m)
 
 # Main Game run
 
