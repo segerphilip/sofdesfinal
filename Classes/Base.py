@@ -10,4 +10,4 @@ class Base(Room):#generates the main base, standard for every game. Similar to R
         for i in range (0, characterNum):
             x = random([range(0, screenWidth/boxSize)])
             y = random([range(0, screenHeight/boxSize)]
-            roomMap.update({(x,y): Character(characterImage, x, y)})
+            roomMap.update({(x,y): Character(characterImage, (boxsize *x) -(boxsize/2), (boxsize *y) -(boxsize/2))})

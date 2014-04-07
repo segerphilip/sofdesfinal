@@ -22,9 +22,9 @@ class Room():#generatesgame rooms, where players will be transported depending o
                 #if object type is enemy: place the object in the dictionary, and save it to the list
                 if objectType == 'Enemy':
                     enemynumber += 1
-                    'Enemy' + str(enemyNumber) = Enemy(enemyImage, x, y)
-                    roomMap.update({(x,y): 'Enemy' + str(enemyNumber)})
-                    roomItems.append('Enemy' + str(enemyNumber))
+                    NewEnemy = Enemy(enemyImage, ((x*boxsize) - boxsize/2, (y*boxsize) - boxsize/2))
+                    roomMap.update({(x,y): NewEnemy})
+                    roomItems.append(NewEnemy)
                 #if object type is item: place the object in the dictionary, and save it to the list
                 elif objectType == 'Item':
                     itemNumber += 1
