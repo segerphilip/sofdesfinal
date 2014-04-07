@@ -21,6 +21,7 @@ class controller():
         self.model.window.push_handlers(self.key_handler)
         self.event_handlers = [self, self.key_handler]
 
+
     def checkKeyPress(self):
         if self.key_handler:
             if self.key_handler[key.LEFT]:
