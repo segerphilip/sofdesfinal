@@ -37,9 +37,9 @@
 					<h2>Welcome!</h2>
 					<p>Here is the project page for our Software Design final project.<br>
 					For more information, check the <a href="about.html">about</a> page.</p>
-					<a href="#proposal" class="button">Latest entry</a>
+					<a href="#design" class="button">Main design</a>
 				</section>
-			<!-- Proposal -->
+			<!-- Project Proposal -->
 				<div class="row">
 					<!-- Date -->
 						<section id="proposal" class="2u">
@@ -61,23 +61,38 @@
 							</p><br>
 							<p>
 							We don’t foresee the need for an assigned advisor outside of the computation space because our project is not intensely interdisciplinary. However, whenever we have questions, we will ask help from our class NINJAS and attend NINJA hours outside of class time as well. We are looking for an advisor who has experience in machine learning and/or video games and is willing to help us.
-							</p><br>
+							</p>
 						</section>						
 				</div>
-				<!-- Test -->
-				<!--
+		<!-- Design Proposal -->
 				<div class="row">
 					<!-- Date -->
-					<!--
-						<section id="proposal" class="2u">
-							<h2>Post 2</h2>
-							<p>March 26<br>2014</p>
+						<section id="design" class="2u">
+							<h2>Design Proposal</h2>
+							<p>April 6<br>2014</p>
 						</section>
 					<!-- Content -->
-					<!--
 						<section class="8u">
-						<p>This is how you create a second blog entry, which includes the date on one side and the content on the left.</p>
-					-->
+						<h2>Pyglet vs. Pygame</h2>
+						<p>
+							One fundamental issue that our team encountered in the beginning of the project was the libraries that we were planning on using. While pygame provides a lot of useful tools for game development, we wanted a service that could more efficiently use the power available, on any system. This also tied in with the idea that we wanted to host this game online, in some variety. Because of this, we looked into other possible libraries offered in Python, eventually ending with a decision between pygame and pyglet. While pygame was useful, it did not allow us to use more of the hardware resources available, using SGL as a rendering service. Pyglet seemed like a better option because it offered OpenGL for rendering and also had excellent compatibility with other libraries, such as kytten for GUI. Eventually, we decided on pyglet and plan on using that for future development.<br><br>
+						</p>
+						<h2>Data Structure</h2>
+						<p>
+							We are splitting our code into classes. Each of these classes have functions that control attributes of the class.<br>
+							We plan on working on each class separately and then putting them together into a larger file. Thankfully we have naming conventions so this should minimize the errors when bringing the code together. Each of these classes will control a different section of the game. So far we have controller, player character, view, and model. Each of these have functions that manipulate internal attributes.<br><br>
+						</p>
+						<h2>Development Plan</h2>
+						<p>
+							Having a team of five members, while sometimes difficult, is good from the perspective of work. Because we are using a class system for the code, we can break all parts into separate sections and each student can work on them individually. This results in getting quite a lot of work done because it can be spread throughout multiple people. Going forward though, it seems that we will be partner coding with another member of the team as often as possible. Also, to better compile everything together at the end, we established a naming convention. For a quick example, <br>
+							Class: Olin_Cats<br>
+							Instance: GeorgeMcFarlane<br>
+							Function: eats_soup()<br>
+							Variable: bananasToEat<br>
+							With this, we can easily interface with other team members and there isn't as much of a divide.
+						</p>
+						</section>
+				</div>
 		</div>
 	</body>
 </html>
