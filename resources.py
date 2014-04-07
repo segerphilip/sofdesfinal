@@ -12,5 +12,8 @@ pyglet.resource.reindex()
 
 playerImage = pyglet.resource.image("player.jpg")
 crewImage = pyglet.resource.image("player.jpg")
+itemImage = pyglet.resource.image("tree.png")
+enemyImage = pyglet.resource.image("enemy.png")
+
 # bullet_image = pyglet.resource.image("bullet.png")
 # asteroid_image = pyglet.resource.image("asteroid.png")

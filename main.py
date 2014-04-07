@@ -18,7 +18,7 @@ from Classes import *
 # from Classes import View
 
 # Game Objects (not in model)
-game_window = pyglet.window.Window(800, 600, vsync=False)
+game_window = pyglet.window.Window(fullscreen=True, vsync=False)
 
 m = Model(game_window)
 c = Controller(m)
@@ -29,7 +29,7 @@ v = View(m)
 
 @game_window.event  # controlling code
 def on_draw():
-    v.upate()
+    v.update()
 
 
 def update(dt):  # updates all the things

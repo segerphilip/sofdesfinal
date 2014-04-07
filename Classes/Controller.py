@@ -1,5 +1,6 @@
 from pyglet.window import key
 
+
 class Controller():
 
     def __init__(self, model):
