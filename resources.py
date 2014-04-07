@@ -10,6 +10,7 @@ def center_image(image):
 pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
-player_image = pyglet.resource.image("player.jpg")
+playerImage = pyglet.resource.image("player.jpg")
+crewImage = pyglet.resource.image("player.jpg")
 # bullet_image = pyglet.resource.image("bullet.png")
 # asteroid_image = pyglet.resource.image("asteroid.png")
