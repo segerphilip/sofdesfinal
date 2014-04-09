@@ -1,6 +1,7 @@
 from Character import Character
 from Room import Room
 from Base import Base
+from Enemy import Enemy
 import resources
 import rabbyt
 
@@ -43,12 +44,15 @@ class Model():  # sets window and player
                 self.player.collidingTop = True
 
     def update(self, dt):
-
         self.check_collisions()
         for sprite in self.spritesOnScreen:
-            sprite.update(dt)
-
+            if isinstance(sprite, Enemy):
+                sprite.update(dt, self.player.x, self.player.y)
+            else: 
+                sprite.update(dt)
+            
         self.player.update(dt)
+
         if self.player.enteringRoom:
             # print "Old Room Coordinate: " + str(self.roomCoordinate)
             if self.player.newRoom == "up":
