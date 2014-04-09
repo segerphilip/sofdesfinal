@@ -1,3 +1,4 @@
+import rabbyt.anims
 from Actor import Actor
 # character plus attributes, this includes motion and orientation
 
@@ -10,16 +11,16 @@ class Character(Actor):
         self.newRoom = None
 
     def moveForward(self):
-        self.vy = 80
+        self.vy = 160
 
     def moveBackward(self):
-        self.vy = -80
+        self.vy = -160
 
     def moveRight(self):
-        self.vx = 80
+        self.vx = 160
 
     def moveLeft(self):
-        self.vx = -80
+        self.vx = -160
 
     def stop(self):
         self.vx = 0
@@ -42,8 +43,6 @@ class Character(Actor):
 
     def update(self, dt):
 
-        self.x += self.vx * dt
-        self.y += self.vy * dt
         if 1 < self.x < 1599 and 1 < self.y < 899:
             self.enteringRoom = False
             self.newRoom = None
@@ -51,18 +50,41 @@ class Character(Actor):
             self.enteringRoom = True
             if self.x < 0:
                 self.newRoom = "left"
-                print self.newRoom
-                print self.enteringRoom
-                self.x += abs(self.vx * dt)
+                self.collidingLeft = True
             elif self.x > 1600:
                 self.newRoom = "right"
-                self.x += -abs(self.vx * dt)
+                self.collidingRight = True
             elif self.y < 0:
                 self.newRoom = "down"
-                self.y += abs(self.vy * dt)
+                self.collidingBottom = True
             elif self.y > 900:
                 self.newRoom = "up"
-                self.y += -abs(self.vy * dt)
+                self.collidingTop = True
+
+        if self.collidingLeft:
+            if self.vx > 0:
+                self.x += self.vx * dt
+            self.y += self.vy * dt
+        elif self.collidingRight:
+            if self.vx < 0:
+                self.x += self.vx * dt
+            self.y += self.vy * dt
+        elif self.collidingBottom:
+            if self.vy > 0:
+                self.y += self.vy * dt
+            self.x += self.vx * dt
+        elif self.collidingTop:
+            if self.vy < 0:
+                self.y += self.vy * dt
+            self.x += self.vx * dt
+        else:
+            self.x += self.vx * dt
+            self.y += self.vy * dt
+
+        self.collidingLeft = False
+        self.collidingRight = False
+        self.collidingBottom = False
+        self.collidingTop = False
 
         self.vx = 0
         self.vy = 0

@@ -15,6 +15,11 @@ class Actor(Item):
 
         self.theta = 0
 
+        self.collidingLeft = False
+        self.collidingRight = False
+        self.collidingBottom = False
+        self.collidingTop = False
+
         self.health = 100
 
     __metaClass__ = ABCMeta
