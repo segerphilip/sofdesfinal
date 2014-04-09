@@ -16,6 +16,9 @@ class Base(Room):
         # Initializing variables
         self.roomMap = {}
         self.roomItems = []
+        self.enemies = []
+        self.enemyNumber = 0
+        self.itemNumber = 0
         # Settings
         boxSize = 50  # pixel width of each box in the grid
         characterNum = 5

@@ -19,6 +19,7 @@ class Room(object):
         # Initializing variables
         self.roomMap = {}
         self.roomItems = []
+        self.enemies = []
         self.enemyNumber = 0
         self.itemNumber = 0
         # Settings
@@ -40,6 +41,7 @@ class Room(object):
                             texture=resources.enemyImage, x=x, y=y)
                         self.roomMap.update({(x, y): NewEnemy})
                         self.roomItems.append(NewEnemy)
+                        self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
                     # dictionary, and save it to the list
                     elif objectType == 'Item':

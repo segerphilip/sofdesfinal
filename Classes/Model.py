@@ -20,6 +20,8 @@ class Model():  # sets window and player
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
         self.spritesOnScreen = self.room.roomItems
+        self.actorsOnScreen = self.room.enemies
+        self.actorsOnScreen.append(self.player)
 
     def create_map(self):
         self.map = {}
@@ -33,56 +35,54 @@ class Model():  # sets window and player
                         {(row, column): Room(self.window.height, self.window.width)})
 
     def check_collisions(self):
-        for collision in rabbyt.collisions.aabb_collide_single(self.player, self.spritesOnScreen):
-            if collision.right - self.collisionThreshold <= self.player.left <= collision.right + self.collisionThreshold:
-                self.player.collidingLeft = True
-            if collision.left - self.collisionThreshold <= self.player.right <= collision.left + self.collisionThreshold:
-                self.player.collidingRight = True
-            if collision.top - self.collisionThreshold <= self.player.bottom <= collision.top + self.collisionThreshold:
-                self.player.collidingBottom = True
-            if collision.bottom - self.collisionThreshold <= self.player.top <= collision.bottom + self.collisionThreshold:
-                self.player.collidingTop = True
+        for actor in self.actorsOnScreen:
+            for collision in rabbyt.collisions.aabb_collide_single(actor, self.spritesOnScreen):
+                if collision.right - self.collisionThreshold <= actor.left <= collision.right + self.collisionThreshold:
+                    actor.collidingLeft = True
+                if collision.left - self.collisionThreshold <= actor.right <= collision.left + self.collisionThreshold:
+                    actor.collidingRight = True
+                if collision.top - self.collisionThreshold <= actor.bottom <= collision.top + self.collisionThreshold:
+                    actor.collidingBottom = True
+                if collision.bottom - self.collisionThreshold <= actor.top <= collision.bottom + self.collisionThreshold:
+                    actor.collidingTop = True
+
+    def change_room(self):
+        if self.player.newRoom == "up":
+            if self.roomCoordinate[1] > 0:
+                self.roomCoordinate = (
+                    self.roomCoordinate[0], self.roomCoordinate[1] - 1)
+                self.player.enterNewRoom()
+        elif self.player.newRoom == "down":
+            if self.roomCoordinate[1] < self.mapSizeY - 1:
+                self.roomCoordinate = (
+                    self.roomCoordinate[0], self.roomCoordinate[1] + 1)
+                self.player.enterNewRoom()
+        elif self.player.newRoom == "right":
+            if self.roomCoordinate[0] < self.mapSizeX - 1:
+                self.roomCoordinate = (
+                    self.roomCoordinate[0] + 1, self.roomCoordinate[1])
+                self.player.enterNewRoom()
+        elif self.player.newRoom == "left":
+            if self.roomCoordinate[0] > 0:
+                self.roomCoordinate = (
+                    self.roomCoordinate[0] - 1, self.roomCoordinate[1])
+                self.player.enterNewRoom()
+
+        self.room = self.map[self.roomCoordinate]
+        self.spritesOnScreen = self.room.roomItems
+        self.spritesOnScreen.append(self.player)
+        self.actorsOnScreen = self.room.enemies
+        self.actorsOnScreen.append(self.player)
 
     def update(self, dt):
         self.check_collisions()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player.x, self.player.y)
-            else: 
+            else:
                 sprite.update(dt)
-            
+
         self.player.update(dt)
 
         if self.player.enteringRoom:
-            # print "Old Room Coordinate: " + str(self.roomCoordinate)
-            if self.player.newRoom == "up":
-                # print "Trying to Move Up"
-                if self.roomCoordinate[1] > 0:
-                    self.roomCoordinate = (
-                        self.roomCoordinate[0], self.roomCoordinate[1] - 1)
-                    self.player.enterNewRoom()
-            elif self.player.newRoom == "down":
-                # print "Trying to Move down"
-                if self.roomCoordinate[1] < self.mapSizeY - 1:
-                    self.roomCoordinate = (
-                        self.roomCoordinate[0], self.roomCoordinate[1] + 1)
-                    self.player.enterNewRoom()
-            elif self.player.newRoom == "right":
-                # print "Trying to Move Right"
-                if self.roomCoordinate[0] < self.mapSizeX - 1:
-                    self.roomCoordinate = (
-                        self.roomCoordinate[0] + 1, self.roomCoordinate[1])
-                    self.player.enterNewRoom()
-            elif self.player.newRoom == "left":
-                # print "Trying to Move Left"
-                if self.roomCoordinate[0] > 0:
-                    self.roomCoordinate = (
-                        self.roomCoordinate[0] - 1, self.roomCoordinate[1])
-                    self.player.enterNewRoom()
-
-            # print "New Room Coordinate: " + str(self.roomCoordinate)
-            self.room = self.map[self.roomCoordinate]
-            # print self.room
-            self.spritesOnScreen = self.room.roomItems
-            self.spritesOnScreen.append(self.player)
-            # print self.spritesOnScreen
+            self.change_room()

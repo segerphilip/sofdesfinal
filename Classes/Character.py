@@ -42,49 +42,19 @@ class Character(Actor):
                 self.y = 890
 
     def update(self, dt):
-
-        if 1 < self.x < 1599 and 1 < self.y < 899:
-            self.enteringRoom = False
-            self.newRoom = None
-        else:
-            self.enteringRoom = True
-            if self.x < 0:
-                self.newRoom = "left"
-                self.collidingLeft = True
-            elif self.x > 1600:
-                self.newRoom = "right"
-                self.collidingRight = True
-            elif self.y < 0:
-                self.newRoom = "down"
-                self.collidingBottom = True
-            elif self.y > 900:
-                self.newRoom = "up"
-                self.collidingTop = True
-
-        if self.collidingLeft:
-            if self.vx > 0:
-                self.x += self.vx * dt
-            self.y += self.vy * dt
-        elif self.collidingRight:
-            if self.vx < 0:
-                self.x += self.vx * dt
-            self.y += self.vy * dt
-        elif self.collidingBottom:
-            if self.vy > 0:
-                self.y += self.vy * dt
+        self.check_collisions()
+        if not self.stopX:
             self.x += self.vx * dt
-        elif self.collidingTop:
-            if self.vy < 0:
-                self.y += self.vy * dt
-            self.x += self.vx * dt
-        else:
-            self.x += self.vx * dt
+        if not self.stopY:
             self.y += self.vy * dt
 
         self.collidingLeft = False
         self.collidingRight = False
         self.collidingBottom = False
         self.collidingTop = False
+
+        self.stopX = False
+        self.stopY = False
 
         self.vx = 0
         self.vy = 0
