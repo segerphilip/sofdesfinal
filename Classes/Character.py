@@ -9,6 +9,7 @@ class Character(Actor):
         super(Character, self).__init__(*args, **kwargs)
         self.enteringRoom = False
         self.newRoom = None
+        self.inventory = []
 
     def moveForward(self):
         self.vy = 160
@@ -40,6 +41,9 @@ class Character(Actor):
                 self.y = 10
             elif self.newRoom == "down":
                 self.y = 890
+
+    def getItem(self, item):
+        self.inventory.append(item)
 
     def update(self, dt):
         self.check_collisions()
