@@ -4,11 +4,9 @@ import rabbyt
 
 class Item(rabbyt.sprites.Sprite):
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, description, *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
+        self.description = description
 
     def update(self, dt):
         pass
-    # @abstractmethod
-    # def is_clicked(self):
-    #     pass
