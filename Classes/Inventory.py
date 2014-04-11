@@ -9,9 +9,10 @@ class Inventory():
     def __init__(self, inventory, window = pyglet.window.Window(640, 480, caption='Game Window %s' % VERSION,resizable=True, vsync=False)):
         self.inventory = inventory
         self.window = window
+        self.open_dialog = 0
         
     def main(self):
-        
+
         batch = pyglet.graphics.Batch()
         bg_group = pyglet.graphics.OrderedGroup(0)
         fg_group = pyglet.graphics.OrderedGroup(1)
@@ -33,6 +34,8 @@ class Inventory():
             batch.draw()
 
         def on_select(choice):
+            if self.open_dialog != 0:
+                on_escape(self.open_dialog)
             open_description(choice, descriptions[choice])
 
         # Update as often as possible (limited by vsync, if not disabled)
@@ -49,6 +52,7 @@ class Inventory():
                 window=self.window, batch=batch, group=fg_group,
                 anchor=kytten.ANCHOR_CENTER,
                 theme=theme, on_escape=on_escape)
+            self.open_dialog = dialog
 
         def update(dt):
             self.window.dispatch_event('on_update', dt)
