@@ -2,6 +2,7 @@ from Character import Character
 from Room import Room
 from Base import Base
 from Enemy import Enemy
+from Inventory import Inventory
 import resources
 import rabbyt
 
@@ -11,7 +12,7 @@ class Model():  # sets window and player
     def __init__(self, window):
         self.window = window
         self.player = Character(
-            texture=resources.playerImage, x=300, y=400)
+            texture=resources.playerGrid[0], x=300, y=400)
         self.collisionThreshold = 4
         self.mapSizeX = 3
         self.mapSizeY = 3
@@ -22,6 +23,7 @@ class Model():  # sets window and player
         self.spritesOnScreen = self.room.roomItems
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
+        self.inventory = Inventory("Rock", self.window)
 
     def create_map(self):
         self.map = {}

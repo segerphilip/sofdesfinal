@@ -1,4 +1,5 @@
 import pyglet
+from pyglet.image import ImageGrid, TextureGrid
 
 
 def center_image(image):
@@ -14,6 +15,10 @@ playerImage = pyglet.resource.image("player.jpg")
 crewImage = pyglet.resource.image("player.jpg")
 itemImage = pyglet.resource.image("tree.png")
 enemyImage = pyglet.resource.image("enemy.png")
+playerSheet = pyglet.resource.texture("player_sheet.jpg")
+playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)
+playerGrid = TextureGrid(playerGrid)
+
 
 # bullet_image = pyglet.resource.image("bullet.png")
 # asteroid_image = pyglet.resource.image("asteroid.png")

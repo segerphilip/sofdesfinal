@@ -34,9 +34,6 @@ class Enemy(Actor):  # This defines the Enemy Class
                 self.vx = -self.vt * cos(theta) / (distance / 100 + 1)
                 self.vy = -self.vt * sin(theta) / (distance / 100 + 1)
 
-            print xDistance
-            print yDistance
-
     def update(self, dt, playerX, playerY):
         self.check_player_distance(playerX, playerY)
         self.check_collisions()

@@ -4,13 +4,14 @@ import pyglet
 from pyglet import gl
 VERSION = '5.9'
 
+
 class Inventory():
-    
-    def __init__(self, inventory, window = pyglet.window.Window(640, 480, caption='Game Window %s' % VERSION,resizable=True, vsync=False)):
+
+    def __init__(self, inventory, window):
         self.inventory = inventory
         self.window = window
         self.open_dialog = 0
-        
+
     def main(self):
 
         batch = pyglet.graphics.Batch()
@@ -18,7 +19,7 @@ class Inventory():
         fg_group = pyglet.graphics.OrderedGroup(1)
 
         theme = kytten.Theme(os.path.join(os.getcwd(), 'theme'), override={
-            "gui_color": [255, 255, 255, 255], "font_size": 12 })
+            "gui_color": [255, 255, 255, 255], "font_size": 12})
 
         descriptions = {}
         descriptions['Rock'] = pyglet.text.decode_attributed("""{bold True}Rock{bold False}
@@ -56,16 +57,18 @@ class Inventory():
 
         def update(dt):
             self.window.dispatch_event('on_update', dt)
-        
+
         pyglet.clock.schedule(update)
-  
+
         dialog = kytten.Dialog(
             kytten.TitleFrame("Inventory",
-                kytten.VerticalLayout([
-                    kytten.Label("Select an item from your bag:"),
-                    kytten.Menu(options=self.inventory, on_select=on_select),
-                    ]),
-            ),
+                              kytten.VerticalLayout([
+                                                    kytten.Label(
+                                                        "Select an item from your bag:"),
+                                                    kytten.Menu(
+                                                        options=self.inventory, on_select=on_select),
+                                                    ]),
+                              ),
             window=self.window, batch=batch, group=fg_group,
             anchor=kytten.ANCHOR_TOP,
             theme=theme)
