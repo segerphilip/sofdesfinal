@@ -1,4 +1,3 @@
-import rabbyt.anims
 from Actor import Actor
 # character plus attributes, this includes motion and orientation
 
