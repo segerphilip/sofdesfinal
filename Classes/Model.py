@@ -3,6 +3,7 @@ from Room import Room
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
+from math import atan, pi, sin, cos
 import resources
 import rabbyt
 
@@ -21,6 +22,7 @@ class Model():  # sets window and player
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
         self.spritesOnScreen = self.room.roomItems
+        self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
         self.inventory = Inventory("Rock", self.window)
@@ -38,15 +40,27 @@ class Model():  # sets window and player
 
     def check_collisions(self):
         for actor in self.actorsOnScreen:
-            for collision in rabbyt.collisions.aabb_collide_single(actor, self.spritesOnScreen):
-                if collision.right - self.collisionThreshold <= actor.left <= collision.right + self.collisionThreshold:
-                    actor.collidingLeft = True
-                if collision.left - self.collisionThreshold <= actor.right <= collision.left + self.collisionThreshold:
-                    actor.collidingRight = True
-                if collision.top - self.collisionThreshold <= actor.bottom <= collision.top + self.collisionThreshold:
-                    actor.collidingBottom = True
-                if collision.bottom - self.collisionThreshold <= actor.top <= collision.bottom + self.collisionThreshold:
-                    actor.collidingTop = True
+            for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
+                xDistance = collision.x - actor.x
+                yDistance = collision.y - actor.y
+
+                if xDistance != 0 and yDistance != 0:
+                    theta = atan(yDistance / xDistance)
+                    if theta < 0:
+                        theta += 2 * pi
+                    if xDistance < 0 and yDistance > 0:
+                        theta += -pi
+                    elif xDistance < 0 and yDistance < 0:
+                        theta += pi
+                elif yDistance > 0 and xDistance != 0:
+                    theta = pi / 2
+                elif yDistance < 0 and xDistance != 0:
+                    theta = 3 * pi / 2
+                else:
+                    theta = None
+
+                actor.collideAngle = theta
+                actor.check_collisions()
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -83,8 +97,6 @@ class Model():  # sets window and player
                 sprite.update(dt, self.player.x, self.player.y)
             else:
                 sprite.update(dt)
-
-        self.player.update(dt)
 
         if self.player.enteringRoom:
             self.change_room()

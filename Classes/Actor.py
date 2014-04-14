@@ -1,5 +1,6 @@
 from Item import Item
 from abc import ABCMeta, abstractmethod
+from math import pi, cos, sin
 
 
 class Actor(Item):
@@ -15,10 +16,7 @@ class Actor(Item):
 
         self.theta = 0
 
-        self.collidingLeft = False
-        self.collidingRight = False
-        self.collidingBottom = False
-        self.collidingTop = False
+        self.collideAngle = None
 
         self.stopX = False
         self.stopY = False
@@ -28,36 +26,39 @@ class Actor(Item):
     __metaClass__ = ABCMeta
 
     def check_collisions(self):
-        if 1 < self.x < 1599 and 1 < self.y < 899:
+
+        if 5 < self.x < 1595 and 5 < self.y < 895:
             self.enteringRoom = False
             self.newRoom = None
         else:
             self.enteringRoom = True
-            if self.x < 0:
+            if self.x < 5:
                 self.newRoom = "left"
-                self.collidingLeft = True
-            elif self.x > 1600:
+                self.collideAngle = pi
+            elif self.x > 1595:
                 self.newRoom = "right"
-                self.collidingRight = True
-            elif self.y < 0:
+                self.collideAngle = 0
+            elif self.y < 5:
                 self.newRoom = "down"
-                self.collidingBottom = True
-            elif self.y > 900:
+                self.collideAngle = 3 * pi / 2
+            elif self.y > 895:
                 self.newRoom = "up"
-                self.collidingTop = True
+                self.collideAngle = pi / 2
 
-        if self.collidingLeft:
-            if self.vx < 0:
-                self.stopX = True
-        if self.collidingRight:
-            if self.vx > 0:
-                self.stopX = True
-        if self.collidingBottom:
-            if self.vy < 0:
-                self.stopY = True
-        if self.collidingTop:
-            if self.vy > 0:
-                self.stopY = True
+        if self.collideAngle:
+            if cos(self.collideAngle) > 0:
+                if self.vx >= 0:
+                    self.stopX = True
+            else:
+                if self.vx <= 0:
+                    self.stopX = True
+
+            if sin(self.collideAngle) >= 0:
+                if self.vy > 0:
+                    self.stopY = True
+            else:
+                if self.vy <= 0:
+                    self.stopY = True
 
     @abstractmethod
     def set_orientation():

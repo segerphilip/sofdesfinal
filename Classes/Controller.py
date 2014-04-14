@@ -16,12 +16,16 @@ class Controller():
         if self.key_handler:
             if self.key_handler[key.LEFT] or self.key_handler[key.A]:
                 self.model.player.moveLeft()
+                # print "Key Pressed!"
             if self.key_handler[key.RIGHT] or self.key_handler[key.D]:
                 self.model.player.moveRight()
+                # print "Key Pressed!"
             if self.key_handler[key.UP] or self.key_handler[key.W]:
                 self.model.player.moveForward()
+                # print "Key Pressed!"
             if self.key_handler[key.DOWN] or self.key_handler[key.S]:
                 self.model.player.moveBackward()
+                # print "Key Pressed!"
 
     def checkMouseMove(self):
         @self.model.window.event

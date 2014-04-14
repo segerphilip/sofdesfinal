@@ -1,6 +1,6 @@
 from Actor import Actor
 import resources
-from math import cos, sin, atan, pi
+from math import sqrt, cos, sin, atan, pi
 # character plus attributes, this includes motion and orientation
 
 
@@ -16,6 +16,7 @@ class Character(Actor):
         self.timeSinceAnim = 0
         self.animRate = .15
         self.vt = 160
+        self.movingBackward = False
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
@@ -24,6 +25,7 @@ class Character(Actor):
     def moveBackward(self):
         self.vy = self.vt * sin((self.rot - 90) * pi / 180)
         self.vx = self.vt * cos((self.rot - 90) * pi / 180)
+        self.movingBackward = True
 
     def moveRight(self):
         self.vy = -self.vt * sin(self.rot * pi / 180)
@@ -40,6 +42,11 @@ class Character(Actor):
     def set_orientation(self, mouseX, mouseY):
         xDistance = mouseX - self.x
         yDistance = mouseY - self.y
+        distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
+
+        if distance < 5:
+            self.stop()
+
         if xDistance != 0:
             theta = atan(yDistance / xDistance)
             if theta < 0:
@@ -54,11 +61,10 @@ class Character(Actor):
             theta = 3 * pi / 2
 
         theta = theta * 180 / pi - 90
-        print theta
         self.rot = theta
 
     def enterNewRoom(self):
-        self.enteringRoom = True
+        self.enteringRoom = False
 
         if self.newRoom == "left":
             self.x = 1590
@@ -69,55 +75,29 @@ class Character(Actor):
         elif self.newRoom == "down":
             self.y = 890
 
+        self.newRoom = None
+
     def getItem(self, item):
         self.inventory.append(item)
 
     def update(self, dt):
-        self.check_collisions()
         if not self.stopX:
             self.x += self.vx * dt
         if not self.stopY:
             self.y += self.vy * dt
 
-        self.collidingLeft = False
-        self.collidingRight = False
-        self.collidingBottom = False
-        self.collidingTop = False
-
-        self.stopX = False
-        self.stopY = False
-
         if self.vx != 0 or self.vy != 0:
-            if 0 < self.rot < 180:
                 if self.timeSinceAnim > self.animRate:
                     self.timeSinceAnim = 0
+
                     if self.animFrame[0] < 3:
                         self.animFrame[0] += 1
                     else:
                         self.animFrame[0] = 0
-
-                    if self.animFrame[1] < 3:
-                        self.animFrame[1] += 1
-                    else:
-                        self.animFrame[1] = 0
-
-                    self.texture = self.walkingAnim[
-                        self.animFrame[0], self.animFrame[1]]
-                else:
-                    self.timeSinceAnim += dt
-            else:
-                if self.timeSinceAnim > self.animRate:
-                    self.timeSinceAnim = 0
-                    if self.animFrame[0] > 0:
-                        self.animFrame[0] -= 1
-                    else:
-                        self.animFrame[0] = 3
-
-                    if self.animFrame[1] > 0:
-                        self.animFrame[1] -= 1
-                    else:
-                        self.animFrame[1] = 3
-
+                        if self.animFrame[1] > 0:
+                            self.animFrame[1] -= 1
+                        else:
+                            self.animFrame[1] = 3
                     self.texture = self.walkingAnim[
                         self.animFrame[0], self.animFrame[1]]
                 else:
@@ -129,3 +109,11 @@ class Character(Actor):
 
         self.vx = 0
         self.vy = 0
+        self.movingBackward = False
+        self.collidingLeft = False
+        self.collidingRight = False
+        self.collidingBottom = False
+        self.collidingTop = False
+
+        self.stopX = False
+        self.stopY = False
