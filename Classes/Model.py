@@ -43,6 +43,7 @@ class Model():  # sets window and player
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
                 xDistance = collision.x - actor.x
                 yDistance = collision.y - actor.y
+                distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
                 if xDistance != 0 and yDistance != 0:
                     theta = atan(yDistance / xDistance)
@@ -59,7 +60,8 @@ class Model():  # sets window and player
                 else:
                     theta = None
 
-                actor.collideAngle = theta
+                if theta and distance > 0:
+                    actor.collideAngle = theta * 180 / pi
                 actor.check_collisions()
 
     def change_room(self):
@@ -91,7 +93,12 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
 
     def update(self, dt):
+        for sprite in self.spritesOnScreen:
+            if isinstance(sprite, Enemy):
+                sprite.moveForward()
+
         self.check_collisions()
+
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player.x, self.player.y)
