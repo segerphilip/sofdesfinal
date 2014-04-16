@@ -17,7 +17,6 @@ v = View(m)
 def on_draw():
     v.update()
 
-
 def update(dt):  # updates all the things
     c.update()
     m.update(dt)

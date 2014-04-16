@@ -1,5 +1,6 @@
 from Actor import Actor
 from math import atan, cos, sin, pi
+import random
 
 
 class Enemy(Actor):  # This defines the Enemy Class
@@ -11,6 +12,17 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.vTheta = self.rot + 90
         if self.vTheta > 360:
             self.vTheta += -360
+<<<<<<< HEAD
+=======
+        self.isEnemy = True
+        #self.attacking=True
+        self.health=100
+
+   # def attack(self):	
+    	#if random.randint(1, 100) < 101:
+    	#	player.health -= 1
+    	#print player.health
+>>>>>>> b324add2ff4b53418a1bdceef3b823dad3bfa688
 
     def set_orientation(self, targetTheta):
         self.rot = targetTheta
@@ -50,8 +62,9 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vTheta = theta + 90
             self.vu = 250 * self.vt / (distance ** 1.25 + 20)
             self.set_orientation(theta)
-            if distance < 10:
+            if distance < 100:
                 self.stop()
+               # self.attacking=True
         else:
             self.stop()
 
@@ -62,3 +75,6 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.y += self.vy * dt
 
         self.collideAngle = None
+        #if self.attacking == True:
+        	#self.attack()
+
