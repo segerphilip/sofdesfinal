@@ -1,7 +1,7 @@
 import pyglet
 from pyglet.image import ImageGrid, TextureGrid
 
- 
+
 def center_image(image):
     """Sets an image's anchor point to its center"""
     image.anchor_x = image.width / 2
@@ -13,13 +13,13 @@ pyglet.resource.reindex()
 
 playerImage = pyglet.resource.texture("player.jpg")
 crewImage = pyglet.resource.texture("player.jpg")
-<<<<<<< HEAD
 itemImage = pyglet.resource.texture("TreeStump.png")
-=======
+ground = pyglet.resource.texture("ground.jpg")
+blackout = pyglet.resource.texture("blackground.png")
 #itemImage = pyglet.resource.texture("TreeStump.png")
->>>>>>> 2d31400aa6a9db0d96ca81aee8a0df6b4d4f1084
 itemImage = pyglet.resource.texture("tree.png")
 enemyImage = pyglet.resource.texture("enemy.png")
+projectileImage = pyglet.resource.texture("Arrow.png")
 playerSheet = pyglet.resource.texture("player_sheet.jpg")
 playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)
 playerGrid = TextureGrid(playerGrid)

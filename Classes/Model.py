@@ -27,6 +27,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
+        self.projectiles = []
 
     def create_map(self):
         self.map = {}
@@ -67,13 +68,15 @@ class Model():  # sets window and player
 
         for projectile in self.projectiles:
             for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
-                self.projectiles.remove(projectile)
+                if not isinstance(collision, Character):
+                    self.projectiles.remove(projectile)
                 if isinstance(collision, Enemy):
-                    self.actorsOnScreen.remove(Enemy)
+                    self.actorsOnScreen.remove(collision)
+                    self.spritesOnScreen.remove(collision)
 
-    def spawnProjectile(self):
+    def spawn_projectile(self):
         self.projectiles.append(
-            Projectile(self.player.rot, texture=resources.projectileImage, x=self.player.x, y=self.player.y))
+            Projectile(self.player.rot + 90, texture=resources.projectileImage, x=self.player.x, y=self.player.top))
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -108,9 +111,6 @@ class Model():  # sets window and player
             if isinstance(sprite, Enemy):
                 sprite.moveForward()
 
-        for projectile in self.projectiles:
-            projectile.update()
-
         self.check_collisions()
 
         for sprite in self.spritesOnScreen:
@@ -118,6 +118,9 @@ class Model():  # sets window and player
                 sprite.update(dt, self.player.x, self.player.y)
             else:
                 sprite.update(dt)
+
+        for projectile in self.projectiles:
+            projectile.update(dt)
 
         if self.player.enteringRoom:
             self.change_room()

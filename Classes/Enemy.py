@@ -12,17 +12,14 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.vTheta = self.rot + 90
         if self.vTheta > 360:
             self.vTheta += -360
-<<<<<<< HEAD
-=======
-        self.isEnemy = True
-        #self.attacking=True
-        self.health=100
 
-   # def attack(self):	
-    	#if random.randint(1, 100) < 101:
-    	#	player.health -= 1
-    	#print player.health
->>>>>>> b324add2ff4b53418a1bdceef3b823dad3bfa688
+        # self.attacking=True
+        self.health = 100
+
+   # def attack(self):
+        # if random.randint(1, 100) < 101:
+        #   player.health -= 1
+        # print player.health
 
     def set_orientation(self, targetTheta):
         self.rot = targetTheta
@@ -75,6 +72,5 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.y += self.vy * dt
 
         self.collideAngle = None
-        #if self.attacking == True:
-        	#self.attack()
-
+        # if self.attacking == True:
+                # self.attack()
