@@ -1,4 +1,6 @@
 # View
+from Inventory import Inventory
+
 class View():
 
     def __init__(self, model):
@@ -10,6 +12,6 @@ class View():
         for sprite in self.model.spritesOnScreen:
             sprite.render()
         self.model.player.render()
-        # for item in itemList:
-        #     item.image.blit(item.x, item.y)
-        # pyglet.app.run()
+
+        if self.model.inventoryGUI.open == True:
+            self.model.inventoryGUI.main()
