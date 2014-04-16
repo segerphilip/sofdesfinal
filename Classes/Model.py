@@ -1,5 +1,5 @@
-from Character import Character
 from Room import Room
+from Character import Character
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
@@ -25,7 +25,7 @@ class Model():  # sets window and player
         self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
-        self.inventory = Inventory("Rock", self.window)
+        self.inventoryGUI = Inventory(self.player.inventory, self.window)
 
     def create_map(self):
         self.map = {}

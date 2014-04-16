@@ -26,7 +26,7 @@ class Controller():
             if self.key_handler[key.DOWN] or self.key_handler[key.S]:
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
-
+                #self.model.inventoryGUI.open = True # TEST
     def checkMouseMove(self):
         @self.model.window.event
         def on_mouse_motion(x, y, dx, dy):
