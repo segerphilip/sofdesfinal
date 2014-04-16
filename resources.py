@@ -14,8 +14,11 @@ pyglet.resource.reindex()
 playerImage = pyglet.resource.texture("player.jpg")
 crewImage = pyglet.resource.texture("player.jpg")
 itemImage = pyglet.resource.texture("TreeStump.png")
+<<<<<<< HEAD
 ground = pyglet.resource.texture("ground.jpg")
 blackout = pyglet.resource.texture("blackground.png")
+=======
+>>>>>>> 7a35a73bdd9bc6628c57ec0f7c5ca684bd9098cf
 #itemImage = pyglet.resource.texture("TreeStump.png")
 itemImage = pyglet.resource.texture("tree.png")
 enemyImage = pyglet.resource.texture("enemy.png")
