@@ -7,10 +7,10 @@ class Enemy(Actor):  # This defines the Enemy Class
     def __init__(self, *args, **kwargs):
         super(Enemy, self).__init__(*args, **kwargs)
         self.vt = 100
+        self.vu = self.vt
         self.vTheta = self.rot + 90
         if self.vTheta > 360:
             self.vTheta += -360
-        self.isEnemy = True
 
     def set_orientation(self, targetTheta):
         self.rot = targetTheta
@@ -20,14 +20,14 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.vy = 0
 
     def moveForward(self):
-        self.vx = self.vt * cos((self.rot + 90) * pi / 180)
-        self.vy = self.vt * sin((self.rot + 90) * pi / 180)
+        self.vx = self.vu * cos((self.rot + 90) * pi / 180)
+        self.vy = self.vu * sin((self.rot + 90) * pi / 180)
 
     def check_player_distance(self, playerX, playerY):
         xDistance = playerX - self.x
         yDistance = playerY - self.y
         distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
-        if distance < 300:
+        if distance < 500:
 
             if xDistance != 0:
                 theta = atan(yDistance / xDistance)
@@ -48,7 +48,7 @@ class Enemy(Actor):  # This defines the Enemy Class
                 theta += 360
 
             self.vTheta = theta + 90
-
+            self.vu = 250 * self.vt / (distance ** 1.25 + 20)
             self.set_orientation(theta)
             if distance < 10:
                 self.stop()
