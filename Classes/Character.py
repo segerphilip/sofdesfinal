@@ -1,6 +1,6 @@
 from Actor import Actor
 import resources
-from math import sqrt, cos, sin, atan, pi
+from math import cos, sin, atan, pi
 # character plus attributes, this includes motion and orientation
 
 
@@ -16,24 +16,35 @@ class Character(Actor):
         self.timeSinceAnim = 0
         self.animRate = .15
         self.vt = 160
+        self.vTheta = self.rot
         self.movingBackward = False
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
         self.vx = self.vt * cos((self.rot + 90) * pi / 180)
+        self.vTheta = self.rot + 90
 
     def moveBackward(self):
         self.vy = self.vt * sin((self.rot - 90) * pi / 180)
         self.vx = self.vt * cos((self.rot - 90) * pi / 180)
-        self.movingBackward = True
+
+        self.vTheta = self.rot - 90
+        if self.vTheta < 0:
+            self.vTheta += 360
 
     def moveRight(self):
         self.vy = -self.vt * sin(self.rot * pi / 180)
         self.vx = -self.vt * cos(self.rot * pi / 180)
+        self.vTheta = self.rot
+        if self.vTheta < 0:
+            self.vTheta += 360
 
     def moveLeft(self):
         self.vy = self.vt * sin(self.rot * pi / 180)
         self.vx = self.vt * cos(self.rot * pi / 180)
+        self.vTheta = self.rot - 180
+        if self.vTheta < 0:
+            self.vTheta += 360
 
     def stop(self):
         self.vx = 0
@@ -109,11 +120,6 @@ class Character(Actor):
 
         self.vx = 0
         self.vy = 0
-        self.movingBackward = False
-        self.collidingLeft = False
-        self.collidingRight = False
-        self.collidingBottom = False
-        self.collidingTop = False
 
         self.stopX = False
         self.stopY = False
