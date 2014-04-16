@@ -11,10 +11,10 @@ def center_image(image):
 pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
-playerImage = pyglet.resource.image("player.jpg")
-crewImage = pyglet.resource.image("player.jpg")
-itemImage = pyglet.resource.image("tree.png")
-enemyImage = pyglet.resource.image("enemy.png")
+playerImage = pyglet.resource.texture("player.jpg")
+crewImage = pyglet.resource.texture("player.jpg")
+itemImage = pyglet.resource.texture("TreeStump.png")
+enemyImage = pyglet.resource.texture("enemy.png")
 playerSheet = pyglet.resource.texture("player_sheet.jpg")
 playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)
 playerGrid = TextureGrid(playerGrid)
