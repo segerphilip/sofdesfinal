@@ -3,6 +3,7 @@ from Character import Character
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
+from Projectile import Projectile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -64,6 +65,16 @@ class Model():  # sets window and player
                     actor.collideAngle = theta * 180 / pi
                 actor.check_collisions()
 
+        for projectile in self.projectiles:
+            for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
+                self.projectiles.remove(projectile)
+                if isinstance(collision, Enemy):
+                    self.actorsOnScreen.remove(Enemy)
+
+    def spawnProjectile(self):
+        self.projectiles.append(
+            Projectile(self.player.rot, texture=resources.projectileImage, x=self.player.x, y=self.player.y))
+
     def change_room(self):
         if self.player.newRoom == "up":
             if self.roomCoordinate[1] > 0:
@@ -96,6 +107,9 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.moveForward()
+
+        for projectile in self.projectiles:
+            projectile.update()
 
         self.check_collisions()
 

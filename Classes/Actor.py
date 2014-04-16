@@ -7,7 +7,6 @@ class Actor(Item):
 
     def __init__(self, *args, **kwargs):
         super(Actor, self).__init__(*args, **kwargs)
-        self.isEnemy = False
 
         self.vx = 0
         self.vy = 0
@@ -56,19 +55,11 @@ class Actor(Item):
             if self.highAngle < 0:
                 self.highAngle += 360
 
-            if self.isEnemy:
-                print "collide angle: " + str(self.collideAngle)
-                print "high limit: " + str(self.highAngle)
-                print "low limit: " + str(self.lowAngle)
-                print "Attempt: " + str(self.vTheta)
-
             if self.highAngle < self.lowAngle:
                 if not (self.lowAngle < self.vTheta < 360) and not (0 < self.vTheta < self.highAngle):
-                    print "COLLISION"
                     self.stop()
             else:
                 if not self.lowAngle < self.vTheta < self.highAngle:
-                    print "COLLISION"
                     self.stop()
 
         self.collideAngle = None
