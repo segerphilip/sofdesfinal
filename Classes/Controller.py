@@ -1,6 +1,7 @@
 from pyglet.window import key
 from pyglet.window import mouse
 
+
 class Controller():
 
     def __init__(self, model):
@@ -26,6 +27,7 @@ class Controller():
             if self.key_handler[key.DOWN] or self.key_handler[key.S]:
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
+
     def checkMouseMove(self):
         @self.model.window.event
         def on_mouse_motion(x, y, dx, dy):
@@ -34,12 +36,14 @@ class Controller():
 
     def checkMouseClick(self):
         @self.model.window.event
-        def on_mouse_press(x,y, button, modifiers):
+        def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
                 for item in self.model.room.roomItems:
                     if (x > (item.x - item.bounding_radius) and x < (item.x + item.bounding_radius)) and (y > (item.y - item.bounding_radius) and y < (item.y + item.bounding_radius)):
                         #self.model.inventoryGUI.open = True
                         print "[Item GUI Here]"
+            if button == mouse.RIGHT:
+                self.model.spawn_projectile()
 
     def update(self):
         self.checkKeyPress()

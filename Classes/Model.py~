@@ -29,7 +29,11 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
         self.projectiles = []
+<<<<<<< HEAD
         self.background = Item(texture=resources.backgroundImage, x=800, y=450)
+
+=======
+>>>>>>> 0ab3215ebc50e53396267c1b0a16063fbc517aaa
 
     def create_map(self):
         self.map = {}
