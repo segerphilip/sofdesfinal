@@ -27,6 +27,8 @@ class Controller():
             if self.key_handler[key.DOWN] or self.key_handler[key.S]:
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
+            if self.key_handler[key.SPACE]:
+                self.model.spawn_bullet()
 
     def checkMouseMove(self):
         @self.model.window.event
@@ -43,7 +45,7 @@ class Controller():
                         #self.model.inventoryGUI.open = True
                         print "[Item GUI Here]"
             if button == mouse.RIGHT:
-                self.model.spawn_projectile()
+                self.model.spawn_arrow()
 
     def update(self):
         self.checkKeyPress()

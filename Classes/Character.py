@@ -1,4 +1,7 @@
 from Actor import Actor
+from Projectile import Projectile
+from Bullet import Bullet
+from Arrow import Arrow
 import resources
 from math import cos, sin, atan, pi
 # character plus attributes, this includes motion and orientation
@@ -14,10 +17,14 @@ class Character(Actor):
         self.walkingAnim = resources.playerGrid
         self.animFrame = [0, 0]
         self.timeSinceAnim = 0
-        self.animRate = .15
+        self.animRate = .125
         self.vt = 160
         self.vTheta = self.rot
         self.movingBackward = False
+        self.fireTime = 0
+        self.fireRate = .15
+        self.shootRate = .5
+        self.lastShootTime = 0
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
@@ -49,6 +56,33 @@ class Character(Actor):
     def stop(self):
         self.vx = 0
         self.vy = 0
+
+    def shoot_gun(self, dt):
+        if self.fireTime > self.fireRate:
+            xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
+            yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
+
+            self.fireTime = 0
+
+            bullet = Bullet(self.rot + 90,
+                            x=self.x + xDisp, y=self.y + yDisp)
+
+            return bullet
+        else:
+            self.fireTime += dt
+
+    def shoot_bow(self, time):
+            if time - self.lastShootTime > self.shootRate:
+                xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
+                yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
+
+                arrow = Arrow(self.rot + 90,
+                              x=self.x + xDisp, y=self.y + yDisp)
+
+                self.lastShootTime = time
+                return arrow
+            else:
+                self.lastShootTime = time
 
     def set_orientation(self, mouseX, mouseY):
         xDistance = mouseX - self.x

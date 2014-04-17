@@ -3,7 +3,6 @@ from Character import Character
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
-from Projectile import Projectile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -13,6 +12,7 @@ class Model():  # sets window and player
 
     def __init__(self, window):
         self.window = window
+        self.time = 0
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
         self.collisionThreshold = 4
@@ -69,14 +69,23 @@ class Model():  # sets window and player
         for projectile in self.projectiles:
             for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
                 if not isinstance(collision, Character):
-                    self.projectiles.remove(projectile)
+                    if projectile in self.projectiles:
+                        self.projectiles.remove(projectile)
                 if isinstance(collision, Enemy):
-                    self.actorsOnScreen.remove(collision)
-                    self.spritesOnScreen.remove(collision)
+                    collision.health -= projectile.damage
+                    if collision.health <= 0:
+                        self.actorsOnScreen.remove(collision)
+                        self.spritesOnScreen.remove(collision)
 
-    def spawn_projectile(self):
-        self.projectiles.append(
-            Projectile(self.player.rot + 90, texture=resources.projectileImage, x=self.player.x, y=self.player.top))
+    def spawn_bullet(self):
+        bullet = self.player.shoot_gun(self.dt)
+        if bullet:
+            self.projectiles.append(bullet)
+
+    def spawn_arrow(self):
+        arrow = self.player.shoot_bow(self.time)
+        if arrow:
+            self.projectiles.append(arrow)
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -107,6 +116,8 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
 
     def update(self, dt):
+        self.dt = dt
+        self.time += dt
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.moveForward()
@@ -121,6 +132,8 @@ class Model():  # sets window and player
 
         for projectile in self.projectiles:
             projectile.update(dt)
+            if projectile.kill:
+                self.projectiles.remove(projectile)
 
         if self.player.enteringRoom:
             self.change_room()
