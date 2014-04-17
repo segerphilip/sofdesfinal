@@ -1,5 +1,6 @@
 from Room import Room
 from Character import Character
+from Item import Item
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
@@ -18,7 +19,7 @@ class Model():  # sets window and player
         self.collisionThreshold = 4
         self.mapSizeX = 3
         self.mapSizeY = 3
-        self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
+        self.baseCoordinate = (self.mapSizeX/2, self.mapSizeY/2)
         self.create_map()
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
@@ -27,6 +28,9 @@ class Model():  # sets window and player
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
+        self.projectiles = []
+        self.background = Item(texture=resources.backgroundImage, x=800, y=450)
+
 
     def create_map(self):
         self.map = {}
@@ -34,10 +38,10 @@ class Model():  # sets window and player
             for column in xrange(0, self.mapSizeY):
                 if row == self.baseCoordinate[0] and column == self.baseCoordinate[1]:
                     self.map.update(
-                        {(row, column): Base(self.window.height, self.window.width)})
+                        {(row, column): Base(self.window.width, self.window.height)})
                 else:
                     self.map.update(
-                        {(row, column): Room(self.window.height, self.window.width)})
+                        {(row, column): Room(self.window.width, self.window.height)})
 
     def check_collisions(self):
         for actor in self.actorsOnScreen:

@@ -27,7 +27,7 @@ class Inventory():
             batch.draw()
 
         def on_select(choice):
-            if self.open_dialog != 0:
+            if self.open_diaalog != 0:
                 on_escape(self.open_dialog)
             open_description(choice, choice.description)
 

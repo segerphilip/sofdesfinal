@@ -14,6 +14,7 @@ class Room(object):
         self.screenHeight = screenHeight
         self.screenWidth = screenWidth
         self.generate_room()
+        print "screenWidth " + str(self.screenWidth)
 
     def generate_room(self):
         # Initializing variables
@@ -26,10 +27,11 @@ class Room(object):
         options = ['Enemy', 'Item']
         objectProbability = .025
         boxSize = 50
+        margin = 50
         # pixel width of each box in the grid
         # For loop to create roomMap
-        for x in xrange(0, self.screenWidth, boxSize):
-            for y in xrange(0, self.screenHeight, boxSize):
+        for x in xrange(margin, self.screenWidth - margin, boxSize):
+            for y in xrange(margin, self.screenHeight - margin, boxSize):
                 # decides if object will be placed(probability)
                 if random.choice(range(0, 100)) <= (objectProbability * 100):
                     objectType = random.choice(options)  # creates object type
