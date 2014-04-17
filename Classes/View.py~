@@ -1,0 +1,51 @@
+# View
+from Item import Item
+from Inventory import Inventory
+<<<<<<< HEAD
+from Item import Item
+import resources
+import rabbyt
+=======
+import pyglet
+import resources
+
+>>>>>>> 0ab3215ebc50e53396267c1b0a16063fbc517aaa
+
+class View():
+
+    def __init__(self, model):
+        self.model = model
+        self.window = self.model.window
+<<<<<<< HEAD
+        self.background = self.model.background
+=======
+        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=0, y=0)
+        self.blackout.opacity = 0
+
+    def fade_to_black(self):
+        self.blackout.opacity += .01
+        print self.blackout.opacity
+>>>>>>> 0ab3215ebc50e53396267c1b0a16063fbc517aaa
+
+    def update(self):
+        numiterations = 0
+        self.window.clear()
+<<<<<<< HEAD
+        #self.background.render()
+        for s in self.model.spritesOnScreen:
+            s.render()
+            numiterations += 1
+        self.model.player.render()
+=======
+        self.fade_to_black()
+        self.model.room.background.render()
+        for sprite in self.model.spritesOnScreen:
+            sprite.render()
+        for projectile in self.model.projectiles:
+            projectile.render()
+
+        self.blackout.draw()
+>>>>>>> 0ab3215ebc50e53396267c1b0a16063fbc517aaa
+
+        if self.model.inventoryGUI.open == True:
+            self.model.inventoryGUI.main()

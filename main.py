@@ -6,7 +6,6 @@ from Classes import *
 
 # Game Objects (not in model)
 game_window = pyglet.window.Window(fullscreen=True, vsync=False)
-
 m = Model(game_window)
 c = Controller(m)
 v = View(m)
