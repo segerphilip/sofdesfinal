@@ -19,7 +19,7 @@ class Model():  # sets window and player
         self.collisionThreshold = 4
         self.mapSizeX = 3
         self.mapSizeY = 3
-        self.baseCoordinate = (self.mapSizeX/2, self.mapSizeY/2)
+        self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
         self.create_map()
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
@@ -29,7 +29,6 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
         self.projectiles = []
-        self.background = Item(texture=resources.backgroundImage, x=800, y=450)
 
     def create_map(self):
         self.map = {}

@@ -64,21 +64,6 @@ class Actor(Item):
 
         self.collideAngle = None
 
-        # if self.collideAngle:
-        #     if cos(self.collideAngle) > 0:
-        #         if self.vx >= 0:
-        #             self.stopX = True
-        #     else:
-        #         if self.vx <= 0:
-        #             self.stopX = True
-
-        #     if sin(self.collideAngle) >= 0:
-        #         if self.vy >= 0:
-        #             self.stopY = True
-        #     else:
-        #         if self.vy <= 0:
-        #             self.stopY = True
-
     @abstractmethod
     def set_orientation():
         pass

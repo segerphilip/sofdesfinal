@@ -1,6 +1,5 @@
 # All our Imports
 import pyglet
-import rabbyt
 from Classes import *
 
 
@@ -14,7 +13,7 @@ v = View(m)
 
 
 @game_window.event  # controlling code
-def on_draw():    
+def on_draw():
     v.update()
 
 

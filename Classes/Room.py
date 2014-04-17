@@ -15,7 +15,6 @@ class Room(object):
         self.screenWidth = screenWidth
         #self.background = Item(texture=resources.ground, x=800, y=450)
         self.generate_room()
-        print "screenWidth " + str(self.screenWidth)
 
     def generate_room(self):
         # Initializing variables

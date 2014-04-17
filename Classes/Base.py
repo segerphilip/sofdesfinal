@@ -1,5 +1,4 @@
 from Room import Room
-from Actor import Actor
 from Crew import Crew
 import resources
 import random
@@ -27,8 +26,10 @@ class Base(Room):
         characterNum = 4
         margin = 50        # For loop to create roomMap
         for i in range(0, characterNum):
-            x = random.choice(range(margin, self.screenWidth - margin, boxSize))
-            y = random.choice(range(margin, self.screenHeight - margin, boxSize))
+            x = random.choice(
+                range(margin, self.screenWidth - margin, boxSize))
+            y = random.choice(
+                range(margin, self.screenHeight - margin, boxSize))
             # print((self.screenWidth, self.screenHeight, x,y))
             # self.roomMap.update(
             #     {(x, y): Actor(texture=resources.crewImage, x=(boxSize * x) - (boxSize / 2), y=(boxSize * y) - (boxSize / 2))})
