@@ -29,6 +29,12 @@ class Controller():
                 # print "Key Pressed!"
             if self.key_handler[key.SPACE]:
                 self.model.spawn_bullet()
+            if self.key_handler[key.LSHIFT]:
+                self.model.player.vt = 360
+                self.model.player.animRate = .075
+            else:
+                self.model.player.vt = 160
+                self.model.animRate = .15
 
     def checkMouseMove(self):
         @self.model.window.event

@@ -3,6 +3,7 @@ from Character import Character
 from Item import Item
 from Base import Base
 from Enemy import Enemy
+from Bullet import Bullet
 from Inventory import Inventory
 from math import atan, pi, sin, cos
 import resources
@@ -17,12 +18,13 @@ class Model():  # sets window and player
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
         self.collisionThreshold = 4
-        self.mapSizeX = 3
-        self.mapSizeY = 3
+        self.mapSizeX = 18
+        self.mapSizeY = 18
         self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
         self.create_map()
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
+        self.newRoom = False
         self.spritesOnScreen = self.room.roomItems
         self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
@@ -42,6 +44,27 @@ class Model():  # sets window and player
                         {(row, column): Room(self.window.width, self.window.height)})
 
     def check_collisions(self):
+
+        for projectile in self.projectiles:
+            for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
+                if not isinstance(collision, Character):
+                    if projectile in self.projectiles:
+                        self.projectiles.remove(projectile)
+                if isinstance(collision, Enemy):
+                    if isinstance(projectile, Bullet):
+                        collision.vx = -10 * collision.vu * \
+                            cos((collision.rot + 90) * pi / 180)
+                        collision.vy = -10 * collision.vu * \
+                            sin((collision.rot + 90) * pi / 180)
+                        collision.vTheta -= 180
+                        if collision.vTheta < 0:
+                            collision.vTheta += 360
+
+                    collision.health -= projectile.damage
+                    if collision.health <= 0:
+                        self.actorsOnScreen.remove(collision)
+                        self.spritesOnScreen.remove(collision)
+
         for actor in self.actorsOnScreen:
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
                 xDistance = collision.x - actor.x
@@ -67,19 +90,8 @@ class Model():  # sets window and player
                     actor.collideAngle = theta * 180 / pi
                 actor.check_collisions()
 
-        for projectile in self.projectiles:
-            for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
-                if not isinstance(collision, Character):
-                    if projectile in self.projectiles:
-                        self.projectiles.remove(projectile)
-                if isinstance(collision, Enemy):
-                    collision.health -= projectile.damage
-                    if collision.health <= 0:
-                        self.actorsOnScreen.remove(collision)
-                        self.spritesOnScreen.remove(collision)
-
     def spawn_bullet(self):
-        bullet = self.player.shoot_gun(self.dt)
+        bullet = self.player.shoot_gun(self.time)
         if bullet:
             self.projectiles.append(bullet)
 
@@ -94,27 +106,34 @@ class Model():  # sets window and player
                 self.roomCoordinate = (
                     self.roomCoordinate[0], self.roomCoordinate[1] - 1)
                 self.player.enterNewRoom()
+                self.newRoom = True
         elif self.player.newRoom == "down":
             if self.roomCoordinate[1] < self.mapSizeY - 1:
                 self.roomCoordinate = (
                     self.roomCoordinate[0], self.roomCoordinate[1] + 1)
                 self.player.enterNewRoom()
+                self.newRoom = True
         elif self.player.newRoom == "right":
             if self.roomCoordinate[0] < self.mapSizeX - 1:
                 self.roomCoordinate = (
                     self.roomCoordinate[0] + 1, self.roomCoordinate[1])
                 self.player.enterNewRoom()
+                self.newRoom = True
         elif self.player.newRoom == "left":
             if self.roomCoordinate[0] > 0:
                 self.roomCoordinate = (
                     self.roomCoordinate[0] - 1, self.roomCoordinate[1])
                 self.player.enterNewRoom()
+                self.newRoom = True
 
-        self.room = self.map[self.roomCoordinate]
-        self.spritesOnScreen = self.room.roomItems
-        self.spritesOnScreen.append(self.player)
-        self.actorsOnScreen = self.room.enemies
-        self.actorsOnScreen.append(self.player)
+        if self.newRoom:
+            self.room = self.map[self.roomCoordinate]
+            self.spritesOnScreen = self.room.roomItems
+            if self.player not in self.spritesOnScreen:
+                self.spritesOnScreen.append(self.player)
+            self.actorsOnScreen = self.room.enemies
+            self.actorsOnScreen.append(self.player)
+            self.newRoom = False
 
     def update(self, dt):
         self.dt = dt
@@ -128,6 +147,8 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player.x, self.player.y)
+            elif isinstance(sprite, Character):
+                sprite.update(dt, self.time)
             else:
                 sprite.update(dt)
 

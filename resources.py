@@ -27,6 +27,7 @@ ground = pyglet.resource.texture("ground.jpg")
 blackout = pyglet.resource.texture("blackground.png")
 
 bulletImage = pyglet.resource.texture("bullet.png")
+arrowImage = pyglet.resource.texture("Arrow.png")
 
 playerSheet = pyglet.resource.texture("player_sheet.jpg")
 playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)

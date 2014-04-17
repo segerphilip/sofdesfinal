@@ -11,7 +11,7 @@ class View():
     def __init__(self, model):
         self.model = model
         self.window = self.model.window
-        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=800, y=450)
+        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=0, y=0)
         self.blackout.opacity = 0
 
     def fade_to_black(self):

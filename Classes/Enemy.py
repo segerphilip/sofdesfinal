@@ -15,7 +15,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vTheta += -360
 
 #         self.isEnemy = True
-#         #self.attacking=True
+# self.attacking=True
 #         self.health=100
 
         # self.attacking=True
@@ -41,7 +41,7 @@ class Enemy(Actor):  # This defines the Enemy Class
         xDistance = playerX - self.x
         yDistance = playerY - self.y
         distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
-        if distance < 500:
+        if distance < 1000:
 
             if xDistance != 0:
                 theta = atan(yDistance / xDistance)
@@ -64,7 +64,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vTheta = theta + 90
             self.vu = 250 * self.vt / (distance ** 1.25 + 20)
             self.set_orientation(theta)
-            if distance < 100:
+            if distance < 5:
                 self.stop()
                # self.attacking=True
         else:
