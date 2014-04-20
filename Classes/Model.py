@@ -4,6 +4,7 @@ from Item import Item
 from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
+from ContextMenu import ContextMenu
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -29,6 +30,7 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
         self.projectiles = []
+        self.context_menu = ContextMenu()
 
     def create_map(self):
         self.map = {}
