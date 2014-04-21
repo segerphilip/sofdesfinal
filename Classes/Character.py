@@ -1,9 +1,8 @@
 from Actor import Actor
-from Projectile import Projectile
-from Bullet import Bullet
-from Arrow import Arrow
+from Weapon import Weapon
 import resources
 from math import cos, sin, atan, pi
+from random import random, choice
 # character plus attributes, this includes motion and orientation
 
 
@@ -21,10 +20,14 @@ class Character(Actor):
         self.vt = 160
         self.vTheta = self.rot
         self.movingBackward = False
-        self.fireTime = 0
-        self.fireRate = .15
-        self.shootRate = .5
+        self.fireRateGun = .01
+        self.fireRateBow = .5
         self.lastShootTime = 0
+        self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
+            effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
+
+        for weapon in self.weapons:
+            print weapon.name
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
@@ -56,33 +59,6 @@ class Character(Actor):
     def stop(self):
         self.vx = 0
         self.vy = 0
-
-    def shoot_gun(self, dt):
-        if self.fireTime > self.fireRate:
-            xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
-            yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
-
-            self.fireTime = 0
-
-            bullet = Bullet(self.rot + 90,
-                            x=self.x + xDisp, y=self.y + yDisp)
-
-            return bullet
-        else:
-            self.fireTime += dt
-
-    def shoot_bow(self, time):
-            if time - self.lastShootTime > self.shootRate:
-                xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
-                yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
-
-                arrow = Arrow(self.rot + 90,
-                              x=self.x + xDisp, y=self.y + yDisp)
-
-                self.lastShootTime = time
-                return arrow
-            else:
-                self.lastShootTime = time
 
     def set_orientation(self, mouseX, mouseY):
         xDistance = mouseX - self.x
@@ -125,14 +101,12 @@ class Character(Actor):
     def getItem(self, item):
         self.inventory.append(item)
 
-    def update(self, dt):
-        if not self.stopX:
-            self.x += self.vx * dt
-        if not self.stopY:
-            self.y += self.vy * dt
+    def update(self, dt, time):
+        self.x += self.vx * dt
+        self.y += self.vy * dt
 
         if self.vx != 0 or self.vy != 0:
-                if self.timeSinceAnim > self.animRate:
+                if time - self.timeSinceAnim > self.animRate:
                     self.timeSinceAnim = 0
 
                     if self.animFrame[0] < 3:
@@ -145,8 +119,7 @@ class Character(Actor):
                             self.animFrame[1] = 3
                     self.texture = self.walkingAnim[
                         self.animFrame[0], self.animFrame[1]]
-                else:
-                    self.timeSinceAnim += dt
+                    self.timeSinceAnim = time
         else:
             self.animFrame = [0, 0]
             self.texture = self.walkingAnim[

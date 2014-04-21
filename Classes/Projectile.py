@@ -4,7 +4,7 @@ from math import cos, sin, pi
 
 class Projectile(Item):
 
-    def __init__(self, theta, *args, **kwargs):
+    def __init__(self, theta, distanceThreshold, *args, **kwargs):
         super(Projectile, self).__init__(*args, **kwargs)
 
         self.vt = 500
@@ -21,7 +21,7 @@ class Projectile(Item):
         self.setTrajectory()
 
         self.distance = 0
-        self.distanceThreshold = 1600
+        self.distanceThreshold = distanceThreshold
 
     def setTrajectory(self):
         self.vx = self.vt * cos((self.rot) * pi / 180)

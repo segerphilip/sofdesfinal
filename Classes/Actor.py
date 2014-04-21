@@ -18,10 +18,11 @@ class Actor(Item):
 
         self.collideAngle = None
 
-        self.stopX = False
-        self.stopY = False
+        self.poison = 0
+        self.poisonTime = 0
 
         self.health = 100
+        self.defense = 5
 
     __metaClass__ = ABCMeta
 

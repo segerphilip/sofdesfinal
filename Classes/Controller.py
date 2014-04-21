@@ -2,6 +2,7 @@ from pyglet.window import key
 from pyglet.window import mouse
 import resources
 
+
 class Controller():
 
     def __init__(self, model):
@@ -28,7 +29,14 @@ class Controller():
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
             if self.key_handler[key.SPACE]:
-                self.model.spawn_bullet()
+                self.model.player.weapons[0].fire_projectile(
+                    self.model.player, self.model.time)
+            if self.key_handler[key.LSHIFT]:
+                self.model.player.vt = 360
+                self.model.player.animRate = .075
+            else:
+                self.model.player.vt = 160
+                self.model.animRate = .15
 
     def checkMouseMove(self):
         @self.model.window.event
@@ -44,23 +52,26 @@ class Controller():
                 for item in self.model.room.roomItems:
                     if item.open:
                         item.open = False
-                    if(x > (item.x-item.bounding_radius) and x < (item.x+item.bounding_radius)):
-                        if(y > (item.y-item.bounding_radius) and y < (item.y+item.bounding_radius)):
+                    if(x > (item.x - item.bounding_radius) and x < (item.x + item.bounding_radius)):
+                        if(y > (item.y - item.bounding_radius) and y < (item.y + item.bounding_radius)):
                             item.open = True
 
                 # check if a context menu tile is clicked
                 for tile in self.model.context_menu.tiles:
-                    if (x > (tile.x - (resources.silverBox.width/2)) and x < (tile.x + (resources.silverBox.width/2))):
-                        if (y > (tile.y - (resources.silverBox.height/2)) and y < (tile.y + (resources.silverBox.height/2))):
+                    if (x > (tile.x - (resources.silverBox.width / 2)) and x < (tile.x + (resources.silverBox.width / 2))):
+                        if (y > (tile.y - (resources.silverBox.height / 2)) and y < (tile.y + (resources.silverBox.height / 2))):
                             if tile.label.text == "Get":
-                                self.model.player.getItem(self.model.context_menu.item)
-                                del self.model.spritesOnScreen[self.model.spritesOnScreen.index(self.model.context_menu.item)]
+                                self.model.player.getItem(
+                                    self.model.context_menu.item)
+                                del self.model.spritesOnScreen[
+                                    self.model.spritesOnScreen.index(self.model.context_menu.item)]
 
             if button == mouse.RIGHT:
+                self.model.player.weapons[1].fire_projectile(
+                    self.model.player, self.model.time)
                 for item in self.model.room.roomItems:
                     if item.open:
-                        item.open = False             
-		        self.model.spawn_arrow()
+                        item.open = False
 
     def update(self):
         self.checkKeyPress()
