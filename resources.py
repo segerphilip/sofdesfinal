@@ -35,5 +35,5 @@ playerGrid = TextureGrid(playerGrid)
 silverBox = pyglet.resource.texture("inventory_button.png")
 
 healthSheet = pyglet.resource.texture("heart_sheet.png")
-healthGrid = ImageGrid(healthSheet, 1, 11, item_width=550, item_height=50)
+healthGrid = ImageGrid(healthSheet, 1, 11, item_width=50, item_height=50)
 healthGrid = TextureGrid(healthGrid)
