@@ -4,6 +4,7 @@ from Base import Base
 from Enemy import Enemy
 from ContextMenu import ContextMenu
 from Health_Bar import Health_Bar
+from ButtonTile import ButtonTile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -17,6 +18,7 @@ class Model():  # sets window and player
         self.time = 0
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
+        self.HealthBar = Health_Bar(x=1525, y=850)
         self.collisionThreshold = 4
         self.mapSizeX = 5
         self.mapSizeY = 5
@@ -31,7 +33,8 @@ class Model():  # sets window and player
         self.actorsOnScreen.append(self.player)
         self.projectiles = []
         self.contextMenu = ContextMenu()
-        self.inventoryButton = Tile(text='Inventory',x=75,y=850)
+        self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
+
     def create_map(self):
         self.map = {}
         for row in xrange(0, self.mapSizeX):
@@ -139,6 +142,8 @@ class Model():  # sets window and player
                 projectile.update(dt)
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
+
+        self.HealthBar.update(self.player.health)
 
         if self.player.enteringRoom:
             self.change_room()

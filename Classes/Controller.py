@@ -49,22 +49,24 @@ class Controller():
         @self.model.window.event
         def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
-                
+
                 for item in self.model.room.roomItems:
-                    if isinstance(item,InteractableItem):
-                        item.on_click(x,y)
+                    if isinstance(item, InteractableItem):
+                        item.on_click(x, y)
 
                 for buttonTile in self.model.contextMenu.button_tiles:
-                    if buttonTile.on_click(x,y) == "Get":
+                    if buttonTile.on_click(x, y) == "Get":
                         self.model.player.getItem(self.model.contextMenu.item)
-                        del self.model.spritesOnScreen[self.model.spritesOnScreen.index(self.model.contextMenu.item)]
+                        del self.model.spritesOnScreen[
+                            self.model.spritesOnScreen.index(self.model.contextMenu.item)]
 
             if button == mouse.RIGHT:
                 self.model.player.weapons[1].fire_projectile(
                     self.model.player, self.model.time)
                 for item in self.model.room.roomItems:
-                    if item.open:
-                        item.open = False
+                    if isinstance(item, InteractableItem):
+                        if item.open:
+                            item.open = False
 
     def update(self):
         self.checkKeyPress()

@@ -22,23 +22,25 @@ class View():
         self.window.clear()
         self.fade_to_black()
         # self.model.room.background.render()
-        self.model.inventoryButton.render()
-        self.model.inventoryButton.label.draw()
 
         for projectile in self.model.projectiles:
             projectile.render()
 
         for sprite in self.model.spritesOnScreen:
             sprite.render()
-	
-	    self.display_context_menu(self.model.spritesOnScreen)
+
+            self.display_context_menu(self.model.spritesOnScreen)
         self.blackout.draw()
 
-        self.Health_Bar()
         self.model.room.background.render()
         for weapon in self.model.player.weapons:
             for projectile in weapon.projectiles:
                 projectile.render()
+
+        self.model.inventoryButton.render()
+        self.model.inventoryButton.label.draw()
+
+        self.model.HealthBar.render()
 
         for sprite in self.model.spritesOnScreen:
             sprite.render()
@@ -52,13 +54,14 @@ class View():
             if isinstance(sprite, Item) and not isinstance(sprite, Actor):
                 if sprite.open:
                     self.model.contextMenu.item = sprite
-                    start_x = sprite.x + 2*sprite.bounding_radius
-                    start_y = sprite.y + 2*sprite.bounding_radius
+                    start_x = sprite.x + 2 * sprite.bounding_radius
+                    start_y = sprite.y + 2 * sprite.bounding_radius
                     for i in range(len(sprite.actions)):
                         next_x = start_x
-                        next_y = start_y + i * resources.silverBox.height 
-                        self.model.contextMenu.button_tiles.append(ButtonTile(sprite.actions[i],x=next_x, y=next_y))
-        
+                        next_y = start_y + i * resources.silverBox.height
+                        self.model.contextMenu.button_tiles.append(
+                            ButtonTile(sprite.actions[i], x=next_x, y=next_y))
+
         for i in range(len(self.model.contextMenu.button_tiles)):
             self.model.contextMenu.button_tiles[i].render()
             self.model.contextMenu.button_tiles[i].label.draw()
