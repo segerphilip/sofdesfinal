@@ -21,7 +21,7 @@ class Projectile(Item):
         self.setTrajectory()
 
         self.distance = 0
-        self.distanceThreshold = 1600
+        self.distanceThreshold = distanceThreshold
 
     def setTrajectory(self):
         self.vx = self.vt * cos((self.rot) * pi / 180)
