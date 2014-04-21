@@ -16,10 +16,10 @@ class Model():  # sets window and player
     def __init__(self, window):
         self.window = window
         self.time = 0
+
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
-        #self.HealthBar = Health_Bar(x=1525, y=850)
-        self.collisionThreshold = 4
+
         self.mapSizeX = 5
         self.mapSizeY = 5
         self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
@@ -27,11 +27,12 @@ class Model():  # sets window and player
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
         self.newRoom = False
+
         self.spritesOnScreen = self.room.roomItems
         self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
-        self.projectiles = []
+
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
 

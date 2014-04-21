@@ -50,14 +50,17 @@ class Controller():
         def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
 
-                if self.model.contextMenu.item:
-                    self.model.contextMenu.item = None
-
+                itemClicked = False
                 for item in self.model.room.roomItems:
                     if isinstance(item, InteractableItem):
                         item.on_click(x, y)
-                        if item.open == True:
+                        if item.open:
                             self.model.contextMenu.item = item
+                            self.model.contextMenu.construct()
+                            itemClicked = True
+
+                if not itemClicked:
+                    self.model.contextMenu.deconstruct()
 
                 for buttonTile in self.model.contextMenu.button_tiles:
                     if buttonTile.on_click(x, y) == "Get":
