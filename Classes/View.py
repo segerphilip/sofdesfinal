@@ -21,7 +21,6 @@ class View():
     def update(self):
         self.window.clear()
         self.fade_to_black()
-<<<<<<< HEAD
         # self.model.room.background.render()
         self.model.inventoryButton.render()
         self.model.inventoryButton.label.draw()
