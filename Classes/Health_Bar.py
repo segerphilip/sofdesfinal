@@ -14,11 +14,9 @@ class Health_Bar(Item):
         self.health = health
 
         if health <= 100 and health > 90:
-            image = resources.healthGrid[:8]
-            self.texture = image
+            self.texture = resources.healthGrid
         elif health > 80:
-            image = resources.healthGrid[:8]
-            self.texture = image
+            self.texture = resources.healthGrid[:8]
         elif health > 70:
             self.texture = resources.healthGrid[:7]
         elif health > 60:

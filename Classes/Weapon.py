@@ -42,7 +42,7 @@ class Weapon():
                 print self.knockBackStrength
             if "poison" in self.effects:
                 self.title += choice(["Toxic ", "Vitrolic ", "Pestualant "])
-                self.poisonStrength = random() * 50
+                self.poisonStrength = random()
                 self.poisonTime = random() * 20
                 print self.poisonStrength
                 print self.poisonTime
@@ -63,10 +63,10 @@ class Weapon():
             victim.vTheta += 360
 
     def slow(self, victim):
-        if victim.vt > victim.vt / 10:
+        if victim.vt > victim.vMax / 10:
             victim.vt -= self.slowStrength
         else:
-            victim.vt = victim.vt / 10
+            victim.vt = victim.vMax / 10
 
     def poison(self, victim):
         victim.poison = self.poisonStrength

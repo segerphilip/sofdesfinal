@@ -8,6 +8,7 @@ class Enemy(Actor):  # This defines the Enemy Class
         super(Enemy, self).__init__(*args, **kwargs)
         self.name = name
         self.vt = 100
+        self.vMax = self.vt
         self.vu = self.vt
         self.vTheta = self.rot + 90
         if self.vTheta > 360:

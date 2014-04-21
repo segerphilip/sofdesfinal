@@ -18,7 +18,7 @@ class Model():  # sets window and player
         self.time = 0
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
-        self.HealthBar = Health_Bar(x=1525, y=850)
+        #self.HealthBar = Health_Bar(x=1525, y=850)
         self.collisionThreshold = 4
         self.mapSizeX = 5
         self.mapSizeY = 5
@@ -55,10 +55,6 @@ class Model():  # sets window and player
                             weapon.projectiles.remove(projectile)
                     if isinstance(collision, Enemy):
                         weapon.deal_damage(collision, self.time)
-
-                        if collision.health <= 0:
-                            self.actorsOnScreen.remove(collision)
-                            self.spritesOnScreen.remove(collision)
 
         for actor in self.actorsOnScreen:
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
@@ -132,6 +128,9 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player.x, self.player.y)
+                if sprite.health <= 0:
+                    self.actorsOnScreen.remove(sprite)
+                    self.spritesOnScreen.remove(sprite)
             elif isinstance(sprite, Character):
                 sprite.update(dt, self.time)
             else:
@@ -143,7 +142,7 @@ class Model():  # sets window and player
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
 
-        self.HealthBar.update(self.player.health)
+        # self.HealthBar.update(self.player.health)
 
         if self.player.enteringRoom:
             self.change_room()

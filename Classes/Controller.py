@@ -50,9 +50,14 @@ class Controller():
         def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
 
+                if self.model.contextMenu.item:
+                    self.model.contextMenu.item = None
+
                 for item in self.model.room.roomItems:
                     if isinstance(item, InteractableItem):
                         item.on_click(x, y)
+                        if item.open == True:
+                            self.model.contextMenu.item = item
 
                 for buttonTile in self.model.contextMenu.button_tiles:
                     if buttonTile.on_click(x, y) == "Get":
@@ -63,10 +68,6 @@ class Controller():
             if button == mouse.RIGHT:
                 self.model.player.weapons[1].fire_projectile(
                     self.model.player, self.model.time)
-                for item in self.model.room.roomItems:
-                    if isinstance(item, InteractableItem):
-                        if item.open:
-                            item.open = False
 
     def update(self):
         self.checkKeyPress()
