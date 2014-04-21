@@ -1,4 +1,3 @@
-import kytten  # Pyglet-based GUI library
 import os
 import pyglet
 from pyglet import gl
