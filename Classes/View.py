@@ -15,7 +15,7 @@ class View():
         self.blackout.opacity = 0
 
     def fade_to_black(self):
-        self.blackout.opacity += .01
+        self.blackout.opacity += .05
 
     def update(self):
         self.window.clear()
@@ -30,7 +30,6 @@ class View():
 
         self.display_context_menu(self.model.spritesOnScreen)
         self.blackout.draw()
-
 
     def display_context_menu(self, sprites):
         self.model.context_menu.tiles = []
