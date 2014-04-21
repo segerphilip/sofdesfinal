@@ -1,6 +1,7 @@
 # View
 from Item import Item
 from Inventory import Inventory
+from Health_Bar import Health_Bar
 from Actor import Actor
 from Tile import Tile
 import resources
@@ -23,6 +24,7 @@ class View():
     def update(self):
         self.window.clear()
         self.fade_to_black()
+        self.Health_Bar()
         # self.model.room.background.render()
         for projectile in self.model.projectiles:
             projectile.render()

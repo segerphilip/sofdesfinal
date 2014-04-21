@@ -5,6 +5,7 @@ from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
 from ContextMenu import ContextMenu
+from Health_Bar import Health_Bar
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
