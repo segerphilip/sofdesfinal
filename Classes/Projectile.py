@@ -4,7 +4,7 @@ from math import cos, sin, pi
 
 class Projectile(Item):
 
-    def __init__(self, theta, *args, **kwargs):
+    def __init__(self, theta, distanceThreshold, *args, **kwargs):
         super(Projectile, self).__init__(*args, **kwargs)
 
         self.vt = 500

@@ -1,6 +1,5 @@
 from Actor import Actor
 from math import atan, cos, sin, pi
-import random
 
 
 class Enemy(Actor):  # This defines the Enemy Class
@@ -75,6 +74,15 @@ class Enemy(Actor):  # This defines the Enemy Class
 
         self.x += self.vx * dt
         self.y += self.vy * dt
+
+        if self.poison != 0:
+            self.health -= self.poison
+            self.poisonTime -= dt
+            self.rgba = (0, 1, 0, 1)
+            if self.poisonTime < 0:
+                self.poison = 0
+                self.poisonTime = 0
+                self.rgba = (1, 1, 1, 1)
 
         self.collideAngle = None
         # if self.attacking == True:

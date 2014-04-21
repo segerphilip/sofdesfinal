@@ -28,7 +28,8 @@ class Controller():
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
             if self.key_handler[key.SPACE]:
-                self.model.spawn_bullet()
+                self.model.player.weapons[0].fire_projectile(
+                    self.model.player, self.model.time)
             if self.key_handler[key.LSHIFT]:
                 self.model.player.vt = 360
                 self.model.player.animRate = .075
@@ -51,7 +52,8 @@ class Controller():
                         #self.model.inventoryGUI.open = True
                         print "[Item GUI Here]"
             if button == mouse.RIGHT:
-                self.model.spawn_arrow()
+                self.model.player.weapons[1].fire_projectile(
+                    self.model.player, self.model.time)
 
     def update(self):
         self.checkKeyPress()

@@ -1,9 +1,7 @@
 from Room import Room
 from Character import Character
-from Item import Item
 from Base import Base
 from Enemy import Enemy
-from Bullet import Bullet
 from Inventory import Inventory
 from math import atan, pi, sin, cos
 import resources
@@ -18,8 +16,8 @@ class Model():  # sets window and player
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
         self.collisionThreshold = 4
-        self.mapSizeX = 18
-        self.mapSizeY = 18
+        self.mapSizeX = 5
+        self.mapSizeY = 5
         self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
         self.create_map()
         self.roomCoordinate = self.baseCoordinate
@@ -30,7 +28,6 @@ class Model():  # sets window and player
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
         self.inventoryGUI = Inventory(self.player.inventory, self.window)
-        self.projectiles = []
 
     def create_map(self):
         self.map = {}
@@ -44,26 +41,18 @@ class Model():  # sets window and player
                         {(row, column): Room(self.window.width, self.window.height)})
 
     def check_collisions(self):
+        for weapon in self.player.weapons:
+            for projectile in weapon.projectiles:
+                for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
+                    if not isinstance(collision, Character):
+                        if projectile in weapon.projectiles:
+                            weapon.projectiles.remove(projectile)
+                    if isinstance(collision, Enemy):
+                        weapon.deal_damage(collision, self.time)
 
-        for projectile in self.projectiles:
-            for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
-                if not isinstance(collision, Character):
-                    if projectile in self.projectiles:
-                        self.projectiles.remove(projectile)
-                if isinstance(collision, Enemy):
-                    if isinstance(projectile, Bullet):
-                        collision.vx = -10 * collision.vu * \
-                            cos((collision.rot + 90) * pi / 180)
-                        collision.vy = -10 * collision.vu * \
-                            sin((collision.rot + 90) * pi / 180)
-                        collision.vTheta -= 180
-                        if collision.vTheta < 0:
-                            collision.vTheta += 360
-
-                    collision.health -= projectile.damage
-                    if collision.health <= 0:
-                        self.actorsOnScreen.remove(collision)
-                        self.spritesOnScreen.remove(collision)
+                        if collision.health <= 0:
+                            self.actorsOnScreen.remove(collision)
+                            self.spritesOnScreen.remove(collision)
 
         for actor in self.actorsOnScreen:
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
@@ -89,16 +78,6 @@ class Model():  # sets window and player
                 if theta and distance > 0:
                     actor.collideAngle = theta * 180 / pi
                 actor.check_collisions()
-
-    def spawn_bullet(self):
-        bullet = self.player.shoot_gun(self.time)
-        if bullet:
-            self.projectiles.append(bullet)
-
-    def spawn_arrow(self):
-        arrow = self.player.shoot_bow(self.time)
-        if arrow:
-            self.projectiles.append(arrow)
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -152,10 +131,11 @@ class Model():  # sets window and player
             else:
                 sprite.update(dt)
 
-        for projectile in self.projectiles:
-            projectile.update(dt)
-            if projectile.kill:
-                self.projectiles.remove(projectile)
+        for weapon in self.player.weapons:
+            for projectile in weapon.projectiles:
+                projectile.update(dt)
+                if projectile.kill:
+                    weapon.projectiles.remove(projectile)
 
         if self.player.enteringRoom:
             self.change_room()

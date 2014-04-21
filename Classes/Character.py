@@ -1,9 +1,8 @@
 from Actor import Actor
-from Projectile import Projectile
-from Bullet import Bullet
-from Arrow import Arrow
+from Weapon import Weapon
 import resources
 from math import cos, sin, atan, pi
+from random import random, choice
 # character plus attributes, this includes motion and orientation
 
 
@@ -24,6 +23,11 @@ class Character(Actor):
         self.fireRateGun = .01
         self.fireRateBow = .5
         self.lastShootTime = 0
+        self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
+            effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
+
+        for weapon in self.weapons:
+            print weapon.name
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
@@ -55,29 +59,6 @@ class Character(Actor):
     def stop(self):
         self.vx = 0
         self.vy = 0
-
-    def shoot_gun(self, time):
-        if time - self.lastShootTime > self.fireRateGun:
-            xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
-            yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
-
-            bullet = Bullet(self.rot + 90,
-                            x=self.x + xDisp, y=self.y + yDisp)
-
-            self.lastShootTime = time
-
-            return bullet
-
-    def shoot_bow(self, time):
-            if time - self.lastShootTime > self.fireRateBow:
-                xDisp = self.bounding_radius * cos((self.rot + 90) * pi / 180)
-                yDisp = self.bounding_radius * sin((self.rot + 90) * pi / 180)
-
-                arrow = Arrow(self.rot + 90,
-                              x=self.x + xDisp, y=self.y + yDisp)
-
-                self.lastShootTime = time
-                return arrow
 
     def set_orientation(self, mouseX, mouseY):
         xDistance = mouseX - self.x
@@ -121,10 +102,8 @@ class Character(Actor):
         self.inventory.append(item)
 
     def update(self, dt, time):
-        if not self.stopX:
-            self.x += self.vx * dt
-        if not self.stopY:
-            self.y += self.vy * dt
+        self.x += self.vx * dt
+        self.y += self.vy * dt
 
         if self.vx != 0 or self.vy != 0:
                 if time - self.timeSinceAnim > self.animRate:

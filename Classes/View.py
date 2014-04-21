@@ -20,9 +20,10 @@ class View():
     def update(self):
         self.window.clear()
         self.fade_to_black()
-        # self.model.room.background.render()
-        for projectile in self.model.projectiles:
-            projectile.render()
+        self.model.room.background.render()
+        for weapon in self.model.player.weapons:
+            for projectile in weapon.projectiles:
+                projectile.render()
 
         for sprite in self.model.spritesOnScreen:
             sprite.render()
