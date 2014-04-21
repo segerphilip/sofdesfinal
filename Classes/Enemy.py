@@ -1,6 +1,5 @@
 from Actor import Actor
 from math import atan, cos, sin, pi
-import random
 
 
 class Enemy(Actor):  # This defines the Enemy Class
@@ -15,7 +14,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vTheta += -360
 
 #         self.isEnemy = True
-#         #self.attacking=True
+# self.attacking=True
 #         self.health=100
 
         # self.attacking=True
@@ -41,7 +40,7 @@ class Enemy(Actor):  # This defines the Enemy Class
         xDistance = playerX - self.x
         yDistance = playerY - self.y
         distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
-        if distance < 500:
+        if distance < 1000:
 
             if xDistance != 0:
                 theta = atan(yDistance / xDistance)
@@ -64,7 +63,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vTheta = theta + 90
             self.vu = 250 * self.vt / (distance ** 1.25 + 20)
             self.set_orientation(theta)
-            if distance < 100:
+            if distance < 5:
                 self.stop()
                # self.attacking=True
         else:
@@ -75,6 +74,15 @@ class Enemy(Actor):  # This defines the Enemy Class
 
         self.x += self.vx * dt
         self.y += self.vy * dt
+
+        if self.poison != 0:
+            self.health -= self.poison
+            self.poisonTime -= dt
+            self.rgba = (0, 1, 0, 1)
+            if self.poisonTime < 0:
+                self.poison = 0
+                self.poisonTime = 0
+                self.rgba = (1, 1, 1, 1)
 
         self.collideAngle = None
         # if self.attacking == True:

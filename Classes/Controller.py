@@ -30,7 +30,14 @@ class Controller():
                 self.model.player.moveBackward()
                 # print "Key Pressed!"
             if self.key_handler[key.SPACE]:
-                self.model.spawn_bullet()
+                self.model.player.weapons[0].fire_projectile(
+                    self.model.player, self.model.time)
+            if self.key_handler[key.LSHIFT]:
+                self.model.player.vt = 360
+                self.model.player.animRate = .075
+            else:
+                self.model.player.vt = 160
+                self.model.animRate = .15
 
     def checkMouseMove(self):
         @self.model.window.event
@@ -53,10 +60,11 @@ class Controller():
                         del self.model.spritesOnScreen[self.model.spritesOnScreen.index(self.model.contextMenu.item)]
 
             if button == mouse.RIGHT:
+                self.model.player.weapons[1].fire_projectile(
+                    self.model.player, self.model.time)
                 for item in self.model.room.roomItems:
                     if item.open:
-                        item.open = False             
-		        self.model.spawn_arrow()
+                        item.open = False
 
     def update(self):
         self.checkKeyPress()

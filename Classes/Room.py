@@ -14,7 +14,7 @@ class Room(object):
     def __init__(self, screenWidth, screenHeight):
         self.screenHeight = screenHeight
         self.screenWidth = screenWidth
-        #self.background = Item(texture=resources.ground, x=800, y=450)
+        self.background = Item(texture=resources.ground, x=800, y=450)
         self.generate_room()
 
     def generate_room(self):

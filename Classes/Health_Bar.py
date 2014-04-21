@@ -1,10 +1,9 @@
-import resources
-import rabbyt
 from Item import Item
 
 class Health_Bar(Item): #This is the class that defines the Health Bar and how it works for the Actor classs
+	
 	def __init__(self, *args, **kwargs):
-    	super(Health_Bar, self).__init__(*args, **kwargs)
+		super(Health_Bar, self).__init__(*args, **kwargs)
 
 	def update(self, health):
 		self.health = health
@@ -29,5 +28,5 @@ class Health_Bar(Item): #This is the class that defines the Health Bar and how i
 			self.animFrame[:1]
 		elif health > 0:
 			self.animFrame[0]
-		else health == 0:
+		else:
 			self.animFrame[10]

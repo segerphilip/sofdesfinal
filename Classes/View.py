@@ -1,10 +1,9 @@
 # View
 from Item import Item
-from Inventory import Inventory
+from Health_Bar import Health_Bar
 from Actor import Actor
 from ButtonTile import ButtonTile
 import resources
-import rabbyt
 import pyglet
 
 
@@ -13,9 +12,8 @@ class View():
     def __init__(self, model):
         self.model = model
         self.window = self.model.window
-        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=800, y=450)
+        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=0, y=0)
         self.blackout.opacity = 0
-	
 
     def fade_to_black(self):
         self.blackout.opacity += .01
@@ -23,6 +21,7 @@ class View():
     def update(self):
         self.window.clear()
         self.fade_to_black()
+<<<<<<< HEAD
         # self.model.room.background.render()
         self.model.inventoryButton.render()
         self.model.inventoryButton.label.draw()
@@ -36,10 +35,23 @@ class View():
 	    self.display_context_menu(self.model.spritesOnScreen)
         self.blackout.draw()
 
+        self.Health_Bar()
+        self.model.room.background.render()
+        for weapon in self.model.player.weapons:
+            for projectile in weapon.projectiles:
+                projectile.render()
+
+        for sprite in self.model.spritesOnScreen:
+            sprite.render()
+
+        self.display_context_menu(self.model.spritesOnScreen)
+        self.blackout.draw()
+
+
     def display_context_menu(self, sprites):
         self.model.contextMenu.button_tiles = []
         for sprite in sprites:
-            if isinstance(sprite, Item) and not isinstance(sprite,Actor):
+            if isinstance(sprite, Item) and not isinstance(sprite, Actor):
                 if sprite.open:
                     self.model.contextMenu.item = sprite
                     start_x = sprite.x + 2*sprite.bounding_radius
