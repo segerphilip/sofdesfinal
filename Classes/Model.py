@@ -5,9 +5,11 @@ from Base import Base
 from Enemy import Enemy
 from Inventory import Inventory
 from ContextMenu import ContextMenu
+from Tile import Tile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
+import pyglet
 
 
 class Model():  # sets window and player
@@ -28,10 +30,9 @@ class Model():  # sets window and player
         self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
-        self.inventoryGUI = Inventory(self.player.inventory, self.window)
         self.projectiles = []
-        self.context_menu = ContextMenu()
-
+        self.contextMenu = ContextMenu()
+        self.inventoryButton = Tile(text='Inventory',x=75,y=850)
     def create_map(self):
         self.map = {}
         for row in xrange(0, self.mapSizeX):

@@ -2,6 +2,7 @@ import random
 import resources
 from Item import Item
 from Enemy import Enemy
+from InteractableItem import InteractableItem
 
 
 # generates game rooms, where players will be transported depending on
@@ -48,7 +49,7 @@ class Room(object):
                     # dictionary, and save it to the list
                     elif objectType == 'Item':
                         self.itemNumber += 1
-                        NewItem = Item(texture=resources.itemImage, x=x, y=y)
+                        NewItem = InteractableItem(texture=resources.itemImage, x=x, y=y)
                         self.roomMap.update({(x, y): NewItem})
                         self.roomItems.append(NewItem)
 

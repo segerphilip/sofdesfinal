@@ -1,6 +1,8 @@
 from pyglet.window import key
 from pyglet.window import mouse
+from InteractableItem import InteractableItem
 import resources
+
 
 class Controller():
 
@@ -40,21 +42,15 @@ class Controller():
         @self.model.window.event
         def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
-                # check if an item is clicked
+                
                 for item in self.model.room.roomItems:
-                    if item.open:
-                        item.open = False
-                    if(x > (item.x-item.bounding_radius) and x < (item.x+item.bounding_radius)):
-                        if(y > (item.y-item.bounding_radius) and y < (item.y+item.bounding_radius)):
-                            item.open = True
+                    if isinstance(item,InteractableItem):
+                        item.on_click(x,y)
 
-                # check if a context menu tile is clicked
-                for tile in self.model.context_menu.tiles:
-                    if (x > (tile.x - (resources.silverBox.width/2)) and x < (tile.x + (resources.silverBox.width/2))):
-                        if (y > (tile.y - (resources.silverBox.height/2)) and y < (tile.y + (resources.silverBox.height/2))):
-                            if tile.label.text == "Get":
-                                self.model.player.getItem(self.model.context_menu.item)
-                                del self.model.spritesOnScreen[self.model.spritesOnScreen.index(self.model.context_menu.item)]
+                for buttonTile in self.model.contextMenu.button_tiles:
+                    if buttonTile.on_click(x,y) == "Get":
+                        self.model.player.getItem(self.model.contextMenu.item)
+                        del self.model.spritesOnScreen[self.model.spritesOnScreen.index(self.model.contextMenu.item)]
 
             if button == mouse.RIGHT:
                 for item in self.model.room.roomItems:

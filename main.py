@@ -2,7 +2,6 @@
 import pyglet
 from Classes import *
 
-
 # Game Objects (not in model)
 game_window = pyglet.window.Window(fullscreen=True, vsync=False)
 m = Model(game_window)
@@ -12,7 +11,7 @@ v = View(m)
 # Main Game loop
 
 
-@game_window.event  # controlling code
+@game_window.event  # controlling codebb
 def on_draw():
     v.update()
 
