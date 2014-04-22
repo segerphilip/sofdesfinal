@@ -2,6 +2,7 @@ from Room import Room
 from Character import Character
 from Base import Base
 from Enemy import Enemy
+from Crew import Crew
 from ContextMenu import ContextMenu
 from Health_Bar import Health_Bar
 from ButtonTile import ButtonTile
@@ -32,6 +33,8 @@ class Model():  # sets window and player
         self.spritesOnScreen.append(self.player)
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
+
+        self.dayTime = 60
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
@@ -117,6 +120,11 @@ class Model():  # sets window and player
             self.actorsOnScreen.append(self.player)
             self.newRoom = False
 
+    def return_crew(self):
+        for sprite in self.map[self.baseCoordinate].roomItems:
+            if isinstance(sprite, Crew):
+                sprite.viewable = True
+
     def update(self, dt):
         self.dt = dt
         self.time += dt
@@ -130,8 +138,7 @@ class Model():  # sets window and player
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player.x, self.player.y)
                 if sprite.health <= 0:
-                    self.actorsOnScreen.remove(sprite)
-                    self.spritesOnScreen.remove(sprite)
+                    sprite.die()
             elif isinstance(sprite, Character):
                 sprite.update(dt, self.time)
             else:
@@ -144,6 +151,5 @@ class Model():  # sets window and player
                     weapon.projectiles.remove(projectile)
 
         # self.HealthBar.update(self.player.health)
-
         if self.player.enteringRoom:
             self.change_room()

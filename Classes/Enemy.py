@@ -1,12 +1,12 @@
+import resources
 from Actor import Actor
 from math import atan, cos, sin, pi
 
 
 class Enemy(Actor):  # This defines the Enemy Class
 
-    def __init__(self, name="enemy", *args, **kwargs):
+    def __init__(self, *args, **kwargs):
         super(Enemy, self).__init__(*args, **kwargs)
-        self.name = name
         self.vt = 100
         self.vMax = self.vt
         self.vu = self.vt
@@ -25,6 +25,18 @@ class Enemy(Actor):  # This defines the Enemy Class
         # if random.randint(1, 100) < 101:
         #   player.health -= 1
         # print player.health
+
+    def die(self):
+        self.texture = resources.enemyImage
+        self.interactable = True
+        self.actions = ["Harvest Meat", "Harvest Bones"]
+        self.vt = 0
+
+    def perform_action(self, player, action):
+        if action is "Harvest Meat":
+            pass
+        if action is "Harvest Bones":
+            pass
 
     def set_orientation(self, targetTheta):
         self.rot = targetTheta
@@ -71,20 +83,21 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.stop()
 
     def update(self, dt, playerX, playerY):
-        self.check_player_distance(playerX, playerY)
+        if self.health > 0:
+            self.check_player_distance(playerX, playerY)
 
-        self.x += self.vx * dt
-        self.y += self.vy * dt
+            self.x += self.vx * dt
+            self.y += self.vy * dt
 
-        if self.poison != 0:
-            self.health -= self.poison
-            self.poisonTime -= dt
-            self.rgba = (0, 1, 0, 1)
-            if self.poisonTime < 0:
-                self.poison = 0
-                self.poisonTime = 0
-                self.rgba = (1, 1, 1, 1)
+            if self.poison != 0:
+                self.health -= self.poison
+                self.poisonTime -= dt
+                self.rgba = (0, 1, 0, 1)
+                if self.poisonTime < 0:
+                    self.poison = 0
+                    self.poisonTime = 0
+                    self.rgba = (1, 1, 1, 1)
 
-        self.collideAngle = None
-        # if self.attacking == True:
-                # self.attack()
+            self.collideAngle = None
+            # if self.attacking == True:
+                    # self.attack()

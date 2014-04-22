@@ -59,14 +59,13 @@ class Controller():
                             self.model.contextMenu.construct()
                             itemClicked = True
 
+                for buttonTile in self.model.contextMenu.button_tiles:
+                    action = buttonTile.on_click(x, y)
+                    self.model.contextMenu.item.perform_action(
+                        self.model.player, action)
+
                 if not itemClicked:
                     self.model.contextMenu.deconstruct()
-
-                for buttonTile in self.model.contextMenu.button_tiles:
-                    if buttonTile.on_click(x, y) == "Get":
-                        self.model.player.getItem(self.model.contextMenu.item)
-                        del self.model.spritesOnScreen[
-                            self.model.spritesOnScreen.index(self.model.contextMenu.item)]
 
             if button == mouse.RIGHT:
                 self.model.player.weapons[1].fire_projectile(

@@ -1,5 +1,6 @@
 from Room import Room
 from Crew import Crew
+from Campfire import Campfire
 import resources
 import random
 # generates the main base, standard for every game. Similar to Room
@@ -15,7 +16,7 @@ class Base(Room):
     def generate_room(self):
         # Initializing variables
         self.roomMap = {}
-        self.roomItems = []
+        self.roomItems = [Campfire(x=800, y=450)]
         self.enemies = []
         self.characters = []
         self.enemyNumber = 0
@@ -33,7 +34,7 @@ class Base(Room):
             # print((self.screenWidth, self.screenHeight, x,y))
             # self.roomMap.update(
             #     {(x, y): Actor(texture=resources.crewImage, x=(boxSize * x) - (boxSize / 2), y=(boxSize * y) - (boxSize / 2))})
-            NewCharacter = Crew(texture=resources.crewImages[i], x=x, y=y)
+            NewCharacter = Crew(texture=random.choice(resources.crewImages), x=x, y=y)
             self.roomMap.update({(x, y): NewCharacter})
             self.roomItems.append(NewCharacter)
             self.characters.append(NewCharacter)

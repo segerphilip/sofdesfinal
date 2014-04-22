@@ -1,4 +1,3 @@
-import rabbyt
 import pyglet
 import resources
 from Tile import Tile
@@ -21,9 +20,9 @@ class ButtonTile(Tile):
         if (x > (self.x - (resources.silverBox.width / 2)) and x < (self.x + (resources.silverBox.width / 2))):
             if (y > (self.y - (resources.silverBox.height / 2)) and y < (self.y + (resources.silverBox.height / 2))):
                 # Get Action
-                if self.label.text == "Get":
-                    return "Get"
-                elif self.label.text == "Fight":
-                    return "Fight"
-                elif self.label.text == "Eat":
-                    return "Eat"
+                print self.label.text
+                return self.label.text
+            else:
+                return None
+        else:
+            return None

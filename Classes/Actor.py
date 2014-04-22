@@ -1,9 +1,9 @@
-from Item import Item
+from InteractableItem import InteractableItem
 from abc import ABCMeta, abstractmethod
 from math import pi, cos, sin
 
 
-class Actor(Item):
+class Actor(InteractableItem):
 
     def __init__(self, *args, **kwargs):
         super(Actor, self).__init__(*args, **kwargs)
@@ -14,8 +14,6 @@ class Actor(Item):
         self.ax = 0
         self.ay = 0
 
-        self.theta = 0
-
         self.collideAngle = None
 
         self.poison = 0
@@ -23,6 +21,8 @@ class Actor(Item):
 
         self.health = 100
         self.defense = 5
+
+        self.interactable = False
 
     __metaClass__ = ABCMeta
 

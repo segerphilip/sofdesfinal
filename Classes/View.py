@@ -1,8 +1,7 @@
 # View
 from Health_Bar import Health_Bar
-from Actor import Actor
 import resources
-import pyglet
+from rabbyt import Sprite, lerp, chain, set_time
 
 
 class View():
@@ -10,34 +9,53 @@ class View():
     def __init__(self, model):
         self.model = model
         self.window = self.model.window
-        self.blackout = pyglet.sprite.Sprite(resources.blackout, x=0, y=0)
-        self.blackout.opacity = 0
+        self.blackout = Sprite(resources.blackout, x=800, y=450)
+        self.blackout.alpha = 0
 
-    def fade_to_black(self):
-        self.blackout.opacity += .05
+    def sleep(self):
+        self.blackout.alpha = chain(
+            lerp(end=1, dt=3),
+            lerp(end=.01, dt=3))
+
+        self.model.player.sleep = False
+
+    def sunRise(self):
+        self.model.day = False
+        self.blackout.alpha = lerp(end=0, dt=self.model.dayTime)
+
+    def sunSet(self):
+        self.model.day = True
+        self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
 
     def update(self):
+        set_time(self.model.time)
+
         self.window.clear()
-        self.fade_to_black()
-        # self.model.room.background.render()
 
-        for sprite in self.model.spritesOnScreen:
-            sprite.render()
+        if self.blackout.alpha >= .99:
+            self.model.return_crew()
 
-        self.blackout.draw()
+        if self.model.player.sleep:
+            self.sleep()
+        else:
+            if self.blackout.alpha >= 1:
+                self.sunRise()
+            elif self.blackout.alpha <= 0:
+                self.sunSet()
 
-        self.model.room.background.render()
-        for weapon in self.model.player.weapons:
-            for projectile in weapon.projectiles:
-                projectile.render()
+            self.model.room.background.render()
+            for weapon in self.model.player.weapons:
+                for projectile in weapon.projectiles:
+                    projectile.render()
 
-        self.model.inventoryButton.render()
-        self.model.inventoryButton.label.draw()
+            for sprite in self.model.spritesOnScreen:
+                if sprite.viewable:
+                    sprite.render()
 
-        # self.model.HealthBar.render()
+            self.model.inventoryButton.render()
+            self.model.inventoryButton.label.draw()
 
-        for sprite in self.model.spritesOnScreen:
-            sprite.render()
+            # self.model.HealthBar.render()
 
-        self.model.contextMenu.render()
-        self.blackout.draw()
+            self.model.contextMenu.render()
+            self.blackout.render()

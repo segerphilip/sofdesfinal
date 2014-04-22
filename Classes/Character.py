@@ -12,22 +12,22 @@ class Character(Actor):
         super(Character, self).__init__(*args, **kwargs)
         self.enteringRoom = False
         self.newRoom = None
+
         self.inventory = []
+
         self.walkingAnim = resources.playerGrid
         self.animFrame = [0, 0]
         self.timeSinceAnim = 0
         self.animRate = .125
+
         self.vt = 160
         self.vTheta = self.rot
         self.movingBackward = False
-        self.fireRateGun = .01
-        self.fireRateBow = .5
-        self.lastShootTime = 0
+
         self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
             effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
 
-        for weapon in self.weapons:
-            print weapon.name
+        self.sleep = False
 
     def moveForward(self):
         self.vy = self.vt * sin((self.rot + 90) * pi / 180)
@@ -98,7 +98,7 @@ class Character(Actor):
 
         self.newRoom = None
 
-    def getItem(self, item):
+    def get_item(self, item):
         self.inventory.append(item)
 
     def update(self, dt, time):

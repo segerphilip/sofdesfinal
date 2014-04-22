@@ -39,18 +39,13 @@ class Weapon():
             if "knock back" in self.effects:
                 self.title += choice(["Forcefull ", "Pushy ", "Knocky Backy "])
                 self.knockBackStrength = random() * -10
-                print self.knockBackStrength
             if "poison" in self.effects:
                 self.title += choice(["Toxic ", "Vitrolic ", "Pestualant "])
                 self.poisonStrength = random()
                 self.poisonTime = random() * 20
-                print self.poisonStrength
-                print self.poisonTime
             if "slow" in self.effects:
                 self.title += choice(["Retarding ", "Drowsy ", "Sleepy "])
                 self.slowStrength = random() * 100
-                print self.slowStrength
-
         self.name = self.title + self.weaponType
 
     def knock_back(self, victim):
