@@ -136,7 +136,7 @@ class Model():  # sets window and player
 
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
-                sprite.update(dt, self.player.x, self.player.y)
+                sprite.update(dt, self.player)
                 if sprite.health <= 0:
                     sprite.die()
             elif isinstance(sprite, Character):
