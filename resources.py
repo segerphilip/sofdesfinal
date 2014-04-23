@@ -30,7 +30,8 @@ playerSheet = pyglet.resource.texture("player_sheet.png")
 playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)
 playerGrid = TextureGrid(playerGrid)
 
-silverBox = pyglet.resource.texture("inventory_button.png")
+silver_tile_small = pyglet.resource.texture("inventory_button.png")
+silver_tile_large = pyglet.resource.texture("description_tile.png")
 campfireImage = pyglet.resource.texture("campfire.png")
 
 maleNames = ["Austin", "Philip", "Paul", "Nick",

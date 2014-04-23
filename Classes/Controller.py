@@ -59,7 +59,7 @@ class Controller():
                             self.model.contextMenu.construct()
                             itemClicked = True
 
-                for buttonTile in self.model.contextMenu.button_tiles:
+                for buttonTile in self.model.contextMenu.tiles:
                     action = buttonTile.on_click(x, y)
                     self.model.contextMenu.item.perform_action(
                         self.model.player, action)
