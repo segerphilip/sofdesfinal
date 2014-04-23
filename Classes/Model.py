@@ -36,6 +36,8 @@ class Model():  # sets window and player
 
         self.dayTime = 60
 
+        self.Health_Bar = Health_Bar(x=1500, y=850)
+
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
 
