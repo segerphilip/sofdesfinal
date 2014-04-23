@@ -9,7 +9,6 @@ from ButtonTile import ButtonTile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
-import pyglet
 
 
 class Model():  # sets window and player
@@ -34,7 +33,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
 
-        self.dayTime = 60
+        self.dayTime = 300
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
@@ -54,36 +53,38 @@ class Model():  # sets window and player
         for weapon in self.player.weapons:
             for projectile in weapon.projectiles:
                 for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
-                    if not isinstance(collision, Character):
-                        if projectile in weapon.projectiles:
-                            weapon.projectiles.remove(projectile)
-                    if isinstance(collision, Enemy):
-                        weapon.deal_damage(collision, self.time)
+                    if collision.viewable:
+                        if not isinstance(collision, Character):
+                            if projectile in weapon.projectiles:
+                                weapon.projectiles.remove(projectile)
+                        if isinstance(collision, Enemy):
+                            weapon.deal_damage(collision, self.time)
 
         for actor in self.actorsOnScreen:
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
-                xDistance = collision.x - actor.x
-                yDistance = collision.y - actor.y
-                distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
+                if collision.viewable:
+                    xDistance = collision.x - actor.x
+                    yDistance = collision.y - actor.y
+                    distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
-                if xDistance != 0 and yDistance != 0:
-                    theta = atan(yDistance / xDistance)
-                    if theta < 0:
-                        theta += 2 * pi
-                    if xDistance < 0 and yDistance > 0:
-                        theta += -pi
-                    elif xDistance < 0 and yDistance < 0:
-                        theta += pi
-                elif yDistance > 0 and xDistance != 0:
-                    theta = pi / 2
-                elif yDistance < 0 and xDistance != 0:
-                    theta = 3 * pi / 2
-                else:
-                    theta = None
+                    if xDistance != 0 and yDistance != 0:
+                        theta = atan(yDistance / xDistance)
+                        if theta < 0:
+                            theta += 2 * pi
+                        if xDistance < 0 and yDistance > 0:
+                            theta += -pi
+                        elif xDistance < 0 and yDistance < 0:
+                            theta += pi
+                    elif yDistance > 0 and xDistance != 0:
+                        theta = pi / 2
+                    elif yDistance < 0 and xDistance != 0:
+                        theta = 3 * pi / 2
+                    else:
+                        theta = None
 
-                if theta and distance > 0:
-                    actor.collideAngle = theta * 180 / pi
-                actor.check_collisions()
+                    if theta and distance > 0:
+                        actor.collideAngle = theta * 180 / pi
+                    actor.check_collisions()
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -123,7 +124,7 @@ class Model():  # sets window and player
     def return_crew(self):
         for sprite in self.map[self.baseCoordinate].roomItems:
             if isinstance(sprite, Crew):
-                sprite.viewable = True
+                sprite.return_home(self.player)
 
     def update(self, dt):
         self.dt = dt

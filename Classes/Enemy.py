@@ -15,29 +15,25 @@ class Enemy(Actor):  # This defines the Enemy Class
         if self.vTheta > 360:
             self.vTheta += -360
 
-#         self.isEnemy = True
-# self.attacking=True
-#         self.health=100
-
-        # self.attacking=True
         self.health = 100
+        self.dead = False
 
-    def attack(self, Player):
-        if random.randint(1,100) < 20:
-            Player.health -= 1
-        print Player.health
+    def attack(self, player):
+        if random.randint(1, 100) < 20:
+            player.health -= 1
 
     def die(self):
-        self.texture = resources.enemyImage
+        self.texture = resources.deathChicken1Image
         self.interactable = True
-        self.actions = ["Harvest Meat", "Harvest Bones"]
+        self.actions = ["Get Meat", "Get Bones"]
         self.vt = 0
+        self.dead = True
 
     def perform_action(self, player, action):
-        if action is "Harvest Meat":
-            pass
-        if action is "Harvest Bones":
-            pass
+        if action is "Get Meat":
+            self.interactable = False
+        if action is "Get Bones":
+            self.interactable = False
 
     def set_orientation(self, targetTheta):
         self.rot = targetTheta
@@ -50,44 +46,43 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.vx = self.vu * cos((self.rot + 90) * pi / 180)
         self.vy = self.vu * sin((self.rot + 90) * pi / 180)
 
-    def check_player_distance(self, Player):
-        xDistance = Player.x - self.x
-        yDistance = Player.y - self.y
-        distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
-        if distance < 1000: #If one should attack
-            #print distance
-            if xDistance != 0:
-                #print "Attack"
-                theta = atan(yDistance / xDistance)
-                if theta < 0:
-                    theta += 2 * pi
-                if xDistance < 0 and yDistance > 0:
-                    theta += -pi
-                elif xDistance < 0 and yDistance < 0:
-                    theta += pi
-            elif yDistance > 0:
-                theta = pi / 2
-            else:
-                theta = 3 * pi / 2
-
-            theta = theta * 180 / pi - 90
-
+    def check_player_distance(self, player):
+        self.xDistance = player.x - self.x
+        self.yDistance = player.y - self.y
+        self.distance = ((self.xDistance) ** 2 + (self.yDistance) ** 2) ** (.5)
+        if self.xDistance != 0:
+            theta = atan(self.yDistance / self.xDistance)
             if theta < 0:
-                theta += 360
+                theta += 2 * pi
+            if self.xDistance < 0 and self.yDistance > 0:
+                theta += -pi
+            elif self.xDistance < 0 and self.yDistance < 0:
+                theta += pi
+        elif self.yDistance > 0:
+            theta = pi / 2
+        else:
+            theta = 3 * pi / 2
 
-            self.vTheta = theta + 90
-            self.vu = 250 * self.vt / (distance ** 1.25 + 20)
-            self.set_orientation(theta)
-            if distance <= 55:
-                print "stopped"
+        self.theta = theta * 180 / pi - 90
+
+        if self.theta < 0:
+            self.theta += 360
+
+    def aggro(self, player):
+        if self.distance < 1000:
+            self.vTheta = self.theta + 90
+            self.vu = 250 * self.vt / (self.distance ** 1.25 + 20)
+            self.set_orientation(self.theta)
+            if self.distance <= 55:
                 self.stop()
-                self.attack(Player)
+                self.attack(player)
         else:
             self.stop()
 
-    def update(self, dt, Player):
-        if self.health > 0:
-            self.check_player_distance(Player)
+    def update(self, dt, player):
+        if not self.dead:
+            self.check_player_distance(player)
+            self.aggro(player)
 
             self.x += self.vx * dt
             self.y += self.vy * dt

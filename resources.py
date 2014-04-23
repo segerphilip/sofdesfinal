@@ -12,15 +12,18 @@ pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
 
-itemImage = pyglet.resource.texture("tree.png")
+treeImage = pyglet.resource.texture("tree.png")
+stumpImage = pyglet.resource.texture("TreeStump.png")
 
 crewImageboy = pyglet.resource.texture("boy.png")
 crewImagegirl = pyglet.resource.texture("girl.png")
 crewImages = [crewImageboy, crewImagegirl]
 
-enemyImage = pyglet.resource.texture("enemy.png")
+deathChicken1Image = pyglet.resource.texture("DeathChicken1.png")
+deathChicken2Image = pyglet.resource.texture("DeathChicken2.png")
+deathChickenImages = [deathChicken1Image, deathChicken2Image]
 
-ground = pyglet.resource.texture("Grass.png")
+ground = pyglet.resource.texture("ground2.jpg")
 blackout = pyglet.resource.texture("blackground.png")
 
 bulletImage = pyglet.resource.texture("bullet.png")
@@ -31,7 +34,10 @@ playerGrid = ImageGrid(playerSheet, 4, 4, item_width=50, item_height=50)
 playerGrid = TextureGrid(playerGrid)
 
 silverBox = pyglet.resource.texture("inventory_button.png")
+
 campfireImage = pyglet.resource.texture("campfire.png")
+woodImage = pyglet.resource.texture("log.png")
+berryImage = pyglet.resource.texture("log.png")
 
 maleNames = ["Austin", "Philip", "Paul", "Nick",
              "Reginald", "Titus", "Charley", "Churly", "August"]

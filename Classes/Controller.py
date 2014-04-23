@@ -1,7 +1,6 @@
 from pyglet.window import key
 from pyglet.window import mouse
 from InteractableItem import InteractableItem
-import resources
 
 
 class Controller():
@@ -49,20 +48,25 @@ class Controller():
         @self.model.window.event
         def on_mouse_press(x, y, button, modifiers):
             if button == mouse.LEFT:
-
                 itemClicked = False
-                for item in self.model.room.roomItems:
-                    if isinstance(item, InteractableItem):
-                        item.on_click(x, y)
-                        if item.open:
-                            self.model.contextMenu.item = item
-                            self.model.contextMenu.construct()
-                            itemClicked = True
+                xDistance = self.model.player.x - x
+                yDistance = self.model.player.y - y
+                distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
-                for buttonTile in self.model.contextMenu.button_tiles:
-                    action = buttonTile.on_click(x, y)
-                    self.model.contextMenu.item.perform_action(
-                        self.model.player, action)
+                if distance < 70:
+                    for item in self.model.room.roomItems:
+                        if isinstance(item, InteractableItem):
+                            item.on_click(x, y)
+                            if item.open:
+                                self.model.contextMenu.item = item
+                                self.model.contextMenu.construct()
+                                itemClicked = True
+
+                if distance < 500:
+                    for buttonTile in self.model.contextMenu.button_tiles:
+                        action = buttonTile.on_click(x, y)
+                        self.model.contextMenu.item.perform_action(
+                            self.model.player, action)
 
                 if not itemClicked:
                     self.model.contextMenu.deconstruct()

@@ -1,8 +1,8 @@
 import random
 import resources
 from Item import Item
-from Enemy import Enemy
-from InteractableItem import InteractableItem
+from Death_Chicken import Death_Chicken
+from Tree import Tree
 
 
 # generates game rooms, where players will be transported depending on
@@ -25,7 +25,7 @@ class Room(object):
         self.enemyNumber = 0
         self.itemNumber = 0
         # Settings
-        options = ['Enemy', 'Item']
+        options = ['Enemy', 'Tree']
         objectProbability = .025
         boxSize = 50
         margin = 50
@@ -40,16 +40,16 @@ class Room(object):
                     # dictionary, and save it to the list
                     if objectType == 'Enemy':
                         self.enemyNumber += 1
-                        NewEnemy = Enemy(
-                            texture=resources.enemyImage, x=x, y=y)
+                        NewEnemy = Death_Chicken(
+                            x=x, y=y)
                         self.roomMap.update({(x, y): NewEnemy})
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
                     # dictionary, and save it to the list
-                    elif objectType == 'Item':
+                    elif objectType == 'Tree':
                         self.itemNumber += 1
-                        NewItem = InteractableItem(texture=resources.itemImage, x=x, y=y)
+                        NewItem = Tree(x=x, y=y)
                         self.roomMap.update({(x, y): NewItem})
                         self.roomItems.append(NewItem)
 
