@@ -38,6 +38,6 @@ maleNames = ["Austin", "Philip", "Paul", "Nick",
              "Reginald", "Titus", "Charley", "Churly", "August"]
 femaleNames = ["Hannah", "Shrindoozle",
                "Bonnie", "Meg", "Claire", "Rosy", "Sam"]
-# healthSheet = pyglet.resource.texture("heart_sheet.png")
-# healthGrid = ImageGrid(healthSheet, 1, 11, item_width=50, item_height=50)
-# healthGrid = TextureGrid(healthGrid)
+
+healthAmount = pyglet.resource.texture("healthamount.png")
+healthBackground = pyglet.resource.texture("healthbackground.png")
