@@ -55,7 +55,7 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
-            self.model.HealthBar.render()
+            self.model.Health_Bar.render()
 
             self.model.contextMenu.render()
             self.blackout.render()
