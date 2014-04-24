@@ -55,6 +55,7 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
+            self.model.Health_Background.render()
             self.model.Health_Bar.render()
 
             self.model.contextMenu.render()
