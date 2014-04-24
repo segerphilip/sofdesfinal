@@ -23,9 +23,9 @@ class Base(Room):
         self.itemNumber = 0
         self.characterNumber = 0
         # Settings
-        boxSize = 50  # pixel width of each box in the grid
+        boxSize = 75
+        margin = 200
         characterNum = 4
-        margin = 50        # For loop to create roomMap
         for i in range(0, characterNum):
             x = random.choice(
                 range(margin, self.screenWidth - margin, boxSize))
