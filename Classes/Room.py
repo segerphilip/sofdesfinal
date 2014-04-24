@@ -27,7 +27,7 @@ class Room(object):
         # Settings
         options = ['Enemy', 'Item']
         objectProbability = .025
-        boxSize = 50
+        boxSize = 75
         margin = 50
         # pixel width of each box in the grid
         # For loop to create roomMap
