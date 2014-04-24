@@ -12,26 +12,7 @@ class Health_Bar(Item):
 
     def update(self, health):
         self.health = health
-        if health <= 100 and health > 90:
-            self.scale_x = 1.0
-        elif health > 80:
-            self.scale_x = 0.9
-        elif health > 70:
-            self.scale_x = 0.8
-        elif health > 60:
-            self.scale_x = 0.7
-        elif health > 50:
-            self.scale_x = 0.6
-        elif health > 40:
-            self.scale_x = 0.5
-        elif health > 30:
-            self.scale_x = 0.4
-        elif health > 20:
-            self.scale_x = 0.3
-        elif health > 10:
-            self.scale_x = 0.2
-        elif health > 0:
-            self.scale_x = 0.1
-        else:
-            self.scale_x = 0
+        self.right = 1590
+        if health >= 0:
+            self.scale_x = (health/100.0)
         self.texture = resources.healthAmount
