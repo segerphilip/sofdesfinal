@@ -12,27 +12,27 @@ class Health_Bar(Item):
 
     def update(self, health):
         self.health = health
-
+        print health
         if health <= 100 and health > 90:
-            scale_x = 1.0
+            self.scale_x = 1.0
         elif health > 80:
-            scale_x = 0.9
+            self.scale_x = 0.9
         elif health > 70:
-            self_x = 0.8
+            self.scale_x = 0.8
         elif health > 60:
-            self_x = 0.7
+            self.scale_x = 0.7
         elif health > 50:
-            self_x = 0.6
+            self.scale_x = 0.6
         elif health > 40:
-            self_x = 0.5
+            self.scale_x = 0.5
         elif health > 30:
-            self_x = 0.4
+            self.scale_x = 0.4
         elif health > 20:
-            self_x = 0.3
+            self.scale_x = 0.3
         elif health > 10:
-            self_x = 0.2
+            self.scale_x = 0.2
         elif health > 0:
-            self_x = 0.1
+            self.scale_x = 0.1
         else:
-            self_x = 0
-        self.texture = resources.healthAmount(scale_x)
+            self.scale_x = 0
+        self.texture = resources.healthAmount

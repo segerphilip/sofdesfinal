@@ -36,7 +36,7 @@ class Model():  # sets window and player
 
         self.dayTime = 60
 
-        self.Health_Bar = Health_Bar(x=1500, y=850)
+        self.Health_Bar = Health_Bar(texture= resources.healthAmount, x=1300, y=850)
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
@@ -152,6 +152,6 @@ class Model():  # sets window and player
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
 
-        # self.HealthBar.update(self.player.health)
+        self.Health_Bar.update(self.player.health)
         if self.player.enteringRoom:
             self.change_room()
