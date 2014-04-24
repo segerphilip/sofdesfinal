@@ -57,13 +57,13 @@ class Room(object):
                 # decides if object will be placed(probability)
                 num = random.choice(range(0, 100))
                 if num <= (self.objectProbability * 100):
-                    add_Enemy = true #initialize add enemy variable
+                    add_Enemy == true #initialize add enemy variable
                     #Checks if item is already at locatiojn
                     for item in self.roomItems:
                         if item.x == x and item.y == y:
                             add_Enemy = false
                     #If item is not already at location, adds new enemy
-                    if add_Enemy = true:
+                    if add_Enemy == true:
                         self.enemyNumber += 1
                         NewEnemy = Enemy(texture=resources.enemyImage, x=x, y=y)
                         self.roomItems.append(NewEnemy)
