@@ -12,7 +12,6 @@ class Health_Bar(Item):
 
     def update(self, health):
         self.health = health
-        print health
         if health <= 100 and health > 90:
             self.scale_x = 1.0
         elif health > 80:
