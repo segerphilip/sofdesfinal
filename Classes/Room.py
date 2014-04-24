@@ -50,9 +50,20 @@ class Room(object):
                         NewItem = InteractableItem(texture=resources.itemImage, x=x, y=y)
                         self.roomItems.append(NewItem)
 
-        # print "Room Items: " + str(self.roomItems)
-        # print "."
-        # print "."
-
     def render_room(self):
-        pass
+        # For loop to create roomMap
+        for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
+            for y in xrange(self.margin, self.screenHeight - self.margin, self.boxSize):
+                # decides if object will be placed(probability)
+                num = random.choice(range(0, 100))
+                if num <= (self.objectProbability * 100):
+                    add_Enemy = true #initialize add enemy variable
+                    #Checks if item is already at locatiojn
+                    for item in self.roomItems:
+                        if item.x == x and item.y == y:
+                            add_Enemy = false
+                    #If item is not already at location, adds new enemy
+                    if add_Enemy = true:
+                        self.enemyNumber += 1
+                        NewEnemy = Enemy(texture=resources.enemyImage, x=x, y=y)
+                        self.roomItems.append(NewEnemy)
