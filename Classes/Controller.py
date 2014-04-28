@@ -18,19 +18,14 @@ class Controller():
         if self.key_handler:
             if self.key_handler[key.LEFT] or self.key_handler[key.A]:
                 self.model.player.moveRight()
-                # print "Key Pressed!"
             if self.key_handler[key.RIGHT] or self.key_handler[key.D]:
                 self.model.player.moveLeft()
-                # print "Key Pressed!"
             if self.key_handler[key.UP] or self.key_handler[key.W]:
                 self.model.player.moveForward()
-                # print "Key Pressed!"
             if self.key_handler[key.DOWN] or self.key_handler[key.S]:
                 self.model.player.moveBackward()
-                # print "Key Pressed!"
-            if self.key_handler[key.SPACE]:
-                self.model.player.weapons[0].fire_projectile(
-                    self.model.player, self.model.time)
+            if self.key_handler[key.SPACE] or self.key_handler[key.TAB]:
+                self.model.player.toggle_weapons(self.model.time)
             if self.key_handler[key.LSHIFT]:
                 self.model.player.vt = 360
                 self.model.player.animRate = .075
@@ -72,7 +67,7 @@ class Controller():
                     self.model.contextMenu.deconstruct()
 
             if button == mouse.RIGHT:
-                self.model.player.weapons[1].fire_projectile(
+                self.model.player.weapon.fire_projectile(
                     self.model.player, self.model.time)
 
     def update(self):

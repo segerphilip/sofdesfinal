@@ -6,12 +6,14 @@ from math import atan, cos, sin, pi
 
 class Enemy(Actor):  # This defines the Enemy Class
 
-    def __init__(self, *args, **kwargs):
+    def __init__(self, day=1, *args, **kwargs):
         super(Enemy, self).__init__(*args, **kwargs)
         self.vt = 100
         self.vMax = self.vt
         self.vu = self.vt
         self.vTheta = self.rot + 90
+        self.damage = 1
+        self.day = day
         if self.vTheta > 360:
             self.vTheta += -360
 
@@ -20,7 +22,7 @@ class Enemy(Actor):  # This defines the Enemy Class
 
     def attack(self, player):
         if random.randint(1, 100) < 20:
-            player.health -= 1
+            player.health -= self.damage * self.day
 
     def die(self):
         self.texture = resources.deathChicken1Image

@@ -21,10 +21,12 @@ class View():
 
     def sunRise(self):
         self.model.day = False
+        self.model.new_night()
         self.blackout.alpha = lerp(end=0, dt=self.model.dayTime)
 
     def sunSet(self):
         self.model.day = True
+        self.model.new_day()
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
 
     def update(self):

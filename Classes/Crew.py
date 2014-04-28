@@ -34,7 +34,7 @@ class Crew(InteractableItem):
         player.get_item(self.items)
         self.items = []
         if len(self.weapons) != 0:
-            player.weapons[0] = self.weapons[0]
+            player.weapons.append(self.weapons[0])
         self.weapons = []
 
     def perform_action(self, player, action):

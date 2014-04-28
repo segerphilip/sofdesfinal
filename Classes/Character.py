@@ -27,6 +27,11 @@ class Character(Actor):
         self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
             effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
 
+        self.weaponNum = 0
+        self.weapon = self.weapons[self.weaponNum]
+        self.toggleRate = .15
+        self.lastToggleTime = 0
+
         self.sleep = False
 
     def moveForward(self):
@@ -100,6 +105,16 @@ class Character(Actor):
 
     def get_item(self, item):
         self.inventory.append(item)
+
+    def toggle_weapons(self, time):
+        if time - self.lastToggleTime > self.toggleRate:
+            if self.weaponNum < len(self.weapons) - 1:
+                self.weaponNum += 1
+            else:
+                self.weaponNum = 0
+
+            self.lastToggleTime = time
+            self.weapon = self.weapons[self.weaponNum]
 
     def update(self, dt, time):
         self.x += self.vx * dt

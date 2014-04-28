@@ -33,10 +33,22 @@ class Model():  # sets window and player
         self.actorsOnScreen = self.room.enemies
         self.actorsOnScreen.append(self.player)
 
-        self.dayTime = 300
+        self.day = 1
+        self.dayTime = 20
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
+
+    def new_day(self):
+        self.day += 1
+        for sprite in self.spritesOnScreen:
+            if isinstance(sprite, Enemy):
+                sprite.vt /= 3
+
+    def new_night(self):
+        for sprite in self.spritesOnScreen:
+            if isinstance(sprite, Enemy):
+                sprite.vt *= 3
 
     def create_map(self):
         self.map = {}

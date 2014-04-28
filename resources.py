@@ -39,6 +39,14 @@ campfireImage = pyglet.resource.texture("campfire.png")
 woodImage = pyglet.resource.texture("log.png")
 berryImage = pyglet.resource.texture("log.png")
 
+pistolImage1 = pyglet.resource.texture("gun copy.PNG")
+rifleImage1 = pyglet.resource.texture("Ak-47.png")
+bowImage1 = pyglet.resource.texture("Longbow copy.PNG")
+
+pistolImages = [pistolImage1]
+rifleImages = [rifleImage1]
+bowImages = [bowImage1]
+
 maleNames = ["Austin", "Philip", "Paul", "Nick",
              "Reginald", "Titus", "Charley", "Churly", "August"]
 femaleNames = ["Hannah", "Shrindoozle",
