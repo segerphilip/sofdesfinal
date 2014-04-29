@@ -1,5 +1,4 @@
 # View
-from Health_Bar import Health_Bar
 import resources
 from rabbyt import Sprite, lerp, chain, set_time
 
@@ -10,12 +9,12 @@ class View():
         self.model = model
         self.window = self.model.window
         self.blackout = Sprite(resources.blackout, x=800, y=450)
-        self.blackout.alpha = 0
+        self.blackout.alpha = .1
 
     def sleep(self):
         self.blackout.alpha = chain(
             lerp(end=1, dt=3),
-            lerp(end=.01, dt=3))
+            lerp(end=0, dt=3))
 
         self.model.player.sleep = False
 
@@ -28,6 +27,7 @@ class View():
         self.model.day = True
         self.model.new_day()
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
+        print self.model.day
 
     def update(self):
         set_time(self.model.time)
@@ -57,7 +57,8 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
-            # self.model.HealthBar.render()
+            self.model.Health_Background.render()
+            self.model.Health_Bar.render()
 
             self.model.contextMenu.render()
             self.blackout.render()

@@ -11,30 +11,20 @@ import random
 class Base(Room):
 
     def __init__(self, *args, **kwargs):
+        self.crewNum = 4
+        self.crew = []
         super(Base, self).__init__(*args, **kwargs)
 
     def generate_room(self):
-        # Initializing variables
-        self.roomMap = {}
+        # Create campfire
         self.roomItems = [Campfire(x=800, y=450)]
-        self.enemies = []
-        self.characters = []
-        self.enemyNumber = 0
-        self.itemNumber = 0
-        self.characterNumber = 0
-        # Settings
-        boxSize = 50  # pixel width of each box in the grid
-        characterNum = 4
-        margin = 50        # For loop to create roomMap
-        for i in range(0, characterNum):
+        # For loop to add Crew Members
+        for i in range(0, self.crewNum):
             x = random.choice(
-                range(margin, self.screenWidth - margin, boxSize))
+                range(self.margin, self.screenWidth - self.margin, self.boxSize))
             y = random.choice(
-                range(margin, self.screenHeight - margin, boxSize))
-            # print((self.screenWidth, self.screenHeight, x,y))
-            # self.roomMap.update(
-            #     {(x, y): Actor(texture=resources.crewImage, x=(boxSize * x) - (boxSize / 2), y=(boxSize * y) - (boxSize / 2))})
-            NewCharacter = Crew(texture=random.choice(resources.crewImages), x=x, y=y)
-            self.roomMap.update({(x, y): NewCharacter})
+                range(self.margin, self.screenHeight - self.margin, self.boxSize))
+            NewCharacter = Crew(
+                texture=random.choice(resources.crewImages), x=x, y=y)
             self.roomItems.append(NewCharacter)
-            self.characters.append(NewCharacter)
+            self.crew.append(NewCharacter)

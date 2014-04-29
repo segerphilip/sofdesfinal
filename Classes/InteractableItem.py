@@ -19,7 +19,6 @@ class InteractableItem(Item):
         if action == 'Get':
             player.get_item(self)
             self.viewable = False
-            print "Getting Item!"
 
     def on_click(self, x, y):
         if self.interactable:

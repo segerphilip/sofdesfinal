@@ -27,7 +27,6 @@ class Actor(InteractableItem):
     __metaClass__ = ABCMeta
 
     def check_collisions(self):
-
         if 5 < self.x < 1595 and 5 < self.y < 895:
             self.enteringRoom = False
             self.newRoom = None

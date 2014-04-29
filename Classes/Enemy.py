@@ -1,6 +1,8 @@
 import resources
 import random
 from Actor import Actor
+from Meat import Meat
+from Bone import Bone
 from math import atan, cos, sin, pi
 
 
@@ -29,12 +31,16 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.interactable = True
         self.actions = ["Get Meat", "Get Bones"]
         self.vt = 0
+        self.vx = 0
+        self.vy = 0
         self.dead = True
 
     def perform_action(self, player, action):
         if action is "Get Meat":
+            player.get_item(Meat(poisoned=(self.poison != 0)))
             self.interactable = False
         if action is "Get Bones":
+            player.get_item(Bone())
             self.interactable = False
 
     def set_orientation(self, targetTheta):
@@ -71,6 +77,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.theta += 360
 
     def aggro(self, player):
+        self.check_player_distance(player)
         if self.distance < 1000:
             self.vTheta = self.theta + 90
             self.vu = 250 * self.vt / (self.distance ** 1.25 + 20)
@@ -78,14 +85,12 @@ class Enemy(Actor):  # This defines the Enemy Class
             if self.distance <= 55:
                 self.stop()
                 self.attack(player)
+            else:
+                self.moveForward()
         else:
             self.stop()
 
     def update(self, dt, player):
-        if not self.dead:
-            self.check_player_distance(player)
-            self.aggro(player)
-
             self.x += self.vx * dt
             self.y += self.vy * dt
 

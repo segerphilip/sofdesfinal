@@ -27,7 +27,7 @@ class Controller():
             if self.key_handler[key.SPACE] or self.key_handler[key.TAB]:
                 self.model.player.toggle_weapons(self.model.time)
             if self.key_handler[key.LSHIFT]:
-                self.model.player.vt = 360
+                self.model.player.vt = 300
                 self.model.player.animRate = .075
             else:
                 self.model.player.vt = 160
@@ -48,7 +48,7 @@ class Controller():
                 yDistance = self.model.player.y - y
                 distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
-                if distance < 70:
+                if distance < 100:
                     for item in self.model.room.roomItems:
                         if isinstance(item, InteractableItem):
                             item.on_click(x, y)
@@ -58,10 +58,15 @@ class Controller():
                                 itemClicked = True
 
                 if distance < 500:
-                    for buttonTile in self.model.contextMenu.button_tiles:
+                    for buttonTile in self.model.contextMenu.tiles:
                         action = buttonTile.on_click(x, y)
                         self.model.contextMenu.item.perform_action(
                             self.model.player, action)
+
+                for buttonTile in self.model.contextMenu.tiles:
+                    action = buttonTile.on_click(x, y)
+                    self.model.contextMenu.item.perform_action(
+                        self.model.player, action)
 
                 if not itemClicked:
                     self.model.contextMenu.deconstruct()

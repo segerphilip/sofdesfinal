@@ -12,29 +12,29 @@ from Tree import Tree
 class Room(object):
 
     def __init__(self, screenWidth, screenHeight):
+        # Set Map Settings
+        self.boxSize = 50
+        self.margin = 50
+        self.objectProbability = .025
         self.screenHeight = screenHeight
         self.screenWidth = screenWidth
         self.background = Item(texture=resources.ground, x=800, y=450)
-        self.generate_room()
-
-    def generate_room(self):
-        # Initializing variables
-        self.roomMap = {}
-        self.roomItems = []
+        # Initialize Variables for room generation
         self.enemies = []
         self.enemyNumber = 0
         self.itemNumber = 0
+        self.roomItems = []
+        self.generate_room()
+
+    def generate_room(self):
         # Settings
         options = ['Enemy', 'Tree']
-        objectProbability = .025
-        boxSize = 50
-        margin = 50
         # pixel width of each box in the grid
         # For loop to create roomMap
-        for x in xrange(margin, self.screenWidth - margin, boxSize):
-            for y in xrange(margin, self.screenHeight - margin, boxSize):
+        for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
+            for y in xrange(self.margin, self.screenHeight - self.margin, self.boxSize):
                 # decides if object will be placed(probability)
-                if random.choice(range(0, 100)) <= (objectProbability * 100):
+                if random.choice(range(0, 100)) <= (self.objectProbability * 100):
                     objectType = random.choice(options)  # creates object type
                     # if object type is enemy: place the object in the
                     # dictionary, and save it to the list
@@ -42,7 +42,6 @@ class Room(object):
                         self.enemyNumber += 1
                         NewEnemy = Death_Chicken(
                             x=x, y=y)
-                        self.roomMap.update({(x, y): NewEnemy})
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
@@ -50,12 +49,28 @@ class Room(object):
                     elif objectType == 'Tree':
                         self.itemNumber += 1
                         NewItem = Tree(x=x, y=y)
-                        self.roomMap.update({(x, y): NewItem})
                         self.roomItems.append(NewItem)
+        self.objectProbability = .00125
 
-        # print "Room Items: " + str(self.roomItems)
-        # print "."
-        # print "."
-
-    def render_room(self):
-        pass
+    def update_enemies(self, day):
+        # For loop to create roomMap
+        self.roomItems = [
+            item for item in self.roomItems if item not in self.enemies]
+        self.enemies = []
+        self.enemyNumber = 0
+        for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
+            for y in xrange(self.margin, self.screenHeight - self.margin, self.boxSize):
+                # decides if object will be placed(probability)
+                num = random.choice(range(0, 100))
+                if num <= (self.objectProbability * 100):
+                    add_Enemy = True  # initialize add enemy variable
+                    # Checks if item is already at locatiojn
+                    for item in self.roomItems:
+                        if item.x == x and item.y == y:
+                            add_Enemy = False
+                    # If item is not already at location, adds new enemy
+                    if add_Enemy:
+                        self.enemyNumber += 1
+                        NewEnemy = Death_Chicken(day=day, x=x, y=y)
+                        self.roomItems.append(NewEnemy)
+                        self.enemies.append(NewEnemy)

@@ -3,9 +3,9 @@ from Character import Character
 from Base import Base
 from Enemy import Enemy
 from Crew import Crew
-from ContextMenu import ContextMenu
+from Menus import *
+from Tiles import *
 from Health_Bar import Health_Bar
-from ButtonTile import ButtonTile
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -30,11 +30,15 @@ class Model():  # sets window and player
 
         self.spritesOnScreen = self.room.roomItems
         self.spritesOnScreen.append(self.player)
-        self.actorsOnScreen = self.room.enemies
-        self.actorsOnScreen.append(self.player)
+        self.crew = self.room.crew
+        self.actorsOnScreen = [self.player]
 
         self.day = 1
-        self.dayTime = 20
+        self.dayTime = 300
+
+        self.Health_Background = Health_Bar(
+            texture=resources.healthBackground, x=1495, y=850)
+        self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
@@ -44,6 +48,9 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.vt /= 3
+        for room in self.map.itervalues():
+            if not isinstance(room, Base):
+                room.update_enemies(self.day)
 
     def new_night(self):
         for sprite in self.spritesOnScreen:
@@ -143,7 +150,8 @@ class Model():  # sets window and player
         self.time += dt
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
-                sprite.moveForward()
+                if not sprite.dead:
+                    sprite.aggro(self.player)
 
         self.check_collisions()
 
@@ -163,6 +171,6 @@ class Model():  # sets window and player
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
 
-        # self.HealthBar.update(self.player.health)
+        self.Health_Bar.update(self.player.health)
         if self.player.enteringRoom:
             self.change_room()
