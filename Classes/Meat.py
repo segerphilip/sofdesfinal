@@ -1,8 +1,8 @@
-from Item import Item
+from Food  import Food
 import resources
 
 
-class Meat(Item):
+class Meat(Food):
 
     def __init__(self, poisoned=False, *args, **kwargs):
         super(Meat, self).__init__(*args, **kwargs)

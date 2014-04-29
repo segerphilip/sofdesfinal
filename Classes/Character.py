@@ -13,8 +13,6 @@ class Character(Actor):
         self.enteringRoom = False
         self.newRoom = None
 
-        self.inventory = []
-
         self.walkingAnim = resources.playerGrid
         self.animFrame = [0, 0]
         self.timeSinceAnim = 0

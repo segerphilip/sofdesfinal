@@ -1,8 +1,8 @@
-from Item import Item
+from Food import Food
 import resources
 
 
-class Berry(Item):
+class Berry(Food):
 
     def __init__(self, *args, **kwargs):
         super(Berry, self).__init__(*args, **kwargs)

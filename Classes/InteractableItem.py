@@ -20,6 +20,10 @@ class InteractableItem(Item):
             player.get_item(self)
             self.viewable = False
 
+    def perform_give(self, player, receiver):
+        player.inventory.remove(self)
+        receiver.inventory.append(self)
+        
     def on_click(self, x, y):
         if self.interactable:
             if self.open:

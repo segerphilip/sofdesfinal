@@ -144,10 +144,14 @@ class Model():  # sets window and player
         for sprite in self.map[self.baseCoordinate].roomItems:
             if isinstance(sprite, Crew):
                 sprite.return_home(self.player)
+    def health_shrink(self):
+        '''Health slowly lowers over time'''
+        self.player.health -= .01
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
+        self.health_shrink()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 if not sprite.dead:

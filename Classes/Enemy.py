@@ -25,6 +25,7 @@ class Enemy(Actor):  # This defines the Enemy Class
     def attack(self, player):
         if random.randint(1, 100) < 20:
             player.health -= self.damage * self.day
+            #print player.health
 
     def die(self):
         self.texture = resources.deathChicken1Image
