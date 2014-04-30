@@ -13,7 +13,7 @@ class Inventory(object):
     def construct(self):
         self.entries = []
 
-        image_texture = resources.itemImage
+        image_texture = resources.treeImage
         start_x = self.trigger.x - (self.trigger.texture.width/2) + (image_texture.width/2)
         start_y = self.trigger.y - (self.trigger.texture.height/2) - self.texture.height/2 - 5
         
@@ -119,7 +119,3 @@ class InventoryButton(Button):
                 else:
                     model.inventoryMenu.deconstruct()
                     self.clicked = False
-            #else:
-            #    self.clicked = False
-        #else:
-        #    self.clicked = False

@@ -11,15 +11,18 @@ def center_image(image):
 pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
-itemImage = pyglet.resource.texture("tree.png")
+treeImage = pyglet.resource.texture("tree.png")
+stumpImage = pyglet.resource.texture("TreeStump.png")
 
 crewImageboy = pyglet.resource.texture("boy.png")
 crewImagegirl = pyglet.resource.texture("girl.png")
 crewImages = [crewImageboy, crewImagegirl]
 
-enemyImage = pyglet.resource.texture("enemy.png")
+deathChicken1Image = pyglet.resource.texture("DeathChicken1.png")
+deathChicken2Image = pyglet.resource.texture("DeathChicken2.png")
+deathChickenImages = [deathChicken1Image, deathChicken2Image]
 
-ground = pyglet.resource.texture("Grass.png")
+ground = pyglet.resource.texture("ground2.jpg")
 blackout = pyglet.resource.texture("blackground.png")
 
 bulletImage = pyglet.resource.texture("bullet.png")
@@ -31,10 +34,23 @@ playerGrid = TextureGrid(playerGrid)
 
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
+
 black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
 grey_background = pyglet.resource.texture("grey_background.png")
 
 campfireImage = pyglet.resource.texture("campfire.png")
+woodImage = pyglet.resource.texture("log.png")
+berryImage = pyglet.resource.texture("log.png")
+meatImage = pyglet.resource.texture("log.png")
+boneImage = pyglet.resource.texture("log.png")
+
+pistolImage1 = pyglet.resource.texture("gun copy.PNG")
+rifleImage1 = pyglet.resource.texture("Ak-47.png")
+bowImage1 = pyglet.resource.texture("Longbow copy.PNG")
+
+pistolImages = [pistolImage1]
+rifleImages = [rifleImage1]
+bowImages = [bowImage1]
 
 maleNames = ["Austin", "Philip", "Paul", "Nick",
              "Reginald", "Titus", "Charley", "Churly", "August"]

@@ -10,7 +10,6 @@ from Health_Bar import Health_Bar
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
-import pyglet
 
 
 class Model():  # sets window and player
@@ -32,16 +31,33 @@ class Model():  # sets window and player
 
         self.spritesOnScreen = self.room.roomItems
         self.spritesOnScreen.append(self.player)
-        self.actorsOnScreen = self.room.enemies
-        self.actorsOnScreen.append(self.player)
+        self.crew = self.room.crew
+        self.actorsOnScreen = [self.player]
 
-        self.dayTime = 60
+        self.day = 1
+        self.dayTime = 300
 
-        self.Health_Bar = Health_Bar(x=1500, y=850)
+        self.Health_Background = Health_Bar(
+            texture=resources.healthBackground, x=1495, y=850)
+        self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
 
         self.contextMenu = None
         self.inventoryButton = InventoryButton(text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
+
+    def new_day(self):
+        self.day += 1
+        for sprite in self.spritesOnScreen:
+            if isinstance(sprite, Enemy):
+                sprite.vt /= 3
+        for room in self.map.itervalues():
+            if not isinstance(room, Base):
+                room.update_enemies(self.day)
+
+    def new_night(self):
+        for sprite in self.spritesOnScreen:
+            if isinstance(sprite, Enemy):
+                sprite.vt *= 3
 
     def create_map(self):
         self.map = {}
@@ -58,36 +74,38 @@ class Model():  # sets window and player
         for weapon in self.player.weapons:
             for projectile in weapon.projectiles:
                 for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
-                    if not isinstance(collision, Character):
-                        if projectile in weapon.projectiles:
-                            weapon.projectiles.remove(projectile)
-                    if isinstance(collision, Enemy):
-                        weapon.deal_damage(collision, self.time)
+                    if collision.viewable:
+                        if not isinstance(collision, Character):
+                            if projectile in weapon.projectiles:
+                                weapon.projectiles.remove(projectile)
+                        if isinstance(collision, Enemy):
+                            weapon.deal_damage(collision, self.time)
 
         for actor in self.actorsOnScreen:
             for collision in rabbyt.collisions.collide_single(actor, self.spritesOnScreen):
-                xDistance = collision.x - actor.x
-                yDistance = collision.y - actor.y
-                distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
+                if collision.viewable:
+                    xDistance = collision.x - actor.x
+                    yDistance = collision.y - actor.y
+                    distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
-                if xDistance != 0 and yDistance != 0:
-                    theta = atan(yDistance / xDistance)
-                    if theta < 0:
-                        theta += 2 * pi
-                    if xDistance < 0 and yDistance > 0:
-                        theta += -pi
-                    elif xDistance < 0 and yDistance < 0:
-                        theta += pi
-                elif yDistance > 0 and xDistance != 0:
-                    theta = pi / 2
-                elif yDistance < 0 and xDistance != 0:
-                    theta = 3 * pi / 2
-                else:
-                    theta = None
+                    if xDistance != 0 and yDistance != 0:
+                        theta = atan(yDistance / xDistance)
+                        if theta < 0:
+                            theta += 2 * pi
+                        if xDistance < 0 and yDistance > 0:
+                            theta += -pi
+                        elif xDistance < 0 and yDistance < 0:
+                            theta += pi
+                    elif yDistance > 0 and xDistance != 0:
+                        theta = pi / 2
+                    elif yDistance < 0 and xDistance != 0:
+                        theta = 3 * pi / 2
+                    else:
+                        theta = None
 
-                if theta and distance > 0:
-                    actor.collideAngle = theta * 180 / pi
-                actor.check_collisions()
+                    if theta and distance > 0:
+                        actor.collideAngle = theta * 180 / pi
+                    actor.check_collisions()
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -127,14 +145,19 @@ class Model():  # sets window and player
     def return_crew(self):
         for sprite in self.map[self.baseCoordinate].roomItems:
             if isinstance(sprite, Crew):
-                sprite.viewable = True
+                sprite.return_home(self.player)
+    def health_shrink(self):
+        '''Health slowly lowers over time'''
+        self.player.health -= .01
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
+        self.health_shrink()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
-                sprite.moveForward()
+                if not sprite.dead:
+                    sprite.aggro(self.player)
 
         self.check_collisions()
 
@@ -154,6 +177,6 @@ class Model():  # sets window and player
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
 
-        # self.HealthBar.update(self.player.health)
+        self.Health_Bar.update(self.player.health)
         if self.player.enteringRoom:
             self.change_room()

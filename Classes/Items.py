@@ -9,14 +9,14 @@ class Item(rabbyt.sprites.Sprite):
     def __init__(self, description="Description", *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
         self.description = description
-        self.image = resources.itemImage
+        self.image = resources.treeImage
 
     def update(self, dt):
         pass
 
 class InteractableItem(Item):
 
-    def __init__(self, description="Description", image=resources.itemImage, *args, **kwargs):
+    def __init__(self, description="Description", image=resources.treeImage, *args, **kwargs):
         super(InteractableItem, self).__init__(*args, **kwargs)
         self.clicked = False
         self.actions = ['Get']

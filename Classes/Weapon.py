@@ -1,12 +1,14 @@
 from random import choice, random
 import resources
 from Projectile import Projectile
+from Items import Item
 from math import cos, sin, pi
 
 
-class Weapon():
+class Weapon(Item):
 
     def __init__(self, type="Ranged", range=1000, effects=None, damage=10, fireRate=.1):
+        super(Weapon, self).__init__()
         self.type = type
         self.effects = effects
         self.damage = damage
@@ -18,13 +20,17 @@ class Weapon():
 
     def make_details(self):
         if self.type == "Ranged":
-            self.weaponType = choice(["Bow", "Gun", "Energy Pulse"])
+            self.weaponType = choice(["Bow", "Gun", "Rifle"])
             if self.weaponType == "Bow":
                 self.projectileTexture = resources.arrowImage
-            elif self.weaponType == "Gun":
+                self.texture = choice(resources.bowImages)
+            elif self.weaponType == "Pistol":
                 self.projectileTexture = resources.bulletImage
+                self.texture = choice(resources.pistolImages)
             else:
                 self.projectileTexture = resources.bulletImage
+                self.texture = choice(resources.rifleImages)
+
         else:
             self.weaponType = choice(["Stick", "Axe", "Sword"])
 
