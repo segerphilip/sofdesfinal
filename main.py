@@ -1,4 +1,4 @@
-# All our Imports
+# All our Imports(self.trigbger.texture.height + self.tiles[0].texture.height*len(self.tiles))
 import pyglet
 from Classes import *
 from pyglet.gl import *
@@ -16,10 +16,9 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 # Main Game loop
 
 
-@game_window.event  # controlling codebb
+@game_window.event  # controlling code
 def on_draw():
     v.update()
-
 
 def update(dt):  # updates all the things
     c.update()

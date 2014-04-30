@@ -11,7 +11,6 @@ def center_image(image):
 pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
-
 itemImage = pyglet.resource.texture("tree.png")
 
 crewImageboy = pyglet.resource.texture("boy.png")
@@ -32,6 +31,9 @@ playerGrid = TextureGrid(playerGrid)
 
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
+black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
+grey_background = pyglet.resource.texture("grey_background.png")
+
 campfireImage = pyglet.resource.texture("campfire.png")
 
 maleNames = ["Austin", "Philip", "Paul", "Nick",

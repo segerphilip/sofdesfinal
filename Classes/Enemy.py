@@ -25,7 +25,7 @@ class Enemy(Actor):  # This defines the Enemy Class
     def attack(self, Player):
         if random.randint(1,100) < 20:
             Player.health -= 1
-        print Player.health
+        #print Player.health
 
     def die(self):
         self.texture = resources.enemyImage
@@ -79,7 +79,7 @@ class Enemy(Actor):  # This defines the Enemy Class
             self.vu = 250 * self.vt / (distance ** 1.25 + 20)
             self.set_orientation(theta)
             if distance <= 55:
-                print "stopped"
+                #print "stopped"
                 self.stop()
                 self.attack(Player)
         else:

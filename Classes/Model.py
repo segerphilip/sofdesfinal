@@ -5,6 +5,7 @@ from Enemy import Enemy
 from Crew import Crew
 from Menus import *
 from Tiles import *
+from Inventory import *
 from Health_Bar import Health_Bar
 from math import atan, pi, sin, cos
 import resources
@@ -38,8 +39,9 @@ class Model():  # sets window and player
 
         self.Health_Bar = Health_Bar(x=1500, y=850)
 
-        self.contextMenu = ContextMenu()
-        self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
+        self.contextMenu = None
+        self.inventoryButton = InventoryButton(text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
+        self.inventoryMenu = None
 
     def create_map(self):
         self.map = {}
