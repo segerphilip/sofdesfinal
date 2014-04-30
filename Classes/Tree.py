@@ -1,4 +1,4 @@
-from InteractableItem import InteractableItem
+from Items import *
 from Wood import Wood
 from Berry import Berry
 import resources
