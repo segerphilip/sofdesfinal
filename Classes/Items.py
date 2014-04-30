@@ -10,6 +10,8 @@ class Item(rabbyt.sprites.Sprite):
         super(Item, self).__init__(*args, **kwargs)
         self.description = description
         self.image = resources.treeImage
+        self.scale_x = 1
+        self.scale_y = 1
 
     def update(self, dt):
         pass
