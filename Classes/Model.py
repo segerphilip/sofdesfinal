@@ -37,8 +37,7 @@ class Model():  # sets window and player
         self.day = 1
         self.dayTime = 300
 
-        self.Health_Background = Health_Bar(
-            texture=resources.healthBackground, x=1495, y=850)
+        #self.Health_Background = Health_Bar(texture=resources.healthBackground, x=1495, y=850)
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
 
         self.contextMenu = None

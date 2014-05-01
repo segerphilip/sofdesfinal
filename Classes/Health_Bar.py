@@ -16,4 +16,4 @@ class Health_Bar(Item):
         self.right = 1590
         if health >= 0:
             self.scale_x = (health / 100.0)
-            print self.health
+            #print self.health
