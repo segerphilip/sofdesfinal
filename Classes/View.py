@@ -28,6 +28,9 @@ class View():
         self.model.new_day()
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
 
+    def endscreen(self):
+        pass
+
     def update(self):
         set_time(self.model.time)
 
@@ -61,7 +64,10 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
+<<<<<<< HEAD
             # self.model.Health_Background.render()
+=======
+>>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
             self.model.Health_Bar.render()
 
             self.model.notificationSystem.render()

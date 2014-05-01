@@ -18,11 +18,15 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
 @game_window.event  # controlling code
 def on_draw():
-    v.update()
+	if m.running:
+    		v.update()
+   	else:
+   		v.endscreen()
 
 def update(dt):  # updates all the things
-    c.update()
-    m.update(dt)
+	if m.running:
+   		c.update()
+    	m.update(dt)
 
 if __name__ == "__main__":
     pyglet.clock.schedule_interval(update, 1 / 120.0)

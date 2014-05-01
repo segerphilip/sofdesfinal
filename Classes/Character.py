@@ -102,7 +102,18 @@ class Character(Actor):
         self.newRoom = None
 
     def get_item(self, item):
-        self.inventory.append(item)
+
+        in_inv = False
+        for i in self.inventory:
+            if type(i) == type(item):
+                in_inv = True
+        if in_inv:
+            i.inventory_count += 1
+        else:
+            self.inventory.append(item)
+
+    def drop_item(self, item):
+        self.inventory.remove(item)
 
     def toggle_weapons(self, time):
         if time - self.lastToggleTime > self.toggleRate:
@@ -113,6 +124,10 @@ class Character(Actor):
 
             self.lastToggleTime = time
             self.weapon = self.weapons[self.weaponNum]
+
+    def health_shrink(self, dt):
+        '''Health slowly lowers over time'''
+        self.health -= .5*dt
 
     def update(self, dt, time):
         self.x += self.vx * dt
@@ -143,3 +158,6 @@ class Character(Actor):
 
         self.stopX = False
         self.stopY = False
+        self.health_shrink(dt)
+        print self.health
+

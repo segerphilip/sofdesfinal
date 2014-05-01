@@ -16,6 +16,7 @@ import rabbyt
 class Model():  # sets window and player
 
     def __init__(self, window):
+        self.running = True
         self.window = window
         self.time = 0
 
@@ -38,7 +39,6 @@ class Model():  # sets window and player
         self.day = 1
         self.dayTime = 300
 
-        #self.Health_Background = Health_Bar(texture=resources.healthBackground, x=1495, y=850)
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
 
         self.contextMenu = None
@@ -146,17 +146,26 @@ class Model():  # sets window and player
             self.newRoom = False
 
     def return_crew(self):
+<<<<<<< HEAD
         for crew in self.crew:
                 crew.return_home()
 
     # def health_shrink(self):
     #     '''Health slowly lowers over time'''
     #     self.player.health -= .01
+=======
+        for sprite in self.map[self.baseCoordinate].roomItems:
+            if isinstance(sprite, Crew):
+                sprite.return_home(self.player)
+>>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
+<<<<<<< HEAD
         # self.health_shrink()
+=======
+>>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 if not sprite.dead:
@@ -197,3 +206,5 @@ class Model():  # sets window and player
 
         if self.player.enteringRoom:
             self.change_room()
+        if self.player.health <= 0:
+            self.running = False

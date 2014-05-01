@@ -58,4 +58,4 @@ femaleNames = ["Hannah", "Shrindoozle",
                "Bonnie", "Meg", "Claire", "Rosy", "Sam"]
 
 healthAmount = pyglet.resource.texture("healthamount.png")
-#healthBackground = pyglet.resource.texture("healthbackground.png")
+healthBackground = pyglet.resource.texture("healthbackground.png")
