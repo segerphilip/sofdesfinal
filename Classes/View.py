@@ -29,6 +29,9 @@ class View():
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
         print self.model.day
 
+    def endscreen(self):
+        pass
+
     def update(self):
         set_time(self.model.time)
 
@@ -62,7 +65,6 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
-            self.model.Health_Background.render()
             self.model.Health_Bar.render()
 
             if self.model.inventoryMenu:
