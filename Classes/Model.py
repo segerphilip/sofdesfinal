@@ -6,6 +6,7 @@ from Crew import Crew
 from Menus import *
 from Tiles import *
 from Health_Bar import Health_Bar
+from Notification_System import Notification_System
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -42,6 +43,9 @@ class Model():  # sets window and player
 
         self.contextMenu = ContextMenu()
         self.inventoryButton = ButtonTile(text='Inventory', x=75, y=850)
+
+        self.notificationSystem = Notification_System(x=1450, y=50)
+        self.eventQueue = []
 
     def new_day(self):
         self.day += 1
@@ -141,17 +145,17 @@ class Model():  # sets window and player
             self.newRoom = False
 
     def return_crew(self):
-        for sprite in self.map[self.baseCoordinate].roomItems:
-            if isinstance(sprite, Crew):
-                sprite.return_home(self.player)
-    def health_shrink(self):
-        '''Health slowly lowers over time'''
-        self.player.health -= .01
+        for crew in self.crew:
+                crew.return_home()
+
+    # def health_shrink(self):
+    #     '''Health slowly lowers over time'''
+    #     self.player.health -= .01
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
-        self.health_shrink()
+        # self.health_shrink()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 if not sprite.dead:
@@ -166,6 +170,12 @@ class Model():  # sets window and player
                     sprite.die()
             elif isinstance(sprite, Character):
                 sprite.update(dt, self.time)
+            elif isinstance(sprite, Crew):
+                sprite.update(self.dt)
+                if sprite.eventsCaused not in self.eventQueue:
+                    for event in sprite.eventsCaused:
+                        self.eventQueue.append(event)
+                    sprite.eventsCaused = []
             else:
                 sprite.update(dt)
 
@@ -175,6 +185,14 @@ class Model():  # sets window and player
                 if projectile.kill:
                     weapon.projectiles.remove(projectile)
 
+        self.notificationSystem.add_events(
+            [event for event in self.eventQueue if event not in self.notificationSystem.events])
+
+        for event in self.eventQueue:
+            if not event.handle:
+                self.eventQueue.remove(event)
+
         self.Health_Bar.update(self.player.health)
+
         if self.player.enteringRoom:
             self.change_room()

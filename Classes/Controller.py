@@ -63,13 +63,10 @@ class Controller():
                         self.model.contextMenu.item.perform_action(
                             self.model.player, action)
 
-                for buttonTile in self.model.contextMenu.tiles:
-                    action = buttonTile.on_click(x, y)
-                    self.model.contextMenu.item.perform_action(
-                        self.model.player, action)
-
                 if not itemClicked:
                     self.model.contextMenu.deconstruct()
+
+                self.model.notificationSystem.on_click(x, y)
 
             if button == mouse.RIGHT:
                 self.model.player.weapon.fire_projectile(

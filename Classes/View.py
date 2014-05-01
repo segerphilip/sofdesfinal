@@ -27,7 +27,6 @@ class View():
         self.model.day = True
         self.model.new_day()
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
-        print self.model.day
 
     def update(self):
         set_time(self.model.time)
@@ -60,5 +59,6 @@ class View():
             self.model.Health_Background.render()
             self.model.Health_Bar.render()
 
+            self.model.notificationSystem.render()
             self.model.contextMenu.render()
             self.blackout.render()
