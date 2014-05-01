@@ -5,7 +5,7 @@ from Controller import Controller
 from Enemy import Enemy
 #from Health_Bar import Health_Bar
 from Inventory import Inventory
-from Item import Item
+from Items import *
 from Model import Model
 from Room import Room
 from View import View

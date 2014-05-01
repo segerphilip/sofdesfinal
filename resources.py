@@ -11,7 +11,6 @@ def center_image(image):
 pyglet.resource.path = ['resources']
 pyglet.resource.reindex()
 
-
 treeImage = pyglet.resource.texture("tree.png")
 stumpImage = pyglet.resource.texture("TreeStump.png")
 
@@ -36,6 +35,9 @@ playerGrid = TextureGrid(playerGrid)
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
 
+black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
+grey_background = pyglet.resource.texture("grey_background.png")
+
 campfireImage = pyglet.resource.texture("campfire.png")
 woodImage = pyglet.resource.texture("log.png")
 berryImage = pyglet.resource.texture("log.png")
@@ -56,4 +58,4 @@ femaleNames = ["Hannah", "Shrindoozle",
                "Bonnie", "Meg", "Claire", "Rosy", "Sam"]
 
 healthAmount = pyglet.resource.texture("healthamount.png")
-healthBackground = pyglet.resource.texture("healthbackground.png")
+#healthBackground = pyglet.resource.texture("healthbackground.png")

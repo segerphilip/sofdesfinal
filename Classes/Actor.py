@@ -1,4 +1,4 @@
-from InteractableItem import InteractableItem
+from Items import *
 from abc import ABCMeta, abstractmethod
 from math import pi, cos, sin
 

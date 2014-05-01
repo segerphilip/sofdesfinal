@@ -6,7 +6,7 @@ from Bone import Bone
 from math import atan, cos, sin, pi
 
 
-class Enemy(Actor):  # This defines the Enemy Class
+class Enemy(Actor): # This defines the Enemy Class
 
     def __init__(self, day=1, *args, **kwargs):
         super(Enemy, self).__init__(*args, **kwargs)

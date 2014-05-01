@@ -1,4 +1,4 @@
-from InteractableItem import InteractableItem
+from Items import *
 import resources
 
 

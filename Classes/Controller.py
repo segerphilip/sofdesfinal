@@ -1,7 +1,9 @@
 from pyglet.window import key
 from pyglet.window import mouse
-from InteractableItem import InteractableItem
-
+from Items import *
+from Menus import *
+from Inventory import *
+import resources
 
 class Controller():
 
@@ -40,31 +42,42 @@ class Controller():
             self.mouseY = y
 
     def checkMouseClick(self):
+
         @self.model.window.event
         def on_mouse_press(x, y, button, modifiers):
+
             if button == mouse.LEFT:
                 itemClicked = False
                 xDistance = self.model.player.x - x
                 yDistance = self.model.player.y - y
                 distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
+                if self.model.contextMenu:
+                    # clicking an option in a context menu -> trigger character action
+                    if distance < 500:
+                        for tile in self.model.contextMenu.tiles:
+                            tile.on_click(self.model.contextMenu, self.model.player, x, y)
+                    # if no item is clicked, close the context menu
+                        if not itemClicked:
+                           self.model.contextMenu.deconstruct()
+
+                # clicking interactable items -> context menu
                 if distance < 100:
                     for item in self.model.room.roomItems:
-                        if isinstance(item, InteractableItem):
-                            item.on_click(x, y)
-                            if item.open:
-                                self.model.contextMenu.item = item
-                                self.model.contextMenu.construct()
-                                itemClicked = True
+                        item.on_click(model=self.model, x=x, y=y) #if clicked, opens item's context menu of actions
+                        if item.clicked:
+                            itemClicked = True # keeps track of whether an item is clicked
 
-                if distance < 500:
-                    for buttonTile in self.model.contextMenu.tiles:
-                        action = buttonTile.on_click(x, y)
-                        self.model.contextMenu.item.perform_action(
-                            self.model.player, action)
-
-                if not itemClicked:
-                    self.model.contextMenu.deconstruct()
+                # clicking the inventory button -> inventory menu
+                self.model.inventoryButton.on_click(model=self.model,x=x, y=y)
+                
+                if self.model.inventoryMenu:
+                    #clicking sprites in the inventory menu
+                    if self.model.inventoryButton.clicked:
+                        for entry in self.model.inventoryMenu.entries:
+                            entry.image.on_click(model=self.model, x=x, y=y)
+                    else:
+                        self.model.inventoryMenu.deconstruct()
 
                 self.model.notificationSystem.on_click(x, y)
 

@@ -1,4 +1,4 @@
-from InteractableItem import InteractableItem
+from Items import *
 from Berry import Berry
 from Wood import Wood
 from Meat import Meat

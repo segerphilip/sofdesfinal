@@ -53,12 +53,20 @@ class View():
                 if sprite.viewable:
                     sprite.render()
 
+            if self.model.contextMenu:
+                self.model.contextMenu.render()
+
+            self.blackout.render()
+
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
-            self.model.Health_Background.render()
+            # self.model.Health_Background.render()
             self.model.Health_Bar.render()
 
             self.model.notificationSystem.render()
             self.model.contextMenu.render()
             self.blackout.render()
+
+            if self.model.inventoryMenu:
+                self.model.inventoryMenu.render()

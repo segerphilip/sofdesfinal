@@ -1,4 +1,4 @@
-from Item import Item
+from Items import Item
 import resources
 
 # This is the class that defines the Health Bar and how it works for the

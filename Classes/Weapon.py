@@ -1,7 +1,7 @@
 from random import choice, random
 import resources
 from Projectile import Projectile
-from Item import Item
+from Items import Item
 from math import cos, sin, pi
 
 

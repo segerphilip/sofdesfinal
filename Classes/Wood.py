@@ -1,4 +1,4 @@
-from Item import Item
+from Items import *
 import resources
 
 

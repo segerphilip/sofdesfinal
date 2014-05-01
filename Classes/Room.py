@@ -1,9 +1,9 @@
 import random
 import resources
-from Item import Item
+from Enemy import Enemy
+from Items import *
 from Death_Chicken import Death_Chicken
 from Tree import Tree
-
 
 # generates game rooms, where players will be transported depending on
 # decisions
@@ -51,6 +51,9 @@ class Room(object):
                         NewItem = Tree(x=x, y=y)
                         self.roomItems.append(NewItem)
         self.objectProbability = .00125
+
+    def render_room(self):
+        pass
 
     def update_enemies(self, day):
         # For loop to create roomMap
