@@ -15,6 +15,7 @@ import rabbyt
 class Model():  # sets window and player
 
     def __init__(self, window):
+        self.running = True
         self.window = window
         self.time = 0
 
@@ -145,14 +146,10 @@ class Model():  # sets window and player
         for sprite in self.map[self.baseCoordinate].roomItems:
             if isinstance(sprite, Crew):
                 sprite.return_home(self.player)
-    def health_shrink(self):
-        '''Health slowly lowers over time'''
-        self.player.health -= .01
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
-        self.health_shrink()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 if not sprite.dead:
@@ -179,3 +176,5 @@ class Model():  # sets window and player
         self.Health_Bar.update(self.player.health)
         if self.player.enteringRoom:
             self.change_room()
+        if self.player.health <= 0:
+            self.running = False

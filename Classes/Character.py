@@ -114,6 +114,10 @@ class Character(Actor):
             self.lastToggleTime = time
             self.weapon = self.weapons[self.weaponNum]
 
+    def health_shrink(self, dt):
+        '''Health slowly lowers over time'''
+        self.health -= .5*dt
+
     def update(self, dt, time):
         self.x += self.vx * dt
         self.y += self.vy * dt
@@ -143,3 +147,6 @@ class Character(Actor):
 
         self.stopX = False
         self.stopY = False
+        self.health_shrink(dt)
+        print self.health
+
