@@ -29,6 +29,9 @@ class View():
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
         print self.model.day
 
+    def endscreen(self):
+        pass
+
     def update(self):
         set_time(self.model.time)
 
