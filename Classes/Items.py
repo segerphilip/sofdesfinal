@@ -8,10 +8,13 @@ class Item(rabbyt.sprites.Sprite):
 
     def __init__(self, description="Description", *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
-        self.description = description
-        self.image = resources.treeImage
+        
         self.scale_x = 1
         self.scale_y = 1
+
+        self.inventory_count = 1
+        self.weight = 0
+        self.description = description
 
     def update(self, dt):
         pass
@@ -29,6 +32,8 @@ class InteractableItem(Item):
         pass
 
     def perform_action(self, player, action):
+        # not necessary?
+
         if action == 'Get':
             player.get_item(self)
             self.viewable = False
@@ -49,3 +54,13 @@ class InteractableItem(Item):
                     self.clicked = False
             else:
                 self.clicked = False
+
+class ItemDescription(object):
+    def __init__(self, count, weight, description):
+        self.count = count
+        self.weight = weight
+        self.description = description
+
+    def construct_description(self):
+        full_description = self.description + "\n" + "  Count: " + str(self.count) + "\n" + "   Weight: " + str(self.weight)
+        return full_description

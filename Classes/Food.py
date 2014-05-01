@@ -14,4 +14,5 @@ class Food(InteractableItem):
         elif action == 'Eat':
         	player.health += 10
         	player.inventory.remove(self)
-
+        elif action == 'Drop':
+        	player.drop_item(self)

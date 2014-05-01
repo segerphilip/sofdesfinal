@@ -9,3 +9,4 @@ class Meat(Food):
         self.description = "Some meat you harvested"
         self.poisoned = poisoned
         self.texture = resources.meatImage
+        self.actions = ['Eat','Drop']

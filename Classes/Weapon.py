@@ -17,6 +17,7 @@ class Weapon(Item):
         self.make_details()
         self.lastShootTime = 0
         self.projectiles = []
+        self.actions = ['Drop']
 
     def make_details(self):
         if self.type == "Ranged":

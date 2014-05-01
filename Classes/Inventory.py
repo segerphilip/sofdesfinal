@@ -46,6 +46,9 @@ class InventoryEntry(object):
         # self.background_y = self.y - self.background_texture.height/2 + self.image.texture.height/2#self.tile_texture.height/2
         # self.background = InventoryBackground(self.background_x, self.background_y)
 
+        d = ItemDescription(self.item.inventory_count, self.item.weight, self.item.description)
+        self.description = d.construct_description()
+
         self.tile_texture = resources.black_tile_large
         self.tile_x = self.x + self.image.texture.width + self.tile_texture.width/2
         self.tile_y = self.y
@@ -65,7 +68,7 @@ class InventoryImage(rabbyt.sprites.Sprite):
     def __init__(self, item, *args, **kwargs):
         super(InventoryImage, self).__init__(*args, **kwargs)
         self.item = item
-        self.texture = self.item.image
+        self.texture = self.item.texture
         self.clicked = False
 
     def update(self, dt):
@@ -113,6 +116,11 @@ class InventoryButton(Button):
             if (y > (self.y - (self.texture.height / 2)) and y < (self.y + (self.texture.height / 2))):
                 self.clicked = not self.clicked
                 if self.clicked:
+
+                    #
+                    for i in model.player.inventory:
+                        print i.description
+                        print i.inventory_count
                     model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
                     model.inventoryMenu.construct()
 
