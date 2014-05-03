@@ -127,7 +127,7 @@ class Character(Actor):
 
     def health_shrink(self, dt):
         '''Health slowly lowers over time'''
-        self.health -= .5*dt
+        self.health -= .5 * dt
 
     def update(self, dt, time):
         self.x += self.vx * dt

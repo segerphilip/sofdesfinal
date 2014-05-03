@@ -5,6 +5,7 @@ from Menus import *
 from Inventory import *
 import resources
 
+
 class Controller():
 
     def __init__(self, model):
@@ -53,31 +54,37 @@ class Controller():
                 distance = ((xDistance) ** 2 + (yDistance) ** 2) ** (.5)
 
                 if self.model.contextMenu:
-                    # clicking an option in a context menu -> trigger character action
+                    # clicking an option in a context menu -> trigger character
+                    # action
                     if distance < 500:
                         for tile in self.model.contextMenu.tiles:
-                            tile.on_click(self.model.contextMenu, self.model.player, x, y)
+                            tile.on_click(
+                                self.model.contextMenu, self.model.player, x, y)
                     # if no item is clicked, close the context menu
                         if not itemClicked:
-                           self.model.contextMenu.deconstruct()
+                            self.model.contextMenu.deconstruct()
 
                 # clicking interactable items -> context menu
                 if distance < 100:
                     for item in self.model.room.roomItems:
-                        item.on_click(model=self.model, x=x, y=y) #if clicked, opens item's context menu of actions
+                        # if clicked, opens item's context menu of actions
+                        item.on_click(model=self.model, x=x, y=y)
                         if item.clicked:
-                            itemClicked = True # keeps track of whether an item is clicked
+                            # keeps track of whether an item is clicked
+                            itemClicked = True
 
                 # clicking the inventory button -> inventory menu
-                self.model.inventoryButton.on_click(model=self.model,x=x, y=y)
-                
+                self.model.inventoryButton.on_click(model=self.model, x=x, y=y)
+
                 if self.model.inventoryMenu:
-                    #clicking sprites in the inventory menu
+                    # clicking sprites in the inventory menu
                     if self.model.inventoryButton.clicked:
                         for entry in self.model.inventoryMenu.entries:
                             entry.image.on_click(model=self.model, x=x, y=y)
                     else:
                         self.model.inventoryMenu.deconstruct()
+
+                self.model.notificationSystem.on_click(x, y)
 
             if button == mouse.RIGHT:
                 self.model.player.weapon.fire_projectile(

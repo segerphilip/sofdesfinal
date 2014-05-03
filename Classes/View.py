@@ -63,7 +63,7 @@ class View():
             for sprite in self.model.spritesOnScreen:
                 if sprite.viewable:
                     sprite.render()
- 
+
             if self.model.contextMenu:
                 self.model.contextMenu.render()
 
@@ -73,6 +73,9 @@ class View():
             self.model.inventoryButton.label.draw()
 
             self.model.Health_Bar.render()
+
+            self.model.notificationSystem.render()
+            self.blackout.render()
 
             if self.model.inventoryMenu:
                 self.model.inventoryMenu.render()

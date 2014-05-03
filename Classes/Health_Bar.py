@@ -9,7 +9,8 @@ class Health_Bar(Item):
 
     def __init__(self, *args, **kwargs):
         super(Health_Bar, self).__init__(*args, **kwargs)
-        self.background = Item(texture=resources.healthBackground, x=1490, y=850)
+        self.background = Item(
+            texture=resources.healthBackground, x=1490, y=850)
         self.texture = resources.healthAmount
 
     def render(self):

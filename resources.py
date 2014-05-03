@@ -22,7 +22,11 @@ deathChicken1Image = pyglet.resource.texture("DeathChicken1.png")
 deathChicken2Image = pyglet.resource.texture("DeathChicken2.png")
 deathChickenImages = [deathChicken1Image, deathChicken2Image]
 
-ground = pyglet.resource.texture("ground2.jpg")
+grass1 = pyglet.resource.texture("GrassEnvironment2 copy.png")
+grass2 = pyglet.resource.texture("GrassEnvironment copy.png")
+
+grasses = [grass1, grass2]
+
 blackout = pyglet.resource.texture("blackground.png")
 
 bulletImage = pyglet.resource.texture("bullet.png")
@@ -38,7 +42,7 @@ silver_tile_large = pyglet.resource.texture("description_tile.png")
 black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
 grey_background = pyglet.resource.texture("grey_background.png")
 
-campfireImage = pyglet.resource.texture("campfire.png")
+campfireImage = pyglet.resource.texture("CampFire.png")
 woodImage = pyglet.resource.texture("log.png")
 berryImage = pyglet.resource.texture("log.png")
 meatImage = pyglet.resource.texture("log.png")
