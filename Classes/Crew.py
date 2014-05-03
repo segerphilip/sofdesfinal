@@ -48,8 +48,8 @@ class Crew(InteractableItem):
         # self.weapons = []
 
     def perform_action(self, player, action):
-        if action is "Talk":
-            pass
+        if action == "Talk":
+            self.talk(player)
         elif action == "Forage":
             if "Foraging" not in self.states:
                 self.find_food()
@@ -136,11 +136,13 @@ class Crew(InteractableItem):
             self.states.append("Done Hunting")
             self.eventsCaused.append(Event(self, "Done Hunting"))
             self.return_home()
+            print self.items
 
     def talk(self, player):
+        print self.items
         for item in self.items:
-            self.player.get_item(item)
-            self.eventsCause.append(Event(self, self.states[-1]))
+            player.get_item(item)
+        self.eventsCaused.append(Event(self, self.states[-1]))
 
     def update(self, dt):
         if "Forging" in self.states:

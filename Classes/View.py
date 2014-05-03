@@ -64,14 +64,9 @@ class View():
             self.model.inventoryButton.render()
             self.model.inventoryButton.label.draw()
 
-<<<<<<< HEAD
-            # self.model.Health_Background.render()
-=======
->>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
             self.model.Health_Bar.render()
 
             self.model.notificationSystem.render()
-            self.model.contextMenu.render()
             self.blackout.render()
 
             if self.model.inventoryMenu:

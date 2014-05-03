@@ -23,8 +23,9 @@ class Notification_System(rabbyt.sprites.Sprite):
 
     def on_click(self, x, y):
         if self.left < x < self.right and self.bottom < y < self.top:
-            del self.events[-1]
-            self.update()
+            if len(self.events) > 0:
+                del self.events[-1]
+                self.update()
 
     def update(self):
         if len(self.events) > 0:

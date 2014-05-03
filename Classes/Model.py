@@ -42,7 +42,8 @@ class Model():  # sets window and player
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
 
         self.contextMenu = None
-        self.inventoryButton = InventoryButton(text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
+        self.inventoryButton = InventoryButton(
+            text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
 
         self.notificationSystem = Notification_System(x=1450, y=50)
@@ -146,26 +147,12 @@ class Model():  # sets window and player
             self.newRoom = False
 
     def return_crew(self):
-<<<<<<< HEAD
         for crew in self.crew:
                 crew.return_home()
-
-    # def health_shrink(self):
-    #     '''Health slowly lowers over time'''
-    #     self.player.health -= .01
-=======
-        for sprite in self.map[self.baseCoordinate].roomItems:
-            if isinstance(sprite, Crew):
-                sprite.return_home(self.player)
->>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
 
     def update(self, dt):
         self.dt = dt
         self.time += dt
-<<<<<<< HEAD
-        # self.health_shrink()
-=======
->>>>>>> 336be13427d0f00b9c6db7402d28ccd03590253f
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 if not sprite.dead:

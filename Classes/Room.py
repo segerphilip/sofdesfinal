@@ -1,6 +1,5 @@
 import random
 import resources
-from Enemy import Enemy
 from Items import *
 from Death_Chicken import Death_Chicken
 from Tree import Tree
@@ -18,7 +17,8 @@ class Room(object):
         self.objectProbability = .025
         self.screenHeight = screenHeight
         self.screenWidth = screenWidth
-        self.background = Item(texture=resources.ground, x=800, y=450)
+        self.background = Item(
+            texture=random.choice(resources.grasses), x=800, y=450)
         # Initialize Variables for room generation
         self.enemies = []
         self.enemyNumber = 0
