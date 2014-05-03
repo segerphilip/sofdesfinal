@@ -104,16 +104,21 @@ class Character(Actor):
     def get_item(self, item):
 
         in_inv = False
+        original_item = None
         for i in self.inventory:
             if type(i) == type(item):
                 in_inv = True
+                original_item = i
         if in_inv:
-            i.inventory_count += 1
+            original_item.inventory_count += 1
         else:
             self.inventory.append(item)
 
     def drop_item(self, item):
-        self.inventory.remove(item)
+        if item.inventory_count > 1:
+            item.inventory_count -= 1
+        else:
+            self.inventory.remove(item)
 
     def toggle_weapons(self, time):
         if time - self.lastToggleTime > self.toggleRate:

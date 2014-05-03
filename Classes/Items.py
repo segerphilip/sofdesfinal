@@ -54,13 +54,3 @@ class InteractableItem(Item):
                     self.clicked = False
             else:
                 self.clicked = False
-
-class ItemDescription(object):
-    def __init__(self, count, weight, description):
-        self.count = count
-        self.weight = weight
-        self.description = description
-
-    def construct_description(self):
-        full_description = self.description + "\n" + "  Count: " + str(self.count) + "\n" + "   Weight: " + str(self.weight)
-        return full_description
