@@ -54,9 +54,9 @@ grey_background = pyglet.resource.texture("grey_background.png")
 
 campfireImage = pyglet.resource.texture("CampFire.png")
 woodImage = pyglet.resource.texture("log.png")
-berryImage = pyglet.resource.texture("log.png")
-meatImage = pyglet.resource.texture("log.png")
-boneImage = pyglet.resource.texture("log.png")
+berryImage = pyglet.resource.texture("berries copy.PNG")
+meatImage = pyglet.resource.texture("Meat.png")
+boneImage = pyglet.resource.texture("bones.png")
 
 pistolImage1 = pyglet.resource.texture("gun copy.PNG")
 rifleImage1 = pyglet.resource.texture("Ak-47.png")
