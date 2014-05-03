@@ -2,6 +2,7 @@ import random
 import resources
 from Items import *
 from Death_Chicken import Death_Chicken
+from Death_Jelly import Death_Jelly
 from Tree import Tree
 
 # generates game rooms, where players will be transported depending on
@@ -40,8 +41,12 @@ class Room(object):
                     # dictionary, and save it to the list
                     if objectType == 'Enemy':
                         self.enemyNumber += 1
-                        NewEnemy = Death_Chicken(
-                            x=x, y=y)
+                        if random.choice(["Chicken", "Jelly"]) == "Chicken":
+                            NewEnemy = Death_Chicken(
+                                x=x, y=y)
+                        else:
+                            NewEnemy = Death_Jelly(x=x, y=y)
+
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
@@ -73,7 +78,11 @@ class Room(object):
                             add_Enemy = False
                     # If item is not already at location, adds new enemy
                     if add_Enemy:
-                        self.enemyNumber += 1
-                        NewEnemy = Death_Chicken(day=day, x=x, y=y)
+                        if random.choice(["Chicken", "Jelly"]) == "Chicken":
+                            NewEnemy = Death_Chicken(
+                                x=x, y=y)
+                        else:
+                            NewEnemy = Death_Jelly(x=x, y=y)
+
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)

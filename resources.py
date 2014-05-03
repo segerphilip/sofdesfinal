@@ -22,6 +22,15 @@ deathChicken1Image = pyglet.resource.texture("DeathChicken1.png")
 deathChicken2Image = pyglet.resource.texture("DeathChicken2.png")
 deathChickenImages = [deathChicken1Image, deathChicken2Image]
 
+deadChickenImage1 = pyglet.resource.texture("DeathChicken2Dead2.png")
+deadChickenImage2 = pyglet.resource.texture("DeathChickenDead.png")
+deadChickenImages = [deadChickenImage1,deadChickenImage2]
+
+deathJelly1Image = pyglet.resource.texture("Jellyfish13 copy.PNG")
+deathJelly2Image = pyglet.resource.texture("Jellyfish12.png")
+deathJellyImages = [deathJelly1Image, deathJelly2Image]
+deathJellyProjectileImage = pyglet.resource.texture("blotch.PNG")
+
 grass1 = pyglet.resource.texture("GrassEnvironment2 copy.png")
 grass2 = pyglet.resource.texture("GrassEnvironment copy.png")
 
@@ -39,7 +48,8 @@ playerGrid = TextureGrid(playerGrid)
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
 
-black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
+notificationBoxTexture = pyglet.resource.texture("HUDNotification.png")
+black_tile_large = pyglet.resource.texture("InventoryBox.png")
 grey_background = pyglet.resource.texture("grey_background.png")
 
 campfireImage = pyglet.resource.texture("CampFire.png")
@@ -63,3 +73,5 @@ femaleNames = ["Hannah", "Shrindoozle",
 
 healthAmount = pyglet.resource.texture("healthamount.png")
 healthBackground = pyglet.resource.texture("healthbackground.png")
+
+pyglet.font.add_file('resources/PressStart2P.ttf')

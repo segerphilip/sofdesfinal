@@ -1,5 +1,6 @@
 # View
 import resources
+import pyglet
 from rabbyt import Sprite, lerp, chain, set_time
 
 
@@ -16,6 +17,8 @@ class View():
             lerp(end=1, dt=3),
             lerp(end=0, dt=3))
 
+        for crew in self.model.crew:
+            crew.update(100)
         self.model.player.sleep = False
 
     def sunRise(self):
@@ -29,7 +32,14 @@ class View():
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
 
     def endscreen(self):
-        pass
+        self.window.clear()
+        #there's probably an easier way to draw 'end'
+        endLabel = pyglet.text.Label('Your adventure stops here...',
+            font_name='Press Start 2P',
+            font_size=36,
+            anchor_x='center' ,anchor_y='center',
+            x=800 ,y=450, color=(81,143,90, 255))
+        endLabel.draw()
 
     def update(self):
         set_time(self.model.time)
@@ -55,6 +65,10 @@ class View():
             for sprite in self.model.spritesOnScreen:
                 if sprite.viewable:
                     sprite.render()
+                    
+            for actor in self.model.actorsOnScreen:
+                for projectile in actor.projectiles:
+                    projectile.render()
 
             if self.model.contextMenu:
                 self.model.contextMenu.render()
@@ -68,8 +82,10 @@ class View():
             self.model.Health_Bar.render()
 
             self.model.notificationSystem.render()
-            self.blackout.render()
+            self.model.DayCounter.render()
 
             if self.model.inventoryMenu:
                 #if self.model.inventoryMenu.viewable:
                 self.model.inventoryMenu.render()
+
+            self.blackout.render()

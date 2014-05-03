@@ -8,6 +8,7 @@ from Tiles import *
 from Inventory import *
 from Health_Bar import Health_Bar
 from Notification_System import Notification_System
+from Day_Counter import Day_Counter
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -37,6 +38,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = [self.player]
 
         self.day = 1
+        self.daysTotal = 42
         self.dayTime = 300
 
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
@@ -46,11 +48,14 @@ class Model():  # sets window and player
             text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
 
-        self.notificationSystem = Notification_System(x=1450, y=50)
+        self.DayCounter = Day_Counter(self.daysTotal, x=150, y=50)
+
+        self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
 
     def new_day(self):
         self.day += 1
+        self.DayCounter.update()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.vt /= 3
@@ -111,6 +116,15 @@ class Model():  # sets window and player
                         actor.collideAngle = theta * 180 / pi
                     actor.check_collisions()
 
+            for projectile in actor.projectiles:
+                for collision in rabbyt.collide_single(projectiles, self.spritesOnScreen):
+                    if collision.viewable:
+                        if collision != actor:
+                            if projectile in actor.projectiles:
+                                actor.projectiles.remove(projectile)
+                        if isinstance(collision, Character) or isinstance(collision, Enemy):
+                            collision.health -= actor.damage
+
     def change_room(self):
         if self.player.newRoom == "up":
             if self.roomCoordinate[1] > 0:
@@ -148,7 +162,7 @@ class Model():  # sets window and player
 
     def return_crew(self):
         for crew in self.crew:
-                crew.return_home()
+            crew.return_home()
 
     def update(self, dt):
         self.dt = dt
@@ -163,6 +177,8 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player)
+                for projectile in sprite.projectiles:
+                    projectile.update()
                 if sprite.health <= 0:
                     sprite.die()
             elif isinstance(sprite, Character):

@@ -22,6 +22,7 @@ class Actor(InteractableItem):
         self.health = 100
         self.defense = 5
         self.inventory = []
+        self.projectiles = []
 
         self.interactable = False
 
