@@ -35,10 +35,10 @@ class View():
         self.window.clear()
         #there's probably an easier way to draw 'end'
         endLabel = pyglet.text.Label('Your adventure stops here...',
-            font_name='Times New Roman',
+            font_name='Press Start 2P',
             font_size=36,
             anchor_x='center' ,anchor_y='center',
-            x=800 ,y=450)
+            x=800 ,y=450, color=(81,143,90, 255))
         endLabel.draw()
 
     def update(self):
@@ -65,6 +65,10 @@ class View():
             for sprite in self.model.spritesOnScreen:
                 if sprite.viewable:
                     sprite.render()
+                    
+            for actor in self.model.actorsOnScreen:
+                for projectile in actor.projectiles:
+                    projectile.render()
 
             if self.model.contextMenu:
                 self.model.contextMenu.render()

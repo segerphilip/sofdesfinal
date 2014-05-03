@@ -6,7 +6,7 @@ from Bone import Bone
 from math import atan, cos, sin, pi
 
 
-class Enemy(Actor): # This defines the Enemy Class
+class Enemy(Actor):  # This defines the Enemy Class
 
     def __init__(self, day=1, *args, **kwargs):
         super(Enemy, self).__init__(*args, **kwargs)
@@ -21,14 +21,19 @@ class Enemy(Actor): # This defines the Enemy Class
 
         self.health = 100
         self.dead = False
+        
+        self.aggroDistance = 1000
+        self.attackDistance = 55
+
+        self.deathImage = random.choice(resources.deadChickenImages)
 
     def attack(self, player):
         if random.randint(1, 100) < 20:
             player.health -= self.damage * self.day
-            #print player.health
+            # print player.health
 
     def die(self):
-        self.texture = resources.deathChicken1Image
+        self.texture = self.deathImage
         self.interactable = True
         self.actions = ["Get Meat", "Get Bones"]
         self.vt = 0
@@ -37,10 +42,11 @@ class Enemy(Actor): # This defines the Enemy Class
         self.dead = True
 
     def perform_action(self, player, action):
-        if action is "Get Meat":
+        if action == "Get Meat":
             player.get_item(Meat(poisoned=(self.poison != 0)))
+            print player.inventory
             self.interactable = False
-        if action is "Get Bones":
+        if action == "Get Bones":
             player.get_item(Bone())
             self.interactable = False
 
@@ -79,11 +85,11 @@ class Enemy(Actor): # This defines the Enemy Class
 
     def aggro(self, player):
         self.check_player_distance(player)
-        if self.distance < 1000:
+        if self.distance < self.aggroDistance:
             self.vTheta = self.theta + 90
             self.vu = 250 * self.vt / (self.distance ** 1.25 + 20)
             self.set_orientation(self.theta)
-            if self.distance <= 55:
+            if self.distance <= self.attackDistance:
                 self.stop()
                 self.attack(player)
             else:

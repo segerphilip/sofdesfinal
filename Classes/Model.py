@@ -116,6 +116,15 @@ class Model():  # sets window and player
                         actor.collideAngle = theta * 180 / pi
                     actor.check_collisions()
 
+            for projectile in actor.projectiles:
+                for collision in rabbyt.collide_single(projectiles, self.spritesOnScreen):
+                    if collision.viewable:
+                        if collision != actor:
+                            if projectile in actor.projectiles:
+                                actor.projectiles.remove(projectile)
+                        if isinstance(collision, Character) or isinstance(collision, Enemy):
+                            collision.health -= actor.damage
+
     def change_room(self):
         if self.player.newRoom == "up":
             if self.roomCoordinate[1] > 0:
@@ -153,7 +162,7 @@ class Model():  # sets window and player
 
     def return_crew(self):
         for crew in self.crew:
-                crew.return_home()
+            crew.return_home()
 
     def update(self, dt):
         self.dt = dt
@@ -168,6 +177,8 @@ class Model():  # sets window and player
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player)
+                for projectile in sprite.projectiles:
+                    projectile.update()
                 if sprite.health <= 0:
                     sprite.die()
             elif isinstance(sprite, Character):

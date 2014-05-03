@@ -56,7 +56,7 @@ class Crew(InteractableItem):
             if "Foraging" not in self.states:
                 self.find_food()
                 self.states.append("Foraging")
-                self.forageTime = 1  # / (.1 * self.skills["Forging"])
+                self.forageTime = 1 / (.1 * self.skills["Forging"])
                 self.skills["Foraging"] += 1
             self.viewable = False
 
@@ -64,7 +64,7 @@ class Crew(InteractableItem):
             if "Hunting" not in self.states:
                 self.find_meat()
                 self.states.append("Hunting")
-                self.huntTime = 1  # / (.1 * self.skills["Forging"])
+                self.huntTime = 1 / (.1 * self.skills["Forging"])
                 self.skills["Hunting"] += 1
             self.viewable = False
 

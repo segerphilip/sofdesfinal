@@ -2,6 +2,7 @@ import random
 import resources
 from Items import *
 from Death_Chicken import Death_Chicken
+from Death_Jelly import Death_Jelly
 from Tree import Tree
 
 # generates game rooms, where players will be transported depending on
@@ -40,8 +41,12 @@ class Room(object):
                     # dictionary, and save it to the list
                     if objectType == 'Enemy':
                         self.enemyNumber += 1
-                        NewEnemy = Death_Chicken(
-                            x=x, y=y)
+                        if random.choice(["Chicken", "Jelly"]) == "Chicken":
+                            NewEnemy = Death_Chicken(
+                                x=x, y=y)
+                        else:
+                            NewEnemy = Death_Jelly(x=x, y=y)
+
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
@@ -51,20 +56,6 @@ class Room(object):
                         NewItem = Tree(x=x, y=y)
                         self.roomItems.append(NewItem)
         self.objectProbability = .00125
-        #new enemy type
-        for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
-            for y in xrange(self.margin, self.screenHeight - self.margin, self.boxSize):
-                # decides if object will be placed(probability)
-                if random.choice(range(0, 100)) <= (self.objectProbability * 100):
-                    objectType = random.choice(options)  # creates object type
-                    # if object type is enemy: place the object in the
-                    # dictionary, and save it to the list
-                    if objectType == 'Enemy':
-                        self.enemyNumber += 1
-                        NewEnemy = Death_Chicken(
-                            x=x, y=y)
-                        self.roomItems.append(NewEnemy)
-                        self.enemies.append(NewEnemy)
 
     def render_room(self):
         pass
@@ -87,7 +78,11 @@ class Room(object):
                             add_Enemy = False
                     # If item is not already at location, adds new enemy
                     if add_Enemy:
-                        self.enemyNumber += 1
-                        NewEnemy = Death_Chicken(day=day, x=x, y=y)
+                        if random.choice(["Chicken", "Jelly"]) == "Chicken":
+                            NewEnemy = Death_Chicken(
+                                x=x, y=y)
+                        else:
+                            NewEnemy = Death_Jelly(x=x, y=y)
+
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)
