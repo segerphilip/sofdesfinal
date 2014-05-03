@@ -159,5 +159,3 @@ class Character(Actor):
         self.stopX = False
         self.stopY = False
         self.health_shrink(dt)
-        print self.health
-

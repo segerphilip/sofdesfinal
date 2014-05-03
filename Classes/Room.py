@@ -51,6 +51,20 @@ class Room(object):
                         NewItem = Tree(x=x, y=y)
                         self.roomItems.append(NewItem)
         self.objectProbability = .00125
+        #new enemy type
+        for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
+            for y in xrange(self.margin, self.screenHeight - self.margin, self.boxSize):
+                # decides if object will be placed(probability)
+                if random.choice(range(0, 100)) <= (self.objectProbability * 100):
+                    objectType = random.choice(options)  # creates object type
+                    # if object type is enemy: place the object in the
+                    # dictionary, and save it to the list
+                    if objectType == 'Enemy':
+                        self.enemyNumber += 1
+                        NewEnemy = Death_Chicken(
+                            x=x, y=y)
+                        self.roomItems.append(NewEnemy)
+                        self.enemies.append(NewEnemy)
 
     def render_room(self):
         pass

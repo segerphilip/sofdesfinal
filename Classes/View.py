@@ -1,5 +1,6 @@
 # View
 import resources
+import pyglet
 from rabbyt import Sprite, lerp, chain, set_time
 
 
@@ -27,10 +28,16 @@ class View():
         self.model.day = True
         self.model.new_day()
         self.blackout.alpha = lerp(end=1, dt=self.model.dayTime)
-        print self.model.day
 
     def endscreen(self):
-        pass
+        self.window.clear()
+        #there's probably an easier way to draw 'end'
+        endLabel = pyglet.text.Label('Your adventure stops here...',
+            font_name='Times New Roman',
+            font_size=36,
+            anchor_x='center' ,anchor_y='center',
+            x=800 ,y=450)
+        endLabel.draw()
 
     def update(self):
         set_time(self.model.time)
