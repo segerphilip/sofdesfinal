@@ -19,12 +19,9 @@ class Death_Jelly(Enemy):  # This defines the Enemy Class
 
         self.aggroDistance = 1000
         self.attackDistance = 500
-<<<<<<< HEAD
+
         self.damage = .5
         self.range = 500
-=======
-        self.damage = 0
->>>>>>> e7401a1558ce63873c3ddd8ec916005f0ac2ed2c
 
         self.projectiles = []
         self.projectileTexture = resources.deathJellyProjectileImage
@@ -41,7 +38,6 @@ class Death_Jelly(Enemy):  # This defines the Enemy Class
 
             projectile.vt = 50
             self.projectiles.append(projectile)
-            print self.projectiles
 
         def update(self, dt, player):
 

@@ -8,13 +8,22 @@ class Notification_System(rabbyt.sprites.Sprite):
     def __init__(self, *args, **kwargs):
         super(Notification_System, self).__init__(*args, **kwargs)
         self.events = []
+        self.coordinates = "(0,0)"
         self.texture = resources.notificationBoxTexture
+
         self.label = (
             pyglet.text.Label(
                 text="Welcome", font_name='Press Start 2P', font_size=10, bold=False, color=(81,143,90, 255),
                 x=self.x, y=self.y+50,
                 anchor_x='center', anchor_y='center',
                 width=160, multiline=True))
+
+        self.coordinateLabel = (
+            pyglet.text.Label(
+                text=self.coordinates, font_name='Press Start 2P', font_size=8, color=(81,143,90, 255),
+                x=self.x+90, y=self.y - 80,
+                anchor_x='right', anchor_y='center'))
+
         self.empty = False
 
     def add_events(self, events):
@@ -27,6 +36,8 @@ class Notification_System(rabbyt.sprites.Sprite):
             if len(self.events) > 0:
                 del self.events[-1]
                 self.update()
+    def update_coordinates(self, coordinates):
+        self.coordinateLabel.text = coordinates
 
     def update(self):
         if len(self.events) > 0:
@@ -39,3 +50,4 @@ class Notification_System(rabbyt.sprites.Sprite):
         super(Notification_System, self).render()
         if not self.empty:
             self.label.draw()
+        self.coordinateLabel.draw()
