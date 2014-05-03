@@ -16,6 +16,8 @@ class View():
             lerp(end=1, dt=3),
             lerp(end=0, dt=3))
 
+        for crew in self.model.crew:
+            crew.update(100)
         self.model.player.sleep = False
 
     def sunRise(self):
@@ -67,7 +69,9 @@ class View():
             self.model.Health_Bar.render()
 
             self.model.notificationSystem.render()
-            self.blackout.render()
+            self.model.DayCounter.render()
 
             if self.model.inventoryMenu:
                 self.model.inventoryMenu.render()
+
+            self.blackout.render()

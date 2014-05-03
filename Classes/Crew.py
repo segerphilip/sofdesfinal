@@ -37,6 +37,8 @@ class Crew(InteractableItem):
         self.states = []
         self.eventsCaused = []
 
+        self.health = 100
+
         self.actions = ["Talk", "Feed", "Forage", "Hunt", "Forge"]
 
     def return_home(self):
@@ -99,27 +101,27 @@ class Crew(InteractableItem):
         if self.forgeTime > 0:
             self.forgeTime -= dt
         else:
-            self.weapons.append(self.weaponToMake)
+            self.weapons.extend(self.weaponToMake)
             self.states.remove("Forging")
-            self.states.append("Done Forging")
+            self.states.append("Return Weapon")
             self.eventsCaused.append(Event(self, "Done Forging"))
             self.return_home()
 
     def find_food(self):
         if choice(["Berry", "Wood"]) == "Berry":
-            for i in xrange(0, int((self.skills["Foraging"] / 5) + random() * self.skills["Foraging"])):
+            for i in xrange(0, int((1 + self.skills["Foraging"] / 5) + random() * self.skills["Foraging"])):
                 self.itemsToHave.append(Berry())
         else:
-            for i in xrange(0, int((self.skills["Foraging"] / 10) + random() * self.skills["Foraging"] / 2)):
+            for i in xrange(0, int((1 + self.skills["Foraging"] / 10) + random() * self.skills["Foraging"] / 2)):
                 self.itemsToHave.append(Wood())
 
     def forage(self, dt):
         if self.forageTime > 0:
             self.forageTime -= dt
         else:
-            self.items.append(self.itemsToHave)
+            self.items.extend(self.itemsToHave)
             self.states.remove("Foraging")
-            self.states.append("Done Foraging")
+            self.states.append("Return Food")
             self.eventsCaused.append(Event(self, "Done Foraging"))
             self.return_home()
 
@@ -131,18 +133,20 @@ class Crew(InteractableItem):
         if self.huntTime > 0:
             self.huntTime -= dt
         else:
-            self.items.append(self.itemsToHave)
+            self.items.extend(self.itemsToHave)
             self.states.remove("Hunting")
-            self.states.append("Done Hunting")
+            self.states.append("Return Meat")
             self.eventsCaused.append(Event(self, "Done Hunting"))
             self.return_home()
-            print self.items
 
     def talk(self, player):
-        print self.items
         for item in self.items:
             player.get_item(item)
-        self.eventsCaused.append(Event(self, self.states[-1]))
+        if len(self.states) > 0:
+            self.eventsCaused.append(Event(self, self.states[-1]))
+
+    def lower_health(self, dt):
+        self.health -= .1 * dt
 
     def update(self, dt):
         if "Forging" in self.states:
@@ -151,3 +155,8 @@ class Crew(InteractableItem):
             self.forage(dt)
         if "Hunting" in self.states:
             self.hunt(dt)
+
+        self.lower_health(dt)
+        if self.health <= 30 and "Hungry" not in self.states:
+            self.states.append("Hungry")
+            self.eventsCaused.append(Event(self, "Hungry"))

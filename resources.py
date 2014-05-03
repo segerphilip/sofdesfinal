@@ -39,7 +39,8 @@ playerGrid = TextureGrid(playerGrid)
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
 
-black_tile_large = pyglet.resource.texture("black_rectangle.jpeg")
+notificationBoxTexture = pyglet.resource.texture("HUDNotification.png")
+black_tile_large = pyglet.resource.texture("InventoryBox.png")
 grey_background = pyglet.resource.texture("grey_background.png")
 
 campfireImage = pyglet.resource.texture("CampFire.png")
@@ -63,3 +64,5 @@ femaleNames = ["Hannah", "Shrindoozle",
 
 healthAmount = pyglet.resource.texture("healthamount.png")
 healthBackground = pyglet.resource.texture("healthbackground.png")
+
+pyglet.font.add_file('resources/PressStart2P.ttf')

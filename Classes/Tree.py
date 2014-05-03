@@ -39,3 +39,4 @@ class Tree(InteractableItem):
         else:
             for berry in self.berries:
                 player.get_item(berry)
+            self.berries = []

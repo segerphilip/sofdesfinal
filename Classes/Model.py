@@ -8,6 +8,7 @@ from Tiles import *
 from Inventory import *
 from Health_Bar import Health_Bar
 from Notification_System import Notification_System
+from Day_Counter import Day_Counter
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -37,6 +38,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = [self.player]
 
         self.day = 1
+        self.daysTotal = 42
         self.dayTime = 300
 
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
@@ -46,11 +48,14 @@ class Model():  # sets window and player
             text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
 
-        self.notificationSystem = Notification_System(x=1450, y=50)
+        self.DayCounter = Day_Counter(self.daysTotal, x=150, y=50)
+
+        self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
 
     def new_day(self):
         self.day += 1
+        self.DayCounter.update()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.vt /= 3

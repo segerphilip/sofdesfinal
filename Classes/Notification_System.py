@@ -8,12 +8,13 @@ class Notification_System(rabbyt.sprites.Sprite):
     def __init__(self, *args, **kwargs):
         super(Notification_System, self).__init__(*args, **kwargs)
         self.events = []
-        self.texture = resources.silver_tile_large
+        self.texture = resources.notificationBoxTexture
         self.label = (
-            pyglet.text.Label(text="Welcome", font_name='Ariel', font_size=12,
-                              x=self.x, y=self.y,
-                              anchor_x='center', anchor_y='center',
-                              width=250, multiline=True))
+            pyglet.text.Label(
+                text="Welcome", font_name='Press Start 2P', font_size=10, bold=False, color=(81,143,90, 255),
+                x=self.x, y=self.y+50,
+                anchor_x='center', anchor_y='center',
+                width=160, multiline=True))
         self.empty = False
 
     def add_events(self, events):
