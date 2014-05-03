@@ -9,6 +9,7 @@ class Inventory(object):
         self.trigger = trigger
         self.items = items
         self.texture = resources.black_tile_large
+        #self.viewable = False
 
     def construct(self):
         self.entries = []
@@ -21,8 +22,9 @@ class Inventory(object):
             next_x = start_x
             next_y = start_y - i * (self.texture.height + 5)
             self.entries.append(InventoryEntry(item=self.items[i], x=next_x, y=next_y))
+        #self.viewable = True
 
-    def deconstruct(self):
+    def deconstruct(self): # not necessary?
         self.trigger = None
         self.entries = []
 
@@ -39,29 +41,19 @@ class InventoryEntry(object):
         self.y = y
 
         self.image = InventoryImage(item=self.item,x=self.x, y=self.y)
-        self.description = self.item.description
-
-        # self.background_texture = resources.grey_background
-        # self.background_x = self.x + self.background_texture.width/2 - self.image.texture.width/2
-        # self.background_y = self.y - self.background_texture.height/2 + self.image.texture.height/2#self.tile_texture.height/2
-        # self.background = InventoryBackground(self.background_x, self.background_y)
-
-        d = ItemDescription(self.item.inventory_count, self.item.weight, self.item.description)
-        self.description = d.construct_description()
+        self.description = [self.item.description, self.item.inventory_count, self.item.weight]
 
         self.tile_texture = resources.black_tile_large
         self.tile_x = self.x + self.image.texture.width + self.tile_texture.width/2
         self.tile_y = self.y
-        self.tile = Tile(text=self.description, texture=self.tile_texture, x=self.tile_x, y=self.tile_y)
-
-    def update(self, dt):
-        pass
+        self.tile = InventoryTile(text=self.description, texture=self.tile_texture, x=self.tile_x, y=self.tile_y)
 
     def render(self):
         #self.background.render()
         self.image.render()
         self.tile.render()
-        self.tile.label.draw()
+        for label in self.tile.labels:
+            label.draw()
 
 class InventoryImage(rabbyt.sprites.Sprite):
 
@@ -83,17 +75,21 @@ class InventoryImage(rabbyt.sprites.Sprite):
                 if self.clicked:
                     tile_texture = resources.black_tile_large
                     padding = 5
+
                     menu_x = self.x + 2 * self.texture.width + tile_texture.width + padding
-                    menu_y = self.y + self.texture.height/2
+                    menu_y = self.y
 
                     model.contextMenu = ContextMenu(model=model, trigger=self.item, options=self.item.actions, x=menu_x, y=menu_y)
                     model.contextMenu.invMenu = True
                     model.contextMenu.construct()
                 else:
+                    #self.viewable = False
                     model.contextMenu.deconstruct()
             else:
+               #self.viewable = False
                self.clicked = False
         else:
+           #self.viewable = False
            self.clicked = False
 
 class InventoryBackground(rabbyt.sprites.Sprite): # in progress
@@ -116,11 +112,6 @@ class InventoryButton(Button):
             if (y > (self.y - (self.texture.height / 2)) and y < (self.y + (self.texture.height / 2))):
                 self.clicked = not self.clicked
                 if self.clicked:
-
-                    #
-                    for i in model.player.inventory:
-                        print i.description
-                        print i.inventory_count
                     model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
                     model.inventoryMenu.construct()
 

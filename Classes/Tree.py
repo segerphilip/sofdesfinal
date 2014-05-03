@@ -36,6 +36,7 @@ class Tree(InteractableItem):
         if action == 'Cut Down':
             player.get_item(Wood())
             self.cut_down()
-        else:
+        elif action == 'Pick':
             for berry in self.berries:
                 player.get_item(berry)
+            self.berries = []

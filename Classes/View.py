@@ -62,7 +62,8 @@ class View():
             self.blackout.render()
 
             self.model.inventoryButton.render()
-            self.model.inventoryButton.label.draw()
+            for label in self.model.inventoryButton.labels:
+                label.draw()
 
             self.model.Health_Bar.render()
 
@@ -70,4 +71,5 @@ class View():
             self.blackout.render()
 
             if self.model.inventoryMenu:
+                #if self.model.inventoryMenu.viewable:
                 self.model.inventoryMenu.render()

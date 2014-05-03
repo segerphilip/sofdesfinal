@@ -32,7 +32,8 @@ class Menu(object):
     def render(self):
         for tile in self.tiles:
             tile.render()
-            tile.label.draw()
+            for label in tile.labels:
+                label.draw()
 
 class ContextMenu(Menu):
 
@@ -46,17 +47,21 @@ class ContextMenu(Menu):
 
         if self.invMenu:
             start_x = self.x
-            start_y = self.y
+            start_y = self.y + resources.black_tile_large.texture.height/2 - self.texture.height/2
+            for i in range(len(self.options)):
+                next_x = start_x
+                next_y = start_y - i * self.texture.height
+                self.tiles.append(Button(text=self.options[i],texture=self.texture,x=next_x, y=next_y))
+        
         else:
             start_x = self.x + \
                 2 * self.trigger.bounding_radius
             start_y = self.y + \
                 2 * self.trigger.bounding_radius
-
-        for i in range(len(self.options)):
-            next_x = start_x
-            next_y = start_y + i * self.texture.height
-            self.tiles.append(Button(text=self.options[i],texture=self.texture,x=next_x, y=next_y))
+            for i in range(len(self.options)):
+                next_x = start_x
+                next_y = start_y + i * self.texture.height
+                self.tiles.append(Button(text=self.options[i],texture=self.texture,x=next_x, y=next_y))
 
         new_coordinates = self.check_collisions(x=start_x, y=start_y)
 
@@ -99,7 +104,13 @@ class ContextMenu(Menu):
 
             # replacing the x and y coordinates of the menu
             self.tiles = []
-            for i in range(len(self.options)):
-                next_x = new_x
-                next_y = new_y + i * self.texture.height
-                self.tiles.append(Button(self.options[i],texture=self.texture,x=next_x,y=next_y))
+            if self.invMenu:
+                for i in range(len(self.options)):
+                    next_x = new_x
+                    next_y = new_y - i * self.texture.height
+                    self.tiles.append(Button(self.options[i],texture=self.texture,x=next_x,y=next_y))
+            else:
+                for i in range(len(self.options)):
+                    next_x = new_x
+                    next_y = new_y + i * self.texture.height
+                    self.tiles.append(Button(self.options[i],texture=self.texture,x=next_x,y=next_y))

@@ -1,5 +1,4 @@
-# All our Imports(self.trigbger.texture.height +
-# self.tiles[0].texture.height*len(self.tiles))
+# All our Imports
 import pyglet
 from Classes import *
 from pyglet.gl import *
