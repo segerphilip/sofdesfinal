@@ -24,7 +24,6 @@ def on_draw():
     else:
         v.endscreen()
 
-
 def update(dt):  # updates all the things
     if m.running:
         c.update()

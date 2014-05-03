@@ -21,7 +21,7 @@ class Enemy(Actor):  # This defines the Enemy Class
 
         self.health = 100
         self.dead = False
-        
+
         self.aggroDistance = 1000
         self.attackDistance = 55
 

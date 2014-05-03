@@ -79,7 +79,7 @@ class Room(object):
                     # If item is not already at location, adds new enemy
                     if add_Enemy:
                         if random.choice(["Chicken", "Jelly"]) == "Chicken":
-                            NewEnemy = Death_Chicken(
+                            NewEnemy = Death_Jelly(
                                 x=x, y=y)
                         else:
                             NewEnemy = Death_Jelly(x=x, y=y)

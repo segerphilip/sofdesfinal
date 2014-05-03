@@ -65,7 +65,7 @@ class View():
             for sprite in self.model.spritesOnScreen:
                 if sprite.viewable:
                     sprite.render()
-                    
+
             for actor in self.model.actorsOnScreen:
                 for projectile in actor.projectiles:
                     projectile.render()

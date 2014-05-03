@@ -117,7 +117,8 @@ class Model():  # sets window and player
                     actor.check_collisions()
 
             for projectile in actor.projectiles:
-                for collision in rabbyt.collide_single(projectiles, self.spritesOnScreen):
+                print projectile
+                for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
                     if collision.viewable:
                         if collision != actor:
                             if projectile in actor.projectiles:
@@ -178,7 +179,7 @@ class Model():  # sets window and player
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player)
                 for projectile in sprite.projectiles:
-                    projectile.update()
+                    projectile.update(dt)
                 if sprite.health <= 0:
                     sprite.die()
             elif isinstance(sprite, Character):
