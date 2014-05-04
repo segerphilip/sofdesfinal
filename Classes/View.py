@@ -11,6 +11,7 @@ class View():
         self.window = self.model.window
         self.blackout = Sprite(resources.blackout, x=800, y=450)
         self.blackout.alpha = .1
+        self.scream = resources.scream
 
     def sleep(self):
         self.blackout.alpha = chain(
@@ -33,6 +34,7 @@ class View():
 
     def endscreen(self):
         self.window.clear()
+        #self.scream.play()
         endLabel = pyglet.text.Label('Your adventure stops here...',
             font_name='Press Start 2P',
             font_size=36,
