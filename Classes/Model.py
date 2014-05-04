@@ -18,6 +18,7 @@ class Model():  # sets window and player
 
     def __init__(self, window):
         self.running = True
+        self.rescue = False
         self.window = window
         self.time = 0
 
@@ -38,7 +39,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = [self.player]
 
         self.day = 1
-        self.daysTotal = 42
+        self.daysTotal = 2
         self.dayTime = 300
 
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
@@ -222,4 +223,7 @@ class Model():  # sets window and player
         if self.player.enteringRoom:
             self.change_room()
         if self.player.health <= 0:
+            self.running = False
+        if self.day >= self.daysTotal:
+            self.rescue = True
             self.running = False

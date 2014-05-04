@@ -2,7 +2,6 @@ import rabbyt
 import pyglet
 import resources
 
-
 class Day_Counter(rabbyt.sprites.Sprite):
 
     def __init__(self, daysTotal, *args, **kwargs):
@@ -20,7 +19,7 @@ class Day_Counter(rabbyt.sprites.Sprite):
             anchor_x='center', anchor_y='center')
 
     def update(self):
-        self.days -= 1
+        self.days = self.days - 1
         self.label.text = str(self.days)
 
     def render(self):

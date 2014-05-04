@@ -20,6 +20,8 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 def on_draw():
     if m.running:
         v.update()
+    elif m.rescue:
+    	v.rescuescreen()
     else:
         v.endscreen()
 

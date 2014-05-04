@@ -33,11 +33,10 @@ class View():
 
     def endscreen(self):
         self.window.clear()
-        #there's probably an easier way to draw 'end'
         endLabel = pyglet.text.Label('Your adventure stops here...',
             font_name='Press Start 2P',
             font_size=36,
-            anchor_x='center' ,anchor_y='center',
+            anchor_x='center', anchor_y='center',
             x=800, y=450, color=(81,143,90,255))
         endSubLabel = pyglet.text.Label('The crew log was found years later. There were no survivors.',
             font_size=20,
@@ -45,6 +44,15 @@ class View():
             x=800, y=400, color=(81,143,90,255))
         endLabel.draw()
         endSubLabel.draw()
+
+    def rescuescreen(self):
+        self.window.clear()
+        endLabel = pyglet.text.Label('You were rescued...',
+            font_name='Press Start 2P',
+            font_size=36,
+            anchor_x='center', anchor_y='center',
+            x=800, y=450, color=(81,143,90,255))
+        endLabel.draw()
 
     def update(self):
         set_time(self.model.time)
