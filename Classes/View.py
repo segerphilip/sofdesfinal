@@ -38,8 +38,13 @@ class View():
             font_name='Press Start 2P',
             font_size=36,
             anchor_x='center' ,anchor_y='center',
-            x=800 ,y=450, color=(81,143,90, 255))
+            x=800, y=450, color=(81,143,90,255))
+        endSubLabel = pyglet.text.Label('The crew log was found years later. There were no survivors.',
+            font_size=20,
+            anchor_x='center', anchor_y='center',
+            x=800, y=400, color=(81,143,90,255))
         endLabel.draw()
+        endSubLabel.draw()
 
     def update(self):
         set_time(self.model.time)
