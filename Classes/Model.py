@@ -18,6 +18,7 @@ class Model():  # sets window and player
 
     def __init__(self, window):
         self.running = True
+        self.rescue = False
         self.window = window
         self.time = 0
 
@@ -38,7 +39,7 @@ class Model():  # sets window and player
         self.actorsOnScreen = [self.player]
 
         self.day = 1
-        self.daysTotal = 42
+        self.daysTotal = 2
         self.dayTime = 300
 
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
@@ -52,6 +53,16 @@ class Model():  # sets window and player
 
         self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
+
+    def calc_probablilties(self):
+        if random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Enemy_Attack_Event(self, "EnemyAttack"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Storm(self, "Storm"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Wildfire(self, "Wildfire"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Spring(self, "Spring"))
 
     def new_day(self):
         self.day += 1
@@ -212,4 +223,7 @@ class Model():  # sets window and player
         if self.player.enteringRoom:
             self.change_room()
         if self.player.health <= 0:
+            self.running = False
+        if self.day >= self.daysTotal:
+            self.rescue = True
             self.running = False

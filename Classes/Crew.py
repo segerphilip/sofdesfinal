@@ -39,7 +39,7 @@ class Crew(InteractableItem):
 
         self.health = 100
 
-        self.actions = ["Talk", "Feed", "Forage", "Hunt", "Forge"]
+        self.actions = ["Talk", "Feed", "Forage", "Hunt", "Forge", "Give"]
 
     def return_home(self):
         self.viewable = True
@@ -74,6 +74,7 @@ class Crew(InteractableItem):
 
         elif action == "Forge":
             if "Forging" not in self.states:
+<<<<<<< HEAD
                 enoughWood = False
                 enoughMetal = False
                 for item in player.inventory:
@@ -93,6 +94,18 @@ class Crew(InteractableItem):
                     self.make_weapon(player)
                 else:
                     self.eventsCaused.append(Crew_Event(self, "Can't Forge"))
+=======
+                self.states.append("Forging")
+                self.forgeTime = 1 / (.1 * self.skills["Forging"])
+                self.make_weapon(player)
+        elif action == "Give":
+            if "Give" not in self.states:
+                self.states.append("Give")
+                self.give()
+
+    def give():
+        pass
+>>>>>>> 8f5ff6388c7d70d1db46660518a99b316f7092c5
 
     def make_weapon(self, player):
         effects = []
@@ -164,6 +177,11 @@ class Crew(InteractableItem):
     def lower_health(self, dt):
         self.health -= .1 * dt
 
+    def calc_probablilties(self):
+        if random.rand_int(1, 100) <= 10:
+            self.eventsCaused.append(Get_Sick_Event(self, "Sick"))
+        if random.rand_int(1, 100) <= 10:
+            self.eventsCaused.append()
     def update(self, dt):
         if "Forging" in self.states:
             self.forge(dt)

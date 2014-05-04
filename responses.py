@@ -37,6 +37,11 @@ jerkHungryText = ["I need all of our food", "The world can't lose me, feed me",
                   "Brah hit me up w/ some jerky my tummy's got the rumblies"]
 jerkEvents.update({"Hungry": jerkHungryText})
 
+# I'm sick
+jerkSickText = ["Gee thanks cap, I'm sick. Stay away from me cuz karma's a bitch",
+				"Hey cap, I'm sick. Ya better gimme some hot tea and TLC"]
+jerkEvents.update({"Sick": jerkSickText})
+
 personalities.update({"Jerk": jerkEvents})
 
 # Sweet Heart Event Responses
@@ -69,6 +74,8 @@ sweetHeartEvents.update({"Return Meat": sweetHeartReturnMeatText})
 # I'm hungry
 sweetHeartHungryText = ["I know we all need food, but captain, I'm dying", "Please captain, feed me"]
 sweetHeartEvents.update({"Hungry": sweetHeartHungryText})
-
+# I'm sick
+sweetHeartSickText = ["Captain, I'm sick stay away from me for all our good",
+                "Hey cap, I'm sick. I would cuddle with you but I care about our group too much"]
+sweetHeartEvents.update({"Sick": sweetHeartSickText})
 personalities.update({"sweetHeart": sweetHeartEvents})
-
