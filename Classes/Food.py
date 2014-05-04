@@ -12,10 +12,10 @@ class Food(InteractableItem):
             player.get_item(self)
             self.viewable = False
         elif action == 'Eat':
-        	player.health += 10
-                if self.inventory_count > 1:
-                    self.inventory_count -= 1
-                else:
-                    player.inventory.remove(self)
+            player.health += 10
+            if self.inventory_count > 1:
+                self.inventory_count -= 1
+            else:
+                player.inventory.remove(self)
         elif action == 'Drop':
-        	player.drop_item(self)
+            player.drop_item(self)

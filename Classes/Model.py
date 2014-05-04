@@ -223,6 +223,9 @@ class Model():  # sets window and player
 
         self.Health_Bar.update(self.player.health)
 
+        if self.inventoryMenu:
+            self.inventoryMenu.update(self)
+
         if self.player.enteringRoom:
             self.change_room()
         if self.player.health <= 0:

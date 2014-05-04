@@ -79,10 +79,12 @@ class Controller():
                 if self.model.inventoryMenu:
                     # clicking sprites in the inventory menu
                     if self.model.inventoryButton.clicked:
+                        self.model.inventoryMenu.viewable = True
                         for entry in self.model.inventoryMenu.entries:
                             entry.image.on_click(model=self.model, x=x, y=y)
                     else:
-                        self.model.inventoryMenu.deconstruct()
+                        self.model.inventoryMenu.viewable = False
+                        # self.model.inventoryMenu.deconstruct()
 
                 self.model.notificationSystem.on_click(x, y)
 

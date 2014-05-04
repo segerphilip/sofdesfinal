@@ -9,24 +9,26 @@ class Inventory(object):
         self.trigger = trigger
         self.items = items
         self.texture = resources.black_tile_large
-        #self.viewable = False
+        self.viewable = False
+
+        self.image_texture_length = 50
+        self.start_x = self.trigger.x - (self.trigger.texture.width/2) + (self.image_texture_length/2)
+        self.start_y = self.trigger.y - (self.trigger.texture.height/2) - self.texture.height/2 - 5
 
     def construct(self):
         self.entries = []
-
-        image_texture = resources.treeImage
-        start_x = self.trigger.x - (self.trigger.texture.width/2) + (image_texture.width/2)
-        start_y = self.trigger.y - (self.trigger.texture.height/2) - self.texture.height/2 - 5
-        
+  
         for i in range(len(self.items)):
-            next_x = start_x
-            next_y = start_y - i * (self.texture.height + 5)
+            next_x = self.start_x
+            next_y = self.start_y - i * (self.texture.height + 5)
             self.entries.append(InventoryEntry(item=self.items[i], x=next_x, y=next_y))
-        #self.viewable = True
 
-    def deconstruct(self): # not necessary?
-        self.trigger = None
-        self.entries = []
+    # def deconstruct(self): # not necessary?
+    #     self.trigger = None
+    #     self.entries = []
+    def update(self,player):
+        for entry in self.entries:
+            entry.update()
 
     def render(self):
         #self.background.render()
@@ -54,6 +56,9 @@ class InventoryEntry(object):
         self.tile.render()
         for label in self.tile.labels:
             label.draw()
+
+    def update(self):
+        self.tile = InventoryTile(text=[self.item.description,self.item.inventory_count,self.item.weight],texture=self.tile_texture,x=self.tile_x,y=self.tile_y)
 
 class InventoryImage(rabbyt.sprites.Sprite):
 
@@ -112,9 +117,11 @@ class InventoryButton(Button):
             if (y > (self.y - (self.texture.height / 2)) and y < (self.y + (self.texture.height / 2))):
                 self.clicked = not self.clicked
                 if self.clicked:
-                    model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
-                    model.inventoryMenu.construct()
-
+                    if not model.inventoryMenu:
+                        model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
+                        model.inventoryMenu.construct()
+                    else:
+                        model.inventoryMenu.update(model)
                 else:
-                    model.inventoryMenu.deconstruct()
+                    #model.inventoryMenu.deconstruct()
                     self.clicked = False
