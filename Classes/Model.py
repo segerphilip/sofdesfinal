@@ -53,6 +53,16 @@ class Model():  # sets window and player
         self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
 
+    def calc_probablilties(self):
+        if random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Enemy_Attack_Event(self, "EnemyAttack"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Storm(self, "Storm"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Wildfire(self, "Wildfire"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Spring(self, "Spring"))
+
     def new_day(self):
         self.day += 1
         self.DayCounter.update()
