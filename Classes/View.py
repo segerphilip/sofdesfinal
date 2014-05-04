@@ -100,7 +100,7 @@ class View():
             self.model.DayCounter.render()
 
             if self.model.inventoryMenu:
-                #if self.model.inventoryMenu.viewable:
-                self.model.inventoryMenu.render()
+                if self.model.inventoryMenu.viewable:
+                    self.model.inventoryMenu.render()
 
             self.blackout.render()

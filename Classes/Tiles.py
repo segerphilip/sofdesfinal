@@ -8,8 +8,6 @@ class Tile(rabbyt.sprites.Sprite):
         super(Tile, self).__init__(*args, **kwargs)
         self.text = text
         self.texture = texture
-        #self.labels = [pyglet.text.Label(self.text, font_name='Ariel', font_size=12, 
-        #    x=self.x, y=self.y, anchor_x='center', anchor_y='center')]
 
 class Button(Tile):
 
