@@ -77,3 +77,5 @@ healthAmount = pyglet.resource.texture("healthamount.png")
 healthBackground = pyglet.resource.texture("healthbackground.png")
 
 pyglet.font.add_file('resources/PressStart2P.ttf')
+
+scream = pyglet.resource.media("scream.mp3")
