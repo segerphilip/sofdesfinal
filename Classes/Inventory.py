@@ -26,7 +26,17 @@ class Inventory(object):
     # def deconstruct(self): # not necessary?
     #     self.trigger = None
     #     self.entries = []
-    def update(self,player):
+    def update(self, player):
+        newItems = []
+        playerInventoryItems = [item for item in player.inventory]
+        entryItemTypes = [type(item) for item in [entry.item for entry in self.entries]]
+        
+        for item in playerInventoryItems:
+            if type(item) not in entryItemTypes:
+                newItems.append(item)
+
+        for item in newItems:
+            self.entries.append(InventoryEntry(item=item, x=self.start_x, y=self.start_y-len(self.entries)*(self.texture.height + 5)))
         for entry in self.entries:
             entry.update()
 
@@ -58,7 +68,7 @@ class InventoryEntry(object):
             label.draw()
 
     def update(self):
-        self.tile = InventoryTile(text=[self.item.description,self.item.inventory_count,self.item.weight],texture=self.tile_texture,x=self.tile_x,y=self.tile_y)
+        self.tile = InventoryTile(text=[self.item.description, self.item.inventory_count, self.item.weight], texture=self.tile_texture,x=self.tile_x,y=self.tile_y)
 
 class InventoryImage(rabbyt.sprites.Sprite):
 

@@ -8,7 +8,7 @@ class Item(rabbyt.sprites.Sprite):
 
     def __init__(self, description="Description", *args, **kwargs):
         super(Item, self).__init__(*args, **kwargs)
-        
+
         self.scale_x = 1
         self.scale_y = 1
 
@@ -18,6 +18,7 @@ class Item(rabbyt.sprites.Sprite):
 
     def update(self, dt):
         pass
+
 
 class InteractableItem(Item):
 
@@ -39,14 +40,15 @@ class InteractableItem(Item):
             self.viewable = False
             self.interactable = False
 
-    def on_click(self,model,x,y):
+    def on_click(self, model, x, y):
 
         if self.interactable:
             if (x > (self.x - self.bounding_radius) and x < (self.x + self.bounding_radius)):
                 if (y > (self.y - self.bounding_radius) and y < (self.y + self.bounding_radius)):
                     self.clicked = not self.clicked
                     if self.clicked:
-                        model.contextMenu = ContextMenu(model=model, trigger=self, options=self.actions, x=self.x, y=self.y)
+                        model.contextMenu = ContextMenu(
+                            model=model, trigger=self, options=self.actions, x=self.x, y=self.y)
                         model.contextMenu.construct()
                     else:
                         model.contextMenu.deconstruct()
