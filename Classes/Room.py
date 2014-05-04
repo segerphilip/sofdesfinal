@@ -80,9 +80,9 @@ class Room(object):
                     if add_Enemy:
                         if random.choice(["Chicken", "Jelly"]) == "Chicken":
                             NewEnemy = Death_Jelly(
-                                x=x, y=y)
+                                x=x, y=y, day=day)
                         else:
-                            NewEnemy = Death_Jelly(x=x, y=y)
+                            NewEnemy = Death_Jelly(x=x, y=y, day=day)
 
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)

@@ -38,8 +38,9 @@ class Model():  # sets window and player
         self.crew = self.room.crew
         self.actorsOnScreen = [self.player]
 
-        self.day = 1
-        self.daysTotal = 2
+        self.day = True
+        self.days = 1
+        self.daysTotal = 4
         self.dayTime = 300
 
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
@@ -65,14 +66,15 @@ class Model():  # sets window and player
             self.eventsQueue.append(Spring(self, "Spring"))
 
     def new_day(self):
-        self.day += 1
+        self.days += 1
         self.DayCounter.update()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.vt /= 3
         for room in self.map.itervalues():
             if not isinstance(room, Base):
-                room.update_enemies(self.day)
+                room.update_enemies(self.days)
+        print self.days
 
     def new_night(self):
         for sprite in self.spritesOnScreen:
@@ -134,7 +136,8 @@ class Model():  # sets window and player
                             if projectile in actor.projectiles:
                                 actor.projectiles.remove(projectile)
                         if isinstance(collision, Character) or isinstance(collision, Enemy):
-                            collision.health -= actor.damage
+                            collision.health -= actor.damage + \
+                                actor.day ** 1.25
 
     def change_room(self):
         if self.player.newRoom == "up":
@@ -224,6 +227,6 @@ class Model():  # sets window and player
             self.change_room()
         if self.player.health <= 0:
             self.running = False
-        if self.day >= self.daysTotal:
+        if self.days > self.daysTotal:
             self.rescue = True
             self.running = False

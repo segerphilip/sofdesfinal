@@ -21,9 +21,10 @@ def on_draw():
     if m.running:
         v.update()
     elif m.rescue:
-    	v.rescuescreen()
+        v.rescuescreen()
     else:
         v.endscreen()
+
 
 def update(dt):  # updates all the things
     if m.running:
