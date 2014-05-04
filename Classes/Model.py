@@ -26,7 +26,7 @@ class Model():  # sets window and player
 
         self.mapSizeX = 5
         self.mapSizeY = 5
-        self.baseCoordinate = (self.mapSizeX / 2, self.mapSizeY / 2)
+        self.baseCoordinate = (0, 0)
         self.create_map()
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
@@ -53,6 +53,16 @@ class Model():  # sets window and player
         self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
 
+    def calc_probablilties(self):
+        if random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Enemy_Attack_Event(self, "EnemyAttack"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Storm(self, "Storm"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Wildfire(self, "Wildfire"))
+        elif random.rand_int(1, 100) <= 10:
+            self.eventsQueue.append(Spring(self, "Spring"))
+
     def new_day(self):
         self.day += 1
         self.DayCounter.update()
@@ -70,8 +80,8 @@ class Model():  # sets window and player
 
     def create_map(self):
         self.map = {}
-        for row in xrange(0, self.mapSizeX):
-            for column in xrange(0, self.mapSizeY):
+        for row in xrange((-self.mapSizeX - 1) / 2, ((self.mapSizeX - 1) / 2) + 1):
+            for column in xrange((-self.mapSizeY - 1) / 2, ((self.mapSizeY - 1) / 2) + 1):
                 if row == self.baseCoordinate[0] and column == self.baseCoordinate[1]:
                     self.map.update(
                         {(row, column): Base(self.window.width, self.window.height)})
@@ -117,7 +127,7 @@ class Model():  # sets window and player
                     actor.check_collisions()
 
             for projectile in actor.projectiles:
-                for collision in rabbyt.collide_single(projectiles, self.spritesOnScreen):
+                for collision in rabbyt.collisions.collide_single(projectile, self.spritesOnScreen):
                     if collision.viewable:
                         if collision != actor:
                             if projectile in actor.projectiles:
@@ -127,25 +137,25 @@ class Model():  # sets window and player
 
     def change_room(self):
         if self.player.newRoom == "up":
-            if self.roomCoordinate[1] > 0:
+            if self.roomCoordinate[1] > -self.mapSizeY / 2:
                 self.roomCoordinate = (
                     self.roomCoordinate[0], self.roomCoordinate[1] - 1)
                 self.player.enterNewRoom()
                 self.newRoom = True
         elif self.player.newRoom == "down":
-            if self.roomCoordinate[1] < self.mapSizeY - 1:
+            if self.roomCoordinate[1] < self.mapSizeY / 2:
                 self.roomCoordinate = (
                     self.roomCoordinate[0], self.roomCoordinate[1] + 1)
                 self.player.enterNewRoom()
                 self.newRoom = True
         elif self.player.newRoom == "right":
-            if self.roomCoordinate[0] < self.mapSizeX - 1:
+            if self.roomCoordinate[0] < self.mapSizeX / 2:
                 self.roomCoordinate = (
                     self.roomCoordinate[0] + 1, self.roomCoordinate[1])
                 self.player.enterNewRoom()
                 self.newRoom = True
         elif self.player.newRoom == "left":
-            if self.roomCoordinate[0] > 0:
+            if self.roomCoordinate[0] > -self.mapSizeX / 2:
                 self.roomCoordinate = (
                     self.roomCoordinate[0] - 1, self.roomCoordinate[1])
                 self.player.enterNewRoom()
@@ -159,6 +169,8 @@ class Model():  # sets window and player
             self.actorsOnScreen = self.room.enemies
             self.actorsOnScreen.append(self.player)
             self.newRoom = False
+            self.notificationSystem.update_coordinates(
+                str(self.roomCoordinate))
 
     def return_crew(self):
         for crew in self.crew:
@@ -178,7 +190,7 @@ class Model():  # sets window and player
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player)
                 for projectile in sprite.projectiles:
-                    projectile.update()
+                    projectile.update(dt)
                 if sprite.health <= 0:
                     sprite.die()
             elif isinstance(sprite, Character):

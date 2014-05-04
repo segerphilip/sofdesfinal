@@ -32,4 +32,11 @@ jerkEvents.update({"Return Meat": jerkReturnMeatText})
 jerkHungryText = ["I need all of our food", "The world can't lose me, feed me"]
 jerkEvents.update({"Hungry": jerkHungryText})
 
+# I'm sick
+jerkSickText = ["Gee thanks cap, I'm sick. Stay away from me cuz karma's a bitch",
+				"Hey cap, I'm sick. Ya better gimme some hot tea and TLC"]
+jerkEvents.update({"Sick": jerkSickText})
+
 personalities.update({"Jerk": jerkEvents})
+
+

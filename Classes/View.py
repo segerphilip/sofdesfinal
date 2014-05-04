@@ -70,7 +70,7 @@ class View():
             for sprite in self.model.spritesOnScreen:
                 if sprite.viewable:
                     sprite.render()
-                    
+
             for actor in self.model.actorsOnScreen:
                 for projectile in actor.projectiles:
                     projectile.render()
@@ -81,7 +81,8 @@ class View():
             self.blackout.render()
 
             self.model.inventoryButton.render()
-            self.model.inventoryButton.label.draw()
+            for label in self.model.inventoryButton.labels:
+                label.draw()
 
             self.model.Health_Bar.render()
 
@@ -89,6 +90,7 @@ class View():
             self.model.DayCounter.render()
 
             if self.model.inventoryMenu:
+                #if self.model.inventoryMenu.viewable:
                 self.model.inventoryMenu.render()
 
             self.blackout.render()

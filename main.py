@@ -1,5 +1,4 @@
-# All our Imports(self.trigbger.texture.height +
-# self.tiles[0].texture.height*len(self.tiles))
+# All our Imports
 import pyglet
 from Classes import *
 from pyglet.gl import *
@@ -23,7 +22,6 @@ def on_draw():
         v.update()
     else:
         v.endscreen()
-
 
 def update(dt):  # updates all the things
     if m.running:
