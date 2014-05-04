@@ -22,8 +22,7 @@ class Character(Actor):
         self.vTheta = self.rot
         self.movingBackward = False
 
-        self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
-            effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
+        self.weapons = [Weapon(range=800, damage=10, fireRate=.15)]
 
         self.weaponNum = 0
         self.weapon = self.weapons[self.weaponNum]

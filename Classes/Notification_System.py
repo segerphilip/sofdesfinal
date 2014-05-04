@@ -14,14 +14,14 @@ class Notification_System(rabbyt.sprites.Sprite):
         self.label = (
             pyglet.text.Label(
                 text="Welcome", font_name='Press Start 2P', font_size=10, bold=False, color=(81,143,90, 255),
-                x=self.x, y=self.y+50,
-                anchor_x='center', anchor_y='center',
+                x=self.x-85, y=self.y+85,
+                anchor_x='left', anchor_y='top',
                 width=160, multiline=True))
 
         self.coordinateLabel = (
             pyglet.text.Label(
                 text=self.coordinates, font_name='Press Start 2P', font_size=8, color=(81,143,90, 255),
-                x=self.x+90, y=self.y - 80,
+                x=self.x+85, y=self.y - 75,
                 anchor_x='right', anchor_y='center'))
 
         self.empty = False

@@ -4,7 +4,7 @@ from Wood import Wood
 from Meat import Meat
 from Weapon import Weapon
 from random import choice, random
-from Event import Event
+from Event import *
 import resources
 import responses
 
@@ -74,9 +74,25 @@ class Crew(InteractableItem):
 
         elif action == "Forge":
             if "Forging" not in self.states:
-                self.states.append("Forging")
-                self.forgeTime = 1 / (.1 * self.skills["Forging"])
-                self.make_weapon(player)
+                enoughWood = False
+                enoughMetal = False
+                for item in player.inventory:
+                    if isinstance(item, Wood):
+                        if item.inventory_count > 5 + .5* self.skills["Forging"]:
+                            enoughWood = True
+                    if isinstance(item, Metal):
+                        if item.inventory.count > 5 + .5* self.skills["Forging"]:
+                            enoughMetal = True
+
+                if enoughWood and enoughMetal:
+                    for item in player.inventory:
+                        if isinstance(item, Wood) or isinstance(item, Metal):
+                            item.inventory_count -= 5
+                    self.states.append("Forging")
+                    self.forgeTime = 1 / (.1 * self.skills["Forging"])
+                    self.make_weapon(player)
+                else:
+                    self.eventsCaused.append(Crew_Event(self, "Can't Forge"))
 
     def make_weapon(self, player):
         effects = []

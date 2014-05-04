@@ -49,6 +49,8 @@ silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
 
 notificationBoxTexture = pyglet.resource.texture("HUDNotification.png")
+dayCounterTexture = pyglet.resource.texture("InventoryBox.png")
+
 black_tile_large = pyglet.resource.texture("InventoryBox.png")
 grey_background = pyglet.resource.texture("grey_background.png")
 

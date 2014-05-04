@@ -48,7 +48,7 @@ class Model():  # sets window and player
             text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
 
-        self.DayCounter = Day_Counter(self.daysTotal, x=150, y=50)
+        self.DayCounter = Day_Counter(self.daysTotal, x=175, y=75)
 
         self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
