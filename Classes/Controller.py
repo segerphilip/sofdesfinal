@@ -56,11 +56,17 @@ class Controller():
                 if self.model.contextMenu:
                     # clicking an option in a context menu -> trigger character
                     # action
-                    if distance < 500:
+                    if not self.model.contextMenu.invMenu:
+                        if distance < 500:
+                            for tile in self.model.contextMenu.tiles:
+                                tile.on_click(
+                                    self.model.contextMenu, self.model.player, x, y)
+                        # if no item is clicked, close the context menu
+                            if not itemClicked:
+                                self.model.contextMenu.deconstruct()
+                    else:
                         for tile in self.model.contextMenu.tiles:
-                            tile.on_click(
-                                self.model.contextMenu, self.model.player, x, y)
-                    # if no item is clicked, close the context menu
+                            tile.on_click(self.model.contextMenu, self.model.player, x, y)
                         if not itemClicked:
                             self.model.contextMenu.deconstruct()
 
@@ -84,7 +90,6 @@ class Controller():
                             entry.image.on_click(model=self.model, x=x, y=y)
                     else:
                         self.model.inventoryMenu.viewable = False
-                        # self.model.inventoryMenu.deconstruct()
 
                 self.model.notificationSystem.on_click(x, y)
 

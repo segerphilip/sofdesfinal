@@ -98,13 +98,10 @@ class InventoryImage(rabbyt.sprites.Sprite):
                     model.contextMenu.invMenu = True
                     model.contextMenu.construct()
                 else:
-                    #self.viewable = False
                     model.contextMenu.deconstruct()
             else:
-               #self.viewable = False
                self.clicked = False
         else:
-           #self.viewable = False
            self.clicked = False
 
 class InventoryBackground(rabbyt.sprites.Sprite): # in progress
