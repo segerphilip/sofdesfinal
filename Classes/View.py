@@ -73,9 +73,6 @@ class View():
 
         self.window.clear()
 
-        if self.blackout.alpha >= .99:
-            self.model.return_crew()
-
         if self.model.player.sleep:
             self.sleep()
         else:

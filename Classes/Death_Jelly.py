@@ -20,7 +20,7 @@ class Death_Jelly(Enemy):  # This defines the Enemy Class
         self.aggroDistance = 1000
         self.attackDistance = 500
 
-        self.damage = .15
+        self.damage = .05
         self.range = 500
 
         self.projectiles = []

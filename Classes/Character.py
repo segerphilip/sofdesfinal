@@ -22,7 +22,7 @@ class Character(Actor):
         self.vTheta = self.rot
         self.movingBackward = False
 
-        self.weapons = [Weapon(range=800, damage=10, fireRate=.15)]
+        self.weapons = [Weapon(range=800, damage=15, fireRate=.15)]
 
         self.weaponNum = 0
         self.weapon = self.weapons[self.weaponNum]

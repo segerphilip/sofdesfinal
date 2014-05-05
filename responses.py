@@ -51,8 +51,8 @@ jerkThanksText = ["About time you brought food", "Ah this tastes awful, but I'll
 jerkEvents.update({"Thanks": jerkThanksText})
 
 # Dead
-jerkDeadText = ["Good bye cruel world", "When they rescue us, tell my mother I loved her. Goodbye Captain"]
-jerkEvents.update({"Thanks": jerkDeadText})
+jerkDeadText = ["I blame you on my death", "How could the world lose me?!"]
+jerkEvents.update({"Dead": jerkDeadText})
 
 personalities.update({"Jerk": jerkEvents})
 
@@ -102,6 +102,6 @@ sweetHeartEvents.update({"Thanks": sweetHeartThanksText})
 
 # Dead
 sweetHeartDeadText = ["Good bye cruel world", "When they rescue us, tell my mother I loved her. Goodbye Captain"]
-sweetHeartEvents.update({"Thanks": sweetHeartDeadText})
+sweetHeartEvents.update({"Dead": sweetHeartDeadText})
 
 personalities.update({"sweetHeart": sweetHeartEvents})
