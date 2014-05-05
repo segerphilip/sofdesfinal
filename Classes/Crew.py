@@ -3,7 +3,7 @@ from Berry import Berry
 from Wood import Wood
 from Meat import Meat
 from Weapon import Weapon
-from random import choice, random
+from random import choice, random, randint
 from Event import *
 import resources
 import responses
@@ -176,11 +176,10 @@ class Crew(InteractableItem):
         self.health -= .1 * dt
 
     def calc_probablilties(self):
-        if random.rand_int(1, 100) <= 10:
+        if randint(1, 10000) <= 1:
             self.eventsCaused.append(Get_Sick_Event(self, "Sick"))
-        if random.rand_int(1, 100) <= 10:
-            self.eventsCaused.append()
     def update(self, dt):
+        self.calc_probablilties()
         if "Forging" in self.states:
             self.forge(dt)
         if "Foraging" in self.states:

@@ -25,6 +25,7 @@ class Room(object):
         self.enemyNumber = 0
         self.itemNumber = 0
         self.roomItems = []
+        self.trees = []
         self.generate_room()
 
     def generate_room(self):
@@ -55,6 +56,7 @@ class Room(object):
                         self.itemNumber += 1
                         NewItem = Tree(x=x, y=y)
                         self.roomItems.append(NewItem)
+                        self.trees.append(NewItem)
         self.objectProbability = .00125
 
     def render_room(self):
