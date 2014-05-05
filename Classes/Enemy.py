@@ -42,9 +42,10 @@ class Enemy(Actor):  # This defines the Enemy Class
         self.dead = True
 
     def perform_action(self, player, action):
+        self.interactable = False
+        self.viewable = False
         if action == "Get Meat":
             player.get_item(Meat(poisoned=(self.poison != 0)))
-            print player.inventory
             self.interactable = False
         if action == "Get Bones":
             player.get_item(Bone())

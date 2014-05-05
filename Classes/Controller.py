@@ -80,10 +80,11 @@ class Controller():
                 if distance < 100:
                     for item in self.model.room.roomItems:
                         # if clicked, opens item's context menu of actions
-                        item.on_click(model=self.model, x=x, y=y)
-                        if item.clicked:
-                            # keeps track of whether an item is clicked
-                            itemClicked = True
+                        if item.interactable:
+                            item.on_click(model=self.model, x=x, y=y)
+                            if item.clicked:
+                                # keeps track of whether an item is clicked
+                                itemClicked = True
 
                 # clicking the inventory button -> inventory menu
                 self.model.inventoryButton.on_click(

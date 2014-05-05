@@ -34,6 +34,7 @@ deadChickenImages = [deadChickenImage1,deadChickenImage2]
 deathJelly1Image = pyglet.resource.texture("Jellyfish13 copy.PNG")
 deathJelly2Image = pyglet.resource.texture("Jellyfish12.png")
 deathJellyImages = [deathJelly1Image, deathJelly2Image]
+deadJellyImage = pyglet.resource.texture("deadJelly.png")
 deathJellyProjectileImage = pyglet.resource.texture("blotch.PNG")
 
 grass1 = pyglet.resource.texture("NewBackground1.png")

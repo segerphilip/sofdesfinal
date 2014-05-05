@@ -25,7 +25,7 @@ class Death_Jelly(Enemy):  # This defines the Enemy Class
 
         self.projectiles = []
         self.projectileTexture = resources.deathJellyProjectileImage
-        self.deathImage = random.choice(resources.deathJellyImages)
+        self.deathImage = resources.deadJellyImage
 
     def attack(self, player):
         if random.randint(1, 100) <= 5:
