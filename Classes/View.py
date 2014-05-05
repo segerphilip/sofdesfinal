@@ -34,7 +34,7 @@ class View():
 
     def endscreen(self):
         self.window.clear()
-        #self.scream.play()
+        self.scream.play()
         endLabel = pyglet.text.Label('Your adventure stops here...',
             font_name='Press Start 2P',
             font_size=36,
