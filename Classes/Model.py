@@ -20,6 +20,7 @@ from Event import *
 class Model():  # sets window and player
 
     def __init__(self, window):
+        self.starting = True
         self.running = True
         self.rescue = False
         self.window = window

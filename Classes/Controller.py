@@ -36,6 +36,11 @@ class Controller():
                 self.model.player.vt = 160
                 self.model.animRate = .15
 
+    def startScreenControls(self):
+        if self.key_handler:
+            self.model.starting = False
+        self.checkMouseClick()
+
     def checkMouseMove(self):
         @self.model.window.event
         def on_mouse_motion(x, y, dx, dy):
@@ -46,7 +51,7 @@ class Controller():
 
         @self.model.window.event
         def on_mouse_press(x, y, button, modifiers):
-
+            self.model.starting = False
             if button == mouse.LEFT:
                 itemClicked = False
                 xDistance = self.model.player.x - x

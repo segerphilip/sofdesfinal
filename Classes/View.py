@@ -46,6 +46,19 @@ class View():
         endLabel.draw()
         endSubLabel.draw()
 
+    def startScreen(self):
+        self.window.clear()
+        startLabel = pyglet.text.Label('Space Team Down',
+            font_name='Press Start 2P',
+            font_size=36,
+            anchor_x='center', anchor_y='center',
+            x=800, y=450, color=(81,143,90,255))
+        startSubLabel = pyglet.text.Label('Your Adventure Starts Here',
+            font_size=20,
+            anchor_x='center', anchor_y='center',
+            x=800, y=400, color=(81,143,90,255))
+        startLabel.draw()
+        startSubLabel.draw()
     def rescuescreen(self):
         self.window.clear()
         endLabel = pyglet.text.Label('You were rescued...',
