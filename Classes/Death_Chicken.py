@@ -9,6 +9,7 @@ class Death_Chicken(Enemy):  # This defines the Enemy Class
         self.texture = resources.deathChickenImages[0]
         self.animTime = 0
         self.animRate = .15
+        self.damage = .25
 
     def update(self, dt, player):
 

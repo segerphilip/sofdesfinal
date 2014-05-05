@@ -9,6 +9,7 @@ class Wood(InteractableItem):
         self.description = "Could be a useful building material"
         self.actions = ['Drop']
         self.texture = resources.woodImage
+        self.weight = 2.5
 
     def perform_action(self,player,action):
 		if action == 'Drop':

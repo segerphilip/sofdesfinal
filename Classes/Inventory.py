@@ -1,6 +1,7 @@
 # All Classes for Game
 from Items import *
 from Tiles import *
+from collections import OrderedDict
 
 class Inventory(object):
     
@@ -9,27 +10,47 @@ class Inventory(object):
         self.trigger = trigger
         self.items = items
         self.texture = resources.black_tile_large
-        #self.viewable = False
+        self.viewable = False
+
+        self.image_texture_length = 50
+        self.start_x = self.trigger.x - (self.trigger.texture.width/2) + (self.image_texture_length/2)
+        self.start_y = self.trigger.y - (self.trigger.texture.height/2) - self.texture.height/2 - 5
 
     def construct(self):
         self.entries = []
-
-        image_texture = resources.treeImage
-        start_x = self.trigger.x - (self.trigger.texture.width/2) + (image_texture.width/2)
-        start_y = self.trigger.y - (self.trigger.texture.height/2) - self.texture.height/2 - 5
-        
+        self.lastEntries = []
+  
         for i in range(len(self.items)):
-            next_x = start_x
-            next_y = start_y - i * (self.texture.height + 5)
+            next_x = self.start_x
+            next_y = self.start_y - i * (self.texture.height + 5)
             self.entries.append(InventoryEntry(item=self.items[i], x=next_x, y=next_y))
-        #self.viewable = True
 
-    def deconstruct(self): # not necessary?
-        self.trigger = None
-        self.entries = []
+    def update(self, player):
+        newItems = []
+        playerInventoryItems = [item for item in player.inventory]
+        entryItemTypes = [type(item) for item in [entry.item for entry in self.entries]]
+        
+        for item in playerInventoryItems:
+            if type(item) not in entryItemTypes:
+                newItems.append(item)
+
+        for item in newItems:
+            self.entries.append(InventoryEntry(item=item, x=self.start_x, y=self.start_y-len(self.entries)*(self.texture.height + 5)))
+
+        for entry in self.lastEntries:
+            if entry.item not in playerInventoryItems:
+                self.construct()
+
+        for entry in self.entries:
+            entry.update()
+
+        d = OrderedDict()
+        for entry in self.entries:
+            d[entry] = True
+
+        self.lastEntries = d.keys()
 
     def render(self):
-        #self.background.render()
         for entry in self.entries:
             entry.render()
 
@@ -41,7 +62,7 @@ class InventoryEntry(object):
         self.y = y
 
         self.image = InventoryImage(item=self.item,x=self.x, y=self.y)
-        self.description = [self.item.description, self.item.inventory_count, self.item.weight]
+        self.description = [self.item.description, self.item.inventory_count, self.item.weight*self.item.inventory_count]
 
         self.tile_texture = resources.black_tile_large
         self.tile_x = self.x + self.image.texture.width + self.tile_texture.width/2
@@ -55,6 +76,8 @@ class InventoryEntry(object):
         for label in self.tile.labels:
             label.draw()
 
+    def update(self):
+        self.tile.update([self.item.description, self.item.inventory_count, self.item.weight*self.item.inventory_count])
 class InventoryImage(rabbyt.sprites.Sprite):
 
     def __init__(self, item, *args, **kwargs):
@@ -83,13 +106,10 @@ class InventoryImage(rabbyt.sprites.Sprite):
                     model.contextMenu.invMenu = True
                     model.contextMenu.construct()
                 else:
-                    #self.viewable = False
                     model.contextMenu.deconstruct()
             else:
-               #self.viewable = False
                self.clicked = False
         else:
-           #self.viewable = False
            self.clicked = False
 
 class InventoryBackground(rabbyt.sprites.Sprite): # in progress
@@ -106,15 +126,20 @@ class InventoryButton(Button):
     def __init__(self,text,texture,*args,**kwargs):
         super(InventoryButton,self).__init__(text=text,texture=texture,*args,**kwargs)
 
+        self.labels[0].font_name = "Press Start 2P"
+        self.labels[0].color = (81, 143, 90, 255)
+        self.labels[0].font_size = 7
+
     def on_click(self,model, x,y):
 
         if (x > (self.x - (self.texture.width / 2)) and x < (self.x + (self.texture.width / 2))):
             if (y > (self.y - (self.texture.height / 2)) and y < (self.y + (self.texture.height / 2))):
                 self.clicked = not self.clicked
                 if self.clicked:
-                    model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
-                    model.inventoryMenu.construct()
-
+                    if not model.inventoryMenu:
+                        model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
+                        model.inventoryMenu.construct()
+                    else:
+                        model.inventoryMenu.update(model.player)
                 else:
-                    model.inventoryMenu.deconstruct()
                     self.clicked = False

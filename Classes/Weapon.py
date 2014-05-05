@@ -1,11 +1,11 @@
 from random import choice, random
 import resources
 from Projectile import Projectile
-from Items import Item
+from Items import *
 from math import cos, sin, pi
 
 
-class Weapon(Item):
+class Weapon(InteractableItem):
 
     def __init__(self, type="Ranged", range=1000, effects=None, damage=10, fireRate=.1):
         super(Weapon, self).__init__()
@@ -86,6 +86,30 @@ class Weapon(Item):
             self.lastShootTime = time
 
             self.projectiles.append(projectile)
+
+    def generate_text(self):
+        return [self.name, str(self.damage), str(self.range), str(self.fireRate)]
+
+    def on_click(self, model, x, y):
+        if (x > (self.x - self.bounding_radius) and x < (self.x + self.bounding_radius)):
+            if (y > (self.y - self.bounding_radius) and y < (self.y + self.bounding_radius)):
+                self.clicked = not self.clicked
+                if self.clicked:
+                    model.contextMenu = ContextMenu(
+                        model=model, trigger=self, options=self.actions, x=self.x + 115, y=self.y - 225)
+                    model.contextMenu.construct()
+                    model.contextMenu.invMenu = True
+                else:
+                    model.contextMenu.deconstruct()
+            else:
+                self.clicked = False
+        else:
+            self.clicked = False
+        return self.clicked
+
+    def perform_action(self, player, action):
+        if action == "Drop":
+            del player.weapons[player.weapons.index(self)]
 
     def deal_damage(self, victim, time):
         if self.effects:

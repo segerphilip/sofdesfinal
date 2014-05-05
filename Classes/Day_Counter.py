@@ -6,11 +6,11 @@ class Day_Counter(rabbyt.sprites.Sprite):
 
     def __init__(self, daysTotal, *args, **kwargs):
         super(Day_Counter, self).__init__(*args, **kwargs)
-        self.texture = resources.silver_tile_large
+        self.texture = resources.dayCounterTexture
         self.days = daysTotal
         self.title = pyglet.text.Label(
             text="Days to Rescue", font_name='Press Start 2P', font_size=12, bold=False, color=(81,143,90, 255),
-            x=self.x, y=self.y + 25,
+            x=self.x, y=self.y + 35,
             anchor_x='center', anchor_y='center')
 
         self.label = pyglet.text.Label(

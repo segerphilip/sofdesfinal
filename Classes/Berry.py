@@ -9,3 +9,4 @@ class Berry(Food):
         self.description = "A strange alien berry"
         self.texture = resources.berryImage
         self.actions = ['Eat','Drop']
+        self.weight = .1

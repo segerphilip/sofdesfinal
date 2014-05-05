@@ -9,6 +9,7 @@ class Bone(InteractableItem):
         self.description = "Strong alien animal bone"
         self.texture = resources.boneImage
         self.actions = ['Drop']
+        self.weight = 1
 
     def perform_action(self,player,action):
 		if action == 'Drop':

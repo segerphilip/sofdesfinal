@@ -20,12 +20,12 @@ class Death_Jelly(Enemy):  # This defines the Enemy Class
         self.aggroDistance = 1000
         self.attackDistance = 500
 
-        self.damage = .5
+        self.damage = .15
         self.range = 500
 
         self.projectiles = []
         self.projectileTexture = resources.deathJellyProjectileImage
-        self.deathImage = random.choice(resources.deathJellyImages)
+        self.deathImage = resources.deadJellyImage
 
     def attack(self, player):
         if random.randint(1, 100) <= 5:

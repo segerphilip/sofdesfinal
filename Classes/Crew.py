@@ -1,10 +1,11 @@
 from Items import *
 from Berry import Berry
 from Wood import Wood
+from Metal import Metal
 from Meat import Meat
 from Weapon import Weapon
-from random import choice, random
-from Event import Event
+from random import choice, random, randint
+from Event import *
 import resources
 import responses
 
@@ -39,10 +40,12 @@ class Crew(InteractableItem):
 
         self.health = 100
 
-        self.actions = ["Talk", "Feed", "Forage", "Hunt", "Forge", "Give"]
+        self.actions = ["Talk", "Forage", "Hunt", "Forge", "Feed"]
 
+        self.dead = False
     def return_home(self):
         self.viewable = True
+        self.interactable = True
         # player.get_item(self.items)
         # self.items = []
         # if len(self.weapons) != 0:
@@ -56,7 +59,7 @@ class Crew(InteractableItem):
             if "Foraging" not in self.states:
                 self.find_food()
                 self.states.append("Foraging")
-                self.forageTime = 1 / (.1 * self.skills["Forging"])
+                self.forageTime = 1 + (300 / (self.skills["Foraging"] * .75))
                 self.skills["Foraging"] += 1
             self.viewable = False
 
@@ -64,7 +67,7 @@ class Crew(InteractableItem):
             if "Hunting" not in self.states:
                 self.find_meat()
                 self.states.append("Hunting")
-                self.huntTime = 1 / (.1 * self.skills["Forging"])
+                self.huntTime = 1 + (300 / (self.skills["Hunting"] * .75))
                 self.skills["Hunting"] += 1
             self.viewable = False
 
@@ -74,16 +77,48 @@ class Crew(InteractableItem):
 
         elif action == "Forge":
             if "Forging" not in self.states:
-                self.states.append("Forging")
-                self.forgeTime = 1 / (.1 * self.skills["Forging"])
-                self.make_weapon(player)
-        elif action == "Give":
-            if "Give" not in self.states:
-                self.states.append("Give")
-                self.give()
+                enoughWood = False
+                enoughMetal = False
+                for item in player.inventory:
+                    if isinstance(item, Wood):
+                        if item.inventory_count > int(2 + .5 * self.skills["Forging"]):
+                            enoughWood = True
+                    if isinstance(item, Metal):
+                        if item.inventory_count > int(2 + .5 * self.skills["Forging"]):
+                            enoughMetal = True
 
-    def give():
-        pass
+                if enoughWood and enoughMetal:
+                    for item in player.inventory:
+                        if isinstance(item, Wood) or isinstance(item, Metal):
+                            item.inventory_count -= int(
+                                2 + .5 * self.skills["Forging"])
+                    self.states.append("Forging")
+                    self.forgeTime = 1 + (300 / (self.skills["Forging"] * .75))
+                    self.make_weapon(player)
+                    self.viewable = False
+                    self.interactable = False
+                else:
+                    self.eventsCaused.append(Crew_Event(self, "Can't Forge"))
+
+        elif action == "Feed":
+            if "Feed" not in self.states:
+                self.feed(player)
+
+    def feed(self, player):
+        fed = False
+        for item in player.inventory:
+            if isinstance(item, Berry):
+                item.inventory_count -= 1
+                self.health += 25
+                fed = True
+            if isinstance(item, Meat):
+                item.inventory_count -= 1
+                self.health += 25
+                fed = True
+        if fed:
+            self.eventsCaused.append(Crew_Event(self,"Thanks"))
+        else:
+            self.eventsCaused.append(Crew_Event(self, "No Food"))
 
     def make_weapon(self, player):
         effects = []
@@ -149,6 +184,7 @@ class Crew(InteractableItem):
     def talk(self, player):
         for item in self.items:
             player.get_item(item)
+        player.weapons.extend(self.weapons)
         if len(self.states) > 0:
             self.eventsCaused.append(Event(self, self.states[-1]))
 
@@ -156,11 +192,16 @@ class Crew(InteractableItem):
         self.health -= .1 * dt
 
     def calc_probablilties(self):
-        if random.rand_int(1, 100) <= 10:
+        if randint(1, 1000000) <= 1:
             self.eventsCaused.append(Get_Sick_Event(self, "Sick"))
-        if random.rand_int(1, 100) <= 10:
-            self.eventsCaused.append()
+
+    def die(self):
+        self.eventsCaused.append(Crew_Event(self, "Dead"))
+        self.viewable = False
+        self.interactable = False
+        self.dead = True
     def update(self, dt):
+        self.calc_probablilties()
         if "Forging" in self.states:
             self.forge(dt)
         if "Foraging" in self.states:
@@ -172,3 +213,6 @@ class Crew(InteractableItem):
         if self.health <= 30 and "Hungry" not in self.states:
             self.states.append("Hungry")
             self.eventsCaused.append(Event(self, "Hungry"))
+
+        if self.health <= 0:
+            self.die()

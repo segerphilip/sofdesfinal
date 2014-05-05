@@ -4,7 +4,7 @@ from Items import *
 from Death_Chicken import Death_Chicken
 from Death_Jelly import Death_Jelly
 from Tree import Tree
-
+from Rock import Rock
 # generates game rooms, where players will be transported depending on
 # decisions
 
@@ -25,11 +25,12 @@ class Room(object):
         self.enemyNumber = 0
         self.itemNumber = 0
         self.roomItems = []
+        self.trees = []
         self.generate_room()
 
     def generate_room(self):
         # Settings
-        options = ['Enemy', 'Tree']
+        options = ['Enemy', 'Item']
         # pixel width of each box in the grid
         # For loop to create roomMap
         for x in xrange(self.margin, self.screenWidth - self.margin, self.boxSize):
@@ -51,10 +52,15 @@ class Room(object):
                         self.enemies.append(NewEnemy)
                     # if object type is item: place the object in the
                     # dictionary, and save it to the list
-                    elif objectType == 'Tree':
+                    elif objectType == 'Item':
                         self.itemNumber += 1
-                        NewItem = Tree(x=x, y=y)
+                        if random.choice(["Tree", "Rock"]) == "Tree":
+                            NewItem = Tree(x=x, y=y)
+                        else:
+                            NewItem = Rock(x=x, y=y)
+
                         self.roomItems.append(NewItem)
+                        self.trees.append(NewItem)
         self.objectProbability = .00125
 
     def render_room(self):
@@ -80,9 +86,9 @@ class Room(object):
                     if add_Enemy:
                         if random.choice(["Chicken", "Jelly"]) == "Chicken":
                             NewEnemy = Death_Jelly(
-                                x=x, y=y)
+                                x=x, y=y, day=day)
                         else:
-                            NewEnemy = Death_Jelly(x=x, y=y)
+                            NewEnemy = Death_Jelly(x=x, y=y, day=day)
 
                         self.roomItems.append(NewEnemy)
                         self.enemies.append(NewEnemy)

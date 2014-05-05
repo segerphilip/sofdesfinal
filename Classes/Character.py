@@ -22,39 +22,44 @@ class Character(Actor):
         self.vTheta = self.rot
         self.movingBackward = False
 
-        self.weapons = [Weapon(effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random()), Weapon(
-            effects=[choice(["knock back", "slow", "poison"])], range=random() * 1600, damage=random() * 110, fireRate=random())]
+        self.weapons = [Weapon(range=800, damage=10, fireRate=.15)]
 
         self.weaponNum = 0
         self.weapon = self.weapons[self.weaponNum]
         self.toggleRate = .15
         self.lastToggleTime = 0
 
+        self.carryWeight = 0
+
         self.sleep = False
 
     def moveForward(self):
-        self.vy = self.vt * sin((self.rot + 90) * pi / 180)
-        self.vx = self.vt * cos((self.rot + 90) * pi / 180)
+        self.vy = (self.vt - self.carryWeight) * \
+            sin((self.rot + 90) * pi / 180)
+        self.vx = (self.vt - self.carryWeight) * \
+            cos((self.rot + 90) * pi / 180)
         self.vTheta = self.rot + 90
 
     def moveBackward(self):
-        self.vy = self.vt * sin((self.rot - 90) * pi / 180)
-        self.vx = self.vt * cos((self.rot - 90) * pi / 180)
+        self.vy = (self.vt - self.carryWeight) * \
+            sin((self.rot - 90) * pi / 180)
+        self.vx = (self.vt - self.carryWeight) * \
+            cos((self.rot - 90) * pi / 180)
 
         self.vTheta = self.rot - 90
         if self.vTheta < 0:
             self.vTheta += 360
 
     def moveRight(self):
-        self.vy = -self.vt * sin(self.rot * pi / 180)
-        self.vx = -self.vt * cos(self.rot * pi / 180)
+        self.vy = -(self.vt - self.carryWeight) * sin(self.rot * pi / 180)
+        self.vx = -(self.vt - self.carryWeight) * cos(self.rot * pi / 180)
         self.vTheta = self.rot
         if self.vTheta < 0:
             self.vTheta += 360
 
     def moveLeft(self):
-        self.vy = self.vt * sin(self.rot * pi / 180)
-        self.vx = self.vt * cos(self.rot * pi / 180)
+        self.vy = (self.vt - self.carryWeight) * sin(self.rot * pi / 180)
+        self.vx = (self.vt - self.carryWeight) * cos(self.rot * pi / 180)
         self.vTheta = self.rot - 180
         if self.vTheta < 0:
             self.vTheta += 360
@@ -132,7 +137,7 @@ class Character(Actor):
 
     def health_shrink(self, dt):
         '''Health slowly lowers over time'''
-        self.health -= .5 * dt
+        self.health -= .25 * dt
 
     def update(self, dt, time):
         self.x += self.vx * dt
@@ -161,6 +166,20 @@ class Character(Actor):
         self.vx = 0
         self.vy = 0
 
+        self.carryWeight = 0
+        for item in self.inventory:
+            self.carryWeight += item.weight * item.inventory_count
+
+        if self.carryWeight > 160:
+            self.carryWeight = 160
+
+        while len(self.weapons) > 3:
+            del self.weapons[-1]
+
         self.stopX = False
         self.stopY = False
         self.health_shrink(dt)
+        if self.health > 100:
+            self.health = 100
+        if self.health < 1:
+            self.health = 0
