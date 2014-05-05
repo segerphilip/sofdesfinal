@@ -1,6 +1,7 @@
 # All Classes for Game
 from Items import *
 from Tiles import *
+from collections import OrderedDict
 
 class Inventory(object):
     
@@ -17,15 +18,13 @@ class Inventory(object):
 
     def construct(self):
         self.entries = []
+        self.lastEntries = []
   
         for i in range(len(self.items)):
             next_x = self.start_x
             next_y = self.start_y - i * (self.texture.height + 5)
             self.entries.append(InventoryEntry(item=self.items[i], x=next_x, y=next_y))
 
-    # def deconstruct(self): # not necessary?
-    #     self.trigger = None
-    #     self.entries = []
     def update(self, player):
         newItems = []
         playerInventoryItems = [item for item in player.inventory]
@@ -37,11 +36,21 @@ class Inventory(object):
 
         for item in newItems:
             self.entries.append(InventoryEntry(item=item, x=self.start_x, y=self.start_y-len(self.entries)*(self.texture.height + 5)))
+
+        for entry in self.lastEntries:
+            if entry.item not in playerInventoryItems:
+                self.construct()
+
         for entry in self.entries:
             entry.update()
 
+        d = OrderedDict()
+        for entry in self.entries:
+            d[entry] = True
+
+        self.lastEntries = d.keys()
+
     def render(self):
-        #self.background.render()
         for entry in self.entries:
             entry.render()
 
@@ -53,7 +62,7 @@ class InventoryEntry(object):
         self.y = y
 
         self.image = InventoryImage(item=self.item,x=self.x, y=self.y)
-        self.description = [self.item.description, self.item.inventory_count, self.item.weight]
+        self.description = [self.item.description, self.item.inventory_count, self.item.weight*self.item.inventory_count]
 
         self.tile_texture = resources.black_tile_large
         self.tile_x = self.x + self.image.texture.width + self.tile_texture.width/2
@@ -68,8 +77,7 @@ class InventoryEntry(object):
             label.draw()
 
     def update(self):
-        self.tile = InventoryTile(text=[self.item.description, self.item.inventory_count, self.item.weight], texture=self.tile_texture,x=self.tile_x,y=self.tile_y)
-
+        self.tile.update([self.item.description, self.item.inventory_count, self.item.weight*self.item.inventory_count])
 class InventoryImage(rabbyt.sprites.Sprite):
 
     def __init__(self, item, *args, **kwargs):
@@ -128,7 +136,6 @@ class InventoryButton(Button):
                         model.inventoryMenu = Inventory(trigger=self,items=model.player.inventory)
                         model.inventoryMenu.construct()
                     else:
-                        model.inventoryMenu.update(model)
+                        model.inventoryMenu.update(model.player)
                 else:
-                    #model.inventoryMenu.deconstruct()
                     self.clicked = False

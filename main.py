@@ -15,6 +15,7 @@ glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA)
 
 # Main Game loop
 
+
 @game_window.event  # controlling code
 def on_draw():
     if m.running:

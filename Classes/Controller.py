@@ -66,7 +66,8 @@ class Controller():
                                 self.model.contextMenu.deconstruct()
                     else:
                         for tile in self.model.contextMenu.tiles:
-                            tile.on_click(self.model.contextMenu, self.model.player, x, y)
+                            tile.on_click(
+                                self.model.contextMenu, self.model.player, x, y)
                         if not itemClicked:
                             self.model.contextMenu.deconstruct()
 
@@ -80,7 +81,8 @@ class Controller():
                             itemClicked = True
 
                 # clicking the inventory button -> inventory menu
-                self.model.inventoryButton.on_click(model=self.model, x=x, y=y)
+                self.model.inventoryButton.on_click(
+                    model=self.model, x=x, y=y)
 
                 if self.model.inventoryMenu:
                     # clicking sprites in the inventory menu
@@ -92,7 +94,7 @@ class Controller():
                         self.model.inventoryMenu.viewable = False
 
                 self.model.notificationSystem.on_click(x, y)
-
+                self.model.WeaponGui.on_click(self.model, x, y)
             if button == mouse.RIGHT:
                 self.model.player.weapon.fire_projectile(
                     self.model.player, self.model.time)

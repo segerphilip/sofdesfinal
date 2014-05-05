@@ -9,6 +9,7 @@ from Inventory import *
 from Health_Bar import Health_Bar
 from Notification_System import Notification_System
 from Day_Counter import Day_Counter
+from Weapon_Gui import Weapon_Gui
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
@@ -50,6 +51,7 @@ class Model():  # sets window and player
             text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
         self.inventoryMenu = None
 
+        self.WeaponGui = Weapon_Gui(self.player.weapons)
         self.DayCounter = Day_Counter(self.daysTotal, x=175, y=75)
 
         self.notificationSystem = Notification_System(x=1500, y=100)
@@ -223,8 +225,10 @@ class Model():  # sets window and player
 
         self.Health_Bar.update(self.player.health)
 
-        if self.inventoryMenu:
+        if self.inventoryMenu and self.inventoryMenu.viewable:
             self.inventoryMenu.update(self.player)
+
+        self.WeaponGui.update(self.player)
 
         if self.player.enteringRoom:
             self.change_room()

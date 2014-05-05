@@ -14,6 +14,11 @@ pyglet.resource.reindex()
 treeImage = pyglet.resource.texture("tree.png")
 stumpImage = pyglet.resource.texture("TreeStump.png")
 
+rockImage1 = pyglet.resource.texture("Rock.png")
+rockImage2 = pyglet.resource.texture("Rock.png")
+rockImages = [rockImage1, rockImage2]
+metalImage = pyglet.resource.texture("MetalImage.png")
+
 crewImageboy = pyglet.resource.texture("boy.png")
 crewImagegirl = pyglet.resource.texture("girl.png")
 crewImages = [crewImageboy, crewImagegirl]
@@ -60,6 +65,9 @@ berryImage = pyglet.resource.texture("berries copy.PNG")
 meatImage = pyglet.resource.texture("Meat.png")
 boneImage = pyglet.resource.texture("bones.png")
 
+weaponBoxImage = pyglet.resource.texture("weaponBox.png")
+weaponTileImage = pyglet.resource.texture("weaponTile.png")
+
 pistolImage1 = pyglet.resource.texture("gun copy.PNG")
 rifleImage1 = pyglet.resource.texture("Ak-47.png")
 bowImage1 = pyglet.resource.texture("Longbow copy.PNG")
@@ -77,5 +85,3 @@ healthAmount = pyglet.resource.texture("healthamount.png")
 healthBackground = pyglet.resource.texture("healthbackground.png")
 
 pyglet.font.add_file('resources/PressStart2P.ttf')
-
-scream = pyglet.resource.media("scream.mp3")

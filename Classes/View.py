@@ -11,7 +11,6 @@ class View():
         self.window = self.model.window
         self.blackout = Sprite(resources.blackout, x=800, y=450)
         self.blackout.alpha = .1
-        self.scream = resources.scream
 
     def sleep(self):
         self.blackout.alpha = chain(
@@ -20,6 +19,7 @@ class View():
 
         for crew in self.model.crew:
             crew.update(100)
+        self.model.player.health_shrink(100)
         self.model.player.sleep = False
 
     def sunRise(self):
@@ -34,7 +34,6 @@ class View():
 
     def endscreen(self):
         self.window.clear()
-        #self.scream.play()
         endLabel = pyglet.text.Label('Your adventure stops here...',
             font_name='Press Start 2P',
             font_size=36,
@@ -85,11 +84,6 @@ class View():
                 for projectile in actor.projectiles:
                     projectile.render()
 
-            if self.model.contextMenu:
-                self.model.contextMenu.render()
-
-            self.blackout.render()
-
             self.model.inventoryButton.render()
             for label in self.model.inventoryButton.labels:
                 label.draw()
@@ -98,6 +92,10 @@ class View():
 
             self.model.notificationSystem.render()
             self.model.DayCounter.render()
+            self.model.WeaponGui.render()
+
+            if self.model.contextMenu:
+                self.model.contextMenu.render()
 
             if self.model.inventoryMenu:
                 if self.model.inventoryMenu.viewable:

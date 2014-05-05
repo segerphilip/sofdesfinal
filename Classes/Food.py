@@ -1,5 +1,4 @@
 from Items import *
-import resources
 
 
 class Food(InteractableItem):

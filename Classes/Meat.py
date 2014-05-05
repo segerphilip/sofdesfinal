@@ -10,3 +10,4 @@ class Meat(Food):
         self.poisoned = poisoned
         self.texture = resources.meatImage
         self.actions = ['Eat','Drop']
+        self.weight = 1
