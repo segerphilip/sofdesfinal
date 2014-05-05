@@ -13,6 +13,8 @@ from Weapon_Gui import Weapon_Gui
 from math import atan, pi, sin, cos
 import resources
 import rabbyt
+import random
+from Event import *
 
 
 class Model():  # sets window and player
@@ -25,7 +27,9 @@ class Model():  # sets window and player
 
         self.player = Character(
             texture=resources.playerGrid[0], x=300, y=400)
-
+        self.allEnemies = []
+        self.allTrees = []
+        # Map Creation
         self.mapSizeX = 5
         self.mapSizeY = 5
         self.baseCoordinate = (0, 0)
@@ -33,39 +37,40 @@ class Model():  # sets window and player
         self.roomCoordinate = self.baseCoordinate
         self.room = self.map[self.roomCoordinate]
         self.newRoom = False
-
+        # Getting Sprites and Attributes
         self.spritesOnScreen = self.room.roomItems
         self.spritesOnScreen.append(self.player)
         self.crew = self.room.crew
         self.actorsOnScreen = [self.player]
-
+        # Day Parameters
         self.day = True
         self.days = 1
-        self.daysTotal = 4
+        self.daysTotal = 42
         self.dayTime = 300
-
+        # Health bar
         self.Health_Bar = Health_Bar(texture=resources.healthAmount, y=850)
-
+        # Inventory
         self.contextMenu = None
         self.inventoryButton = InventoryButton(
-            text='Inventory', texture=resources.silver_tile_small, x=75, y=850)
+            text='Inventory', texture=resources.inventoryButtonImage, x=75, y=850)
         self.inventoryMenu = None
 
         self.WeaponGui = Weapon_Gui(self.player.weapons)
+        # Day Cycle
         self.DayCounter = Day_Counter(self.daysTotal, x=175, y=75)
-
+        # Notification System
         self.notificationSystem = Notification_System(x=1500, y=100)
         self.eventQueue = []
 
     def calc_probablilties(self):
-        if random.rand_int(1, 100) <= 10:
-            self.eventsQueue.append(Enemy_Attack_Event(self, "EnemyAttack"))
-        elif random.rand_int(1, 100) <= 10:
-            self.eventsQueue.append(Storm(self, "Storm"))
-        elif random.rand_int(1, 100) <= 10:
-            self.eventsQueue.append(Wildfire(self, "Wildfire"))
-        elif random.rand_int(1, 100) <= 10:
-            self.eventsQueue.append(Spring(self, "Spring"))
+        if random.randint(1, 1000000) <= 1:
+            self.eventQueue.append(Enemy_Attack_Event(self, "EnemyAttack"))
+        elif random.randint(1, 1000000) <= 1:
+            self.eventQueue.append(Storm_Event(self, "Storm"))
+        elif random.randint(1, 1000000) <= 1:
+            self.eventQueue.append(Wildfire_Event(self, "Wildfire"))
+        elif random.randint(1, 1000000) <= 1:
+            self.eventQueue.append(Spring_Event(self, "Spring"))
 
     def new_day(self):
         self.days += 1
@@ -93,6 +98,9 @@ class Model():  # sets window and player
                 else:
                     self.map.update(
                         {(row, column): Room(self.window.width, self.window.height)})
+                    self.tempRoom = self.map[(row, column)]
+                    self.allEnemies.extend(self.tempRoom.enemies)
+                    self.allTrees.extend(self.tempRoom.trees)
 
     def check_collisions(self):
         for weapon in self.player.weapons:
@@ -191,7 +199,7 @@ class Model():  # sets window and player
                     sprite.aggro(self.player)
 
         self.check_collisions()
-
+        self.calc_probablilties()
         for sprite in self.spritesOnScreen:
             if isinstance(sprite, Enemy):
                 sprite.update(dt, self.player)
@@ -229,6 +237,11 @@ class Model():  # sets window and player
             self.inventoryMenu.update(self.player)
 
         self.WeaponGui.update(self.player)
+
+        self.running = False
+        for crew in self.crew:
+            if not crew.dead:
+                self.running = True
 
         if self.player.enteringRoom:
             self.change_room()

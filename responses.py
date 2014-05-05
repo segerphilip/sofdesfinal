@@ -42,6 +42,18 @@ jerkSickText = ["Gee thanks cap, I'm sick. Stay away from me cuz karma's a bitch
 				"Hey cap, I'm sick. Ya better gimme some hot tea and TLC"]
 jerkEvents.update({"Sick": jerkSickText})
 
+# No Food
+jerkNoFoodText = ["God how could you have no food for us? What kinda captain are you", "You ain't got no food"]
+jerkEvents.update({"No Food": jerkNoFoodText})
+
+# Thanks
+jerkThanksText = ["About time you brought food", "Ah this tastes awful, but I'll take it"]
+jerkEvents.update({"Thanks": jerkThanksText})
+
+# Dead
+jerkDeadText = ["Good bye cruel world", "When they rescue us, tell my mother I loved her. Goodbye Captain"]
+jerkEvents.update({"Thanks": jerkDeadText})
+
 personalities.update({"Jerk": jerkEvents})
 
 # Sweet Heart Event Responses
@@ -74,8 +86,22 @@ sweetHeartEvents.update({"Return Meat": sweetHeartReturnMeatText})
 # I'm hungry
 sweetHeartHungryText = ["I know we all need food, but captain, I'm dying", "Please captain, feed me"]
 sweetHeartEvents.update({"Hungry": sweetHeartHungryText})
+
 # I'm sick
 sweetHeartSickText = ["Captain, I'm sick stay away from me for all our good",
                 "Hey cap, I'm sick. I would cuddle with you but I care about our group too much"]
 sweetHeartEvents.update({"Sick": sweetHeartSickText})
+
+# No Food
+sweetHeartNoFoodText = ["Looks like you don't have any food captain, but I believe in you", "You don't have any food on you, but thats okay"]
+sweetHeartEvents.update({"No Food": sweetHeartNoFoodText})
+
+# Thanks
+sweetHeartThanksText = ["Thanks so much Captain", "Mmmmm thanks Captian, that was delectable"]
+sweetHeartEvents.update({"Thanks": sweetHeartThanksText})
+
+# Dead
+sweetHeartDeadText = ["Good bye cruel world", "When they rescue us, tell my mother I loved her. Goodbye Captain"]
+sweetHeartEvents.update({"Thanks": sweetHeartDeadText})
+
 personalities.update({"sweetHeart": sweetHeartEvents})

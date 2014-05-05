@@ -126,6 +126,10 @@ class InventoryButton(Button):
     def __init__(self,text,texture,*args,**kwargs):
         super(InventoryButton,self).__init__(text=text,texture=texture,*args,**kwargs)
 
+        self.labels[0].font_name = "Press Start 2P"
+        self.labels[0].color = (81, 143, 90, 255)
+        self.labels[0].font_size = 7
+
     def on_click(self,model, x,y):
 
         if (x > (self.x - (self.texture.width / 2)) and x < (self.x + (self.texture.width / 2))):

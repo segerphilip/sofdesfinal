@@ -19,7 +19,6 @@ class Weapon_Gui(object):
         self.create_weapon_tiles()
 
     def create_weapon_boxes(self):
-        print "creating Boxes"
         self.weaponBoxes = []
         i = 0
 
@@ -54,7 +53,6 @@ class Weapon_Gui(object):
 
     def update(self, player):
         if self.weapons != self.lastWeapons:
-            print "IN!"
             self.weapons = player.weapons
 
             d = OrderedDict()

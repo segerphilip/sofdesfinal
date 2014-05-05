@@ -2,6 +2,7 @@
 import pyglet
 from Classes import *
 from pyglet.gl import *
+import random
 
 # Game Objects (not in model)
 game_window = pyglet.window.Window(fullscreen=True, vsync=False)

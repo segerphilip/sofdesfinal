@@ -35,36 +35,53 @@ class Get_Sick_Event(Crew_Event):
 
 class Map_Event(Event):
 
-    def __init__(self, model, *args, **kwargs):
-        super(Crew_Event, self).__init__(*args, **kwargs)
-        self.model = model
+    def __init__(self, *args, **kwargs):
+        super(Map_Event, self).__init__(*args, **kwargs)
         self.handle = True
+
 
 class Enemy_Attack_Event(Map_Event):
     def __init__(self, *args, **kwargs):
-        super(Enemy_Attack_Event).__init__(*args, **kwargs)
+        super(Enemy_Attack_Event, self).__init__(*args, **kwargs)
         self.handle = True
     def handle(self):
-        for crew in self.model.crew:
+        for crew in self.cause.crew:
             crew.health -= 20
+    def make_text(self):
+        self.flavor = "Enemies attacked your base! Your crew is hurt"
+        self.text = self.flavor
 
 class Storm_Event(Map_Event):
     def __init__(self, *args, **kwargs):
-        super(Enemy_Attack_Event).__init__(*args, **kwargs)
+        super(Storm_Event, self).__init__(*args, **kwargs)
         self.handle = True
     def handle(self):
-        pass
+        for enemy in self.cause.allEnemies:
+            if random.randint(1, 100) <= 50:
+                enemy.health -= 20
+    def make_text(self):
+        self.flavor = "A storm hit. Enemies are weak!"
+        self.text = self.flavor
 
 class Wildfire_Event(Map_Event):
     def __init__(self, *args, **kwargs):
-        super(Enemy_Attack_Event).__init__(*args, **kwargs)
+        super(Wildfire_Event, self).__init__(*args, **kwargs)
         self.handle = True
     def handle(self):
-        pass
+        for tree in self.cause.allTrees:
+            if random.randint(1, 100) <= 50:
+                tree.cut_down()
+    def make_text(self):
+        self.flavor = "A wildfire hit. Some trees have fallen"
+        self.text = self.flavor
+
 
 class Spring_Event(Map_Event):
     def __init__(self, *args, **kwargs):
-        super(Enemy_Attack_Event).__init__(*args, **kwargs)
+        super(Spring_Event, self).__init__(*args, **kwargs)
         self.handle = True
     def handle(self):
-        pass
+        self.growRate = self.growRate/2
+    def make_text(self):
+        self.flavor = "Spring has arrived! Berries are plentiful"
+        self.text = self.flavor

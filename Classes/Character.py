@@ -181,3 +181,5 @@ class Character(Actor):
         self.health_shrink(dt)
         if self.health > 100:
             self.health = 100
+        if self.health < 1:
+            self.health = 0

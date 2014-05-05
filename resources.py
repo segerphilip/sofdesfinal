@@ -36,8 +36,8 @@ deathJelly2Image = pyglet.resource.texture("Jellyfish12.png")
 deathJellyImages = [deathJelly1Image, deathJelly2Image]
 deathJellyProjectileImage = pyglet.resource.texture("blotch.PNG")
 
-grass1 = pyglet.resource.texture("GrassEnvironment2 copy.png")
-grass2 = pyglet.resource.texture("GrassEnvironment copy.png")
+grass1 = pyglet.resource.texture("NewBackground1.png")
+grass2 = pyglet.resource.texture("NewBackground2.png")
 
 grasses = [grass1, grass2]
 
@@ -53,6 +53,7 @@ playerGrid = TextureGrid(playerGrid)
 silver_tile_small = pyglet.resource.texture("inventory_button.png")
 silver_tile_large = pyglet.resource.texture("description_tile.png")
 
+inventoryButtonImage = pyglet.resource.texture("InventoryButton.png")
 notificationBoxTexture = pyglet.resource.texture("HUDNotification.png")
 dayCounterTexture = pyglet.resource.texture("InventoryBox.png")
 
