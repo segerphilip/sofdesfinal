@@ -45,6 +45,7 @@ class Crew(InteractableItem):
         self.dead = False
     def return_home(self):
         self.viewable = True
+        self.interactable = True
         # player.get_item(self.items)
         # self.items = []
         # if len(self.weapons) != 0:
@@ -94,6 +95,8 @@ class Crew(InteractableItem):
                     self.states.append("Forging")
                     self.forgeTime = 1 + (300 / (self.skills["Forging"] * .75))
                     self.make_weapon(player)
+                    self.viewable = False
+                    self.interactable = False
                 else:
                     self.eventsCaused.append(Crew_Event(self, "Can't Forge"))
 
@@ -189,7 +192,7 @@ class Crew(InteractableItem):
         self.health -= .1 * dt
 
     def calc_probablilties(self):
-        if randint(1, 10000) <= 1:
+        if randint(1, 1000000) <= 1:
             self.eventsCaused.append(Get_Sick_Event(self, "Sick"))
 
     def die(self):
