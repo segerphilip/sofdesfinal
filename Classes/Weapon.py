@@ -96,7 +96,7 @@ class Weapon(InteractableItem):
                 self.clicked = not self.clicked
                 if self.clicked:
                     model.contextMenu = ContextMenu(
-                        model=model, trigger=self, options=self.actions, x=self.x + 115, y=self.y - 225)
+                        model=model, trigger=self, options=self.actions, x=1465, y=self.y - 225)
                     model.contextMenu.construct()
                     model.contextMenu.invMenu = True
                 else:

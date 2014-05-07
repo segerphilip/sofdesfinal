@@ -51,7 +51,7 @@ jerkThanksText = ["About time you brought food", "Ah this tastes awful, but I'll
 jerkEvents.update({"Thanks": jerkThanksText})
 
 # Dead
-jerkDeadText = ["I blame you on my death", "How could the world lose me?!"]
+jerkDeadText = ["I blame my death on you", "How could the world lose me?!"]
 jerkEvents.update({"Dead": jerkDeadText})
 
 personalities.update({"Jerk": jerkEvents})

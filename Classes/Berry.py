@@ -8,5 +8,6 @@ class Berry(Food):
         super(Berry, self).__init__(*args, **kwargs)
         self.description = "A strange alien berry"
         self.texture = resources.berryImage
-        self.actions = ['Eat','Drop']
+        self.actions = ['Eat', 'Eat All', 'Drop']
         self.weight = .1
+        self.healing = 25
