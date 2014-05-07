@@ -140,3 +140,7 @@ class ContextMenu(Menu):
             self.start_y = self.trigger.y + 2 * self.trigger.bounding_radius
 
         self.update_boundaries(self.start_x, self.start_y)
+
+class ChoiceMenu(Menu):
+    def __init__(self, model, trigger, options, x, y):
+        super(ChoiceMenu, self).__init__(model=model, trigger=trigger,options=options, x=x, y=y)
