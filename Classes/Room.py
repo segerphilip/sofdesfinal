@@ -61,6 +61,11 @@ class Room(object):
 
                         self.roomItems.append(NewItem)
                         self.trees.append(NewItem)
+
+        # Test Item!
+        self.roomItems.append(Tree(x=100, y=750))
+
+
         self.objectProbability = .00125
 
     def render_room(self):

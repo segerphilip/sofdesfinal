@@ -48,6 +48,7 @@ class InventoryTile(Tile):
         self.label_description.text = str(text[0])
         self.label_stats.text = "Count: " + str(text[1]) + "      Weight: " + str(text[2])
         self.labels = [self.label_description, self.label_stats]
+
 class WeaponTile(Tile):
 
     def __init__(self, *args, **kwargs):
@@ -83,7 +84,8 @@ class WeaponBox(object):
         self.x = x
         self.y = y
         self.weapon = weapon
-        self.background = rabbyt.sprites.Sprite(texture=resources.weaponBoxImage, x=self.x, y=self.y)
+        self.texture = resources.weaponBoxImage
+        self.background = rabbyt.sprites.Sprite(texture=self.texture, x=self.x, y=self.y)
         if self.weapon:
             self.weapon.x = self.x+self.spacing
             self.weapon.y = self.y-self.spacing
@@ -92,4 +94,3 @@ class WeaponBox(object):
         self.background.render()
         if self.weapon:
             self.weapon.render()
-
