@@ -63,7 +63,7 @@ class Room(object):
                         self.trees.append(NewItem)
 
         # Test Item!
-        self.roomItems.append(Tree(x=100, y=750))
+        self.roomItems.append(Tree(x=100, y=800))
 
 
         self.objectProbability = .00125
