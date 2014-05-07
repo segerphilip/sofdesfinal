@@ -62,11 +62,11 @@ class WeaponTile(Tile):
 
         self.label_name = pyglet.text.Label(str(self.text[0]), font_name='Press Start 2P', font_size=12, 
             x=self.x - self.spacing*5, y=self.nameY, anchor_x='left', anchor_y='top', color=(81,143,90, 255))
-        self.label_dam = pyglet.text.Label("Damage: " + str(self.text[1]), font_name='Press Start 2P', font_size=8, 
+        self.label_dam = pyglet.text.Label("Damage: " + str(round(float(self.text[1]))), font_name='Press Start 2P', font_size=8, 
             x=self.x - self.spacing*5, y=self.damY, anchor_x='left', anchor_y='top', color=(81,143,90, 255))
-        self.label_range = pyglet.text.Label("Range: " + str(self.text[2]), font_name='Press Start 2P', font_size=8, 
+        self.label_range = pyglet.text.Label("Range: " + str(round(float(self.text[2]))), font_name='Press Start 2P', font_size=8, 
             x=self.x - self.spacing*5, y=self.rangeY, anchor_x='left', anchor_y='top', color=(81,143,90, 255))
-        self.label_rof = pyglet.text.Label("Rate of Fire: " + str(self.text[3]), font_name='Press Start 2P', font_size=8, 
+        self.label_rof = pyglet.text.Label("Rate of Fire: " + str(round(float(self.text[3]), 2)), font_name='Press Start 2P', font_size=8, 
             x=self.x - self.spacing*5, y=self.rofY, anchor_x='left', anchor_y='top', color=(81,143,90, 255))
 
     def render(self):

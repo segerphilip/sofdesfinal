@@ -29,7 +29,7 @@ class Enemy(Actor):  # This defines the Enemy Class
 
     def attack(self, player):
         if random.randint(1, 100) < 20:
-            player.health -= self.damage + self.day ** 1.25
+            player.health -= self.damage + self.day ** 1.1
             # print player.health
 
     def die(self):

@@ -146,7 +146,7 @@ class Model():  # sets window and player
                         if collision != actor:
                             if projectile in actor.projectiles:
                                 actor.projectiles.remove(projectile)
-                        if isinstance(collision, Character) or isinstance(collision, Enemy):
+                        if isinstance(collision, Character) or isinstance(collision, Enemy) and collision is not actor:
                             collision.health -= actor.damage + \
                                 actor.day ** 1.25
 

@@ -109,10 +109,14 @@ class Crew(InteractableItem):
         for item in player.inventory:
             if isinstance(item, Berry):
                 item.inventory_count -= 1
+                if item.inventory_count == 0:
+                    player.inventory.remove(item)
                 self.health += 25
                 fed = True
             if isinstance(item, Meat):
                 item.inventory_count -= 1
+                if item.inventory_count == 0:
+                    player.inventory.remove(item)
                 self.health += 25
                 fed = True
         if fed:
@@ -128,11 +132,11 @@ class Crew(InteractableItem):
             if newEffect not in effects:
                 effects.append(newEffect)
 
-        damage = self.skills["Forging"] + \
-            random() * self.skills["Forging"] * 3
+        damage = (self.skills["Forging"] + \
+            random() * self.skills["Forging"] * 3.0) + 5.0
         range = self.skills["Forging"] + \
-            random() * self.skills["Forging"] * 100
-        fireRate = random() / self.skills["Forging"] * 5
+            random() * self.skills["Forging"] * 100.0
+        fireRate = random() / (2+self.skills["Forging"] * 6.0)
 
         self.weaponToMake.append(Weapon(
             range=range, damage=damage, effects=effects, fireRate=fireRate))
@@ -187,12 +191,13 @@ class Crew(InteractableItem):
         player.weapons.extend(self.weapons)
         if len(self.states) > 0:
             self.eventsCaused.append(Event(self, self.states[-1]))
+            del self.states[-1]
 
     def lower_health(self, dt):
-        self.health -= .1 * dt
+        self.health -= .15 * dt
 
     def calc_probablilties(self):
-        if randint(1, 1000000) <= 1:
+        if randint(1, 100000) <= 1:
             self.eventsCaused.append(Get_Sick_Event(self, "Sick"))
 
     def die(self):
@@ -200,6 +205,7 @@ class Crew(InteractableItem):
         self.viewable = False
         self.interactable = False
         self.dead = True
+
     def update(self, dt):
         self.calc_probablilties()
         if "Forging" in self.states:
@@ -214,5 +220,5 @@ class Crew(InteractableItem):
             self.states.append("Hungry")
             self.eventsCaused.append(Event(self, "Hungry"))
 
-        if self.health <= 0:
+        if self.health <= 0 and not self.dead:
             self.die()

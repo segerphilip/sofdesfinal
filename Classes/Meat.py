@@ -1,4 +1,4 @@
-from Food  import Food
+from Food import Food
 import resources
 
 
@@ -9,5 +9,5 @@ class Meat(Food):
         self.description = "Some meat you harvested"
         self.poisoned = poisoned
         self.texture = resources.meatImage
-        self.actions = ['Eat','Drop']
         self.weight = 1
+        self.healing = 30

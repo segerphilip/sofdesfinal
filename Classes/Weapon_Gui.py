@@ -52,9 +52,7 @@ class Weapon_Gui(object):
                 weaponTile.render()
 
     def update(self, player):
-        if self.weapons != self.lastWeapons:
-            self.weapons = player.weapons
-
+        if self.weapons != player.weapons:
             d = OrderedDict()
             for weapon in player.weapons:
                 d[weapon] = True
