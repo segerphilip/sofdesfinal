@@ -37,7 +37,7 @@
 					<h2>Welcome!</h2>
 					<p>Here is the project page for our Software Design final project.<br>
 					For more information, check the <a href="about.html">about</a> page.</p>
-					<a href="#refinement" class="button">Design Refinement</a>
+					<a href="#reflection" class="button">Final Reflection</a>
 				</section>
 			<!-- Project Proposal -->
 				<div class="row">
@@ -108,6 +108,45 @@
 							<p>To get started, we first have to figure out the storyline and mechanics of our game. Once this is done, we can then create a skeleton code of basic functions, classes, and objects that we can then assign to our group members. We plan to make our naming conventions, variable names, and inputs and outputs very clear in our skeleton code to allow for easy group coding and collaboration. Our current looming question to answer is: “What is our game?”. This entails determining the game mechanics, story, and the expected user-experience. The biggest problem we currently foresee is efficient integration of code from our members into a coherent project. Since we have a large group of five people, we need to make sure there are large significant separate chunks to our project. We currently see game mechanics, custom branching of storylines, AI enemies and companions, graphics, and website design as separate coding parts of our project.</p><br>
 							<h2>The Current Status</h2>
 							<p>At the moment, we have a basic, top-down video game. The user controls the character's movement through the arrow keys or WASD and the mouse is used for character orientation. With this, moving around the level is fairly straightforward and does not require any special instructions for a new user. When the game starts, the character is in the "home" chunk, where they can find crew members and a fireplace, which signifies home. Everyone is friendly, and clicking on one will bring up a menu of actions, including talking, foraging, and hunting. If you click on an action, the ally will dissappear, performing that action. Clicking on the fireplace will bring up a sleep option, which transitions the game to the next day. If any previous allies were away doing an action, they will return and the found supplies will be added to your inventory. Moving into other chunks, the character may encounter trees, which are great for supplies, or enemies, which attack the player if it gets too close. Luckily, the player is armed with two randomly generated weapons at the start of every game, with different effects each. From this point, we need to develop more variation in the enemies, level design, and implement the storyline.</p><br>
+						</section>
+				</div>
+		<!-- Final Reflection -->
+				<div class="row">
+					<!-- Date -->
+						<section id="reflection" class="2u">
+							<h2>Final Reflection</h2>
+							<p>May 6<br>2014</p>
+						</section>
+					<!-- Content -->
+						<section class="8u">
+							<h2>Design Structure</h2>
+							<p>
+								Our code was designed under a model, view controller framework. We used the libraries pyglet and rabbyt because they can very efficiently deal with rendering sprites, and we had a large of objects and sprites in our game. We structured our game into distinct subsections to allow us to program in parallel efficiently. The main subsections were user interaction, combat, visual design, and crew interactions. We then created separate folders and scripts for these sections to to minimize version control conflicts. For game objects we used a object oriented programming to our advantage. Each game object inherits from our object item which is a modified rabbyt sprite. This gives every object in the game the ability to animate, transform, and be rendered from its instantiation. We then created a variety of important subclasses that would later serve as the parents for the the rest of our game objects. We created actor which is the parent of every moving sprite such as player character and the enemies. We also created interactable_item which is the parent of all clickable objects which allows us to create interactable pop up menus. For the user interface we created both a menu class and tile class which are the building block of every interface in our game. Having strong and flexible parent classes allowed us to easily create specific sub classes to fill out the rest of our game.
+							</p>
+							<h2>Analysis of Outcome</h2>
+							<p>
+								While we had some very lofty goals throughout the whole project, time was a very limiting factor in what exactly we accomplished. However, our team was still able to make a very smooth, enjoyable game that challenged users both in being able to survive for long periods of time and interact effectively with a crew. Minimum deliverable wise, we were able to completely cover the basics including building a playable game with a basic AI component. However, we expanded on that vague definition very quickly, adding more features like different seasons, random events, crew members that could help progress you through the game, differing enemies with different attack styles, and more. Albeit all this extra, we did not fully reach the maximum deliverable. The plan was to have a random, AI based story, where different interactions with the environment resulted in completely different outcomes. This was thrown to the wayside because of time, but we plan on expanding more features of the game in the coming days until Expo.
+							</p>
+							<h2>Reflection on Design</h2>
+							<p>
+								In the beginning of our project, we spent a large amount of time ideating what we wanted our video game to entail. Although this was important, it was largely theoretical and sometimes went well beyond our minimum deliverable. Due to a lack of time, we reached our minimum deliverable, but weren’t able to fulfil some of our exciting initial plans for the game. 
+								Although we eventually became specific by creating a skeleton code and naming conventions, which was a great plan, we had a tough time sticking to them. It became much more freeform, and it wasn’t so clear who was to do which part of the project. Although this promoted creativity, it made it difficult to keep everyone updated on the overarching code structure. Next time, we should allow for this free-form creativity, but also have meetings with all members where everyone becomes updated on the current general code structure. 
+								The best decision we made was around file organization and structure. We had subfolders for classes and resources. Classes contained each class as a separate file and resources contained all our image files for sprites. We then had a separate main file to run our code and a resources file which linked each image to the correct variable. Because of this, we found it easier to integrate code due to fewer git merge conflicts. This also allowed us to more easily access code instead of scrolling through one very large file.
+							</p>
+							<h2>Division of Labor</h2>
+							<p>
+								Overall, we did a  good job at splitting up work. There were some issues with the overall division of work, but it worked out well. Everyone contributed to the project in there own way. For example, Bonnie took it upon herself to solve the issue of the GUI and boy did she create a great GUI. While she did take it upon herself she had no qualms asking other people for help, which was great. While that was a good example of a success, there were some issues. Hannah for example didn’t really work with the code. She focussed on designing all of the art for the game. While this was good (art needed to get done), she didn’t get as much hands on coding experience as she could have. However, she was present for when other people were coding, so she helped people debug and learn the structure. Other than individual cases, people split up into sections that they would call their own, which was great for the work done on the project. Everyone talked to each other about issues they were having, so nobody was isolated while working on their own part of the code. One person did more than anyone thought was humanly possible. Austin worked on the code in his free time,so he was able to complete a lot more of the project. This was not really good in terms of division of labor, but his actions made our game the awesome epic it is now. Overall we had some splitting issues, but we made it work. The constant communication between members allowed our project to be a success in terms of division of labor. Everyone had their hands in a little bit of everything, while focusing on their preferred part. It was a great way to work.
+							</p>
+							<h2>Bug Report</h2>
+							<p>
+								One of the most difficult bugs, or obstacles, that we had to overcome was integrating our GUIs into the main screen of our game.  We wanted to create dynamic context menus for items, resources, and crew members; a dynamic inventory menu that kept track of the player's items; a weapon menu that kept track of the player's weapons; and a countdown screen that kept track of the number of days left until rescue.  We originally attempted to use a Pyglet package called Kytten, which was relatively easy to customize to create aesthetically appealing GUIs for our purposes.  However, since there is very limited documentation for Kytten, we spent a considerable amount of time attempting to figure out how to integrate our Kytten GUI into our main game window.  We searched for examples of projects online that used the Kytten package, but we were unable to find ones that were not stand-alone, with no integration.
+								Although we are still unsure, we suspect that part of the problem is that Rabbyt does not support batching, which prevented us from controlling the order in which the on-screen sprites and the GUIs were rendered when we ran the program.  After spending over a week on this bug with no success, we made the decision to abandon Kytten altogether and create our own GUI system using Rabbyt sprites - we were already using Rabbyt sprites to represent our objects on the game screen.  We wrote our own classes for buttons, tiles, and menus that became a solid basis for each GUI that we designed for the game.  It would have been ideal if we had discovered this issue before spending the amount of time we did creating GUIs with Kytten, and if we spent less time attempting to integrate the GUIs without concrete examples that we could reference, but the process of working with the package and then creating our own system was a valuable learning experience.  
+							</p>
+							<h2>Final UML Diagram</h2>
+							<p>
+								<a href="images/classes.png">Classes</a><br>
+								<a href="images/packages.png">Packages</a>
+							</p>
 						</section>
 				</div>
 		</div>
