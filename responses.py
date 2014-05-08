@@ -89,10 +89,7 @@ sweetHeartEvents.update({"Hungry": sweetHeartHungryText})
 
 # I'm sick
 sweetHeartSickText = ["Captain, I'm sick stay away from me for all our good",
-                "Hey cap, I'm sick. I would cuddle with you but I care about our group too much"]
-sweetHeartEvents.update({"Sick": sweetHeartSickText})
-
-# No Food
+                "Hey cap, I'm sick. For the rest of the group, stay away from me!"]
 sweetHeartNoFoodText = ["Looks like you don't have any food captain, but I believe in you", "You don't have any food on you, but thats okay"]
 sweetHeartEvents.update({"No Food": sweetHeartNoFoodText})
 
@@ -105,3 +102,90 @@ sweetHeartDeadText = ["Good bye cruel world", "When they rescue us, tell my moth
 sweetHeartEvents.update({"Dead": sweetHeartDeadText})
 
 personalities.update({"sweetHeart": sweetHeartEvents})
+
+NerdEvents = {}
+# Done Forging
+NerdDoneForgeText = ["Through the material analysis and research I created this weapon for you!", "Science wins again! Come Here!"]
+NerdEvents.update({"Done Forging": NerdDoneForgeText})
+NerdReturnWeaponText = ["It is my honor to present to you this work of scientific art.", "Here is your new weapon"]
+NerdEvents.update({"Return Weapon": NerdReturnWeaponText})
+NerdCantForgeText = ["Captain, we don't have enough resources", "You need to leave the compound to collect more materials."]
+NerdEvents.update({"Can't Forge": NerdCantForgeText})
+
+# Done Foraging
+NerdDoneForageText = ["Captain, my machine was able to collect berries",
+                      "I probably was not the best person for this job, but I collected food."]
+NerdEvents.update({"Done Foraging": NerdDoneForageText})
+NerdReturnFoodText = ["Please use these to get more resources for my research!","Manage them wisely, here are some berries"]
+NerdEvents.update({"Return Food": NerdReturnFoodText})
+
+# Done Hunting
+NerdDoneHuntText = [
+    "My robot had a fun time killing, I might have allowed it too much emotion. Time to tinker.",
+    "I don't understand why you had me hunt, but I'm done."]
+NerdEvents.update({"Done Hunting": NerdDoneHuntText})
+NerdReturnMeatText = ["Take this carcass from me please, its making me queezy",
+                      "Meat is life, but you already knew that"]
+NerdEvents.update({"Return Meat": NerdReturnMeatText})
+
+# I'm hungry
+NerdHungryText = ["Sir, my nutrient level isn't high enought.", "Captain, it seems as though I require nutrients"]
+NerdEvents.update({"Hungry": NerdHungryText})
+
+# I'm sick
+NerdSickText = ["Capatin, I'm running diagnostics, and it looks like I'm coming down with something. I need to look into it more.",
+                "I should but myself in quarentine, I don't know its effects"]
+NerdNoFoodText = ["Captain look closer, you have nothing with you.", "Do you need help finding food? I have a robot for that."]
+NerdEvents.update({"No Food": NerdNoFoodText})
+
+# Thanks
+NerdThanksText = ["You have my thanks, captain", "I will be able to return to my duties"]
+NerdEvents.update({"Thanks": NerdThanksText})
+
+# Dead
+NerdDeadText = ["The ultimate research, the after world of death", "Swiftly life closes its door as the path clears to death."]
+NerdEvents.update({"Dead": NerdDeadText})
+
+personalities.update({"Nerd": NerdEvents})
+
+FrenchEvents={}
+
+FrenchDoneForgeText = ["Parfait, cette arme", "C'est mon chef d'oeuvre"]
+FrenchEvents.update({"Done Forging": FrenchDoneForgeText})
+FrenchReturnWeaponText= ["Ah! Ici, votre arme", "J'aime l'arme, elle te protegera"]
+FrenchEvents.update({"Return Weapon": FrenchReturnWeaponText})
+FrenchCantForgeText = ["Non, Je ne peux pas forger une arme", "Je suis desolee, Capitaine. Vous n'avez pas suffisamment de ressources"]
+FrenchEvents.update ({"Can't Forge" : FrenchCantForgeText})
+
+#Done Foraging
+FrenchDoneForageText= ["Capitaine, Je fini. J'ai les nourritures.", "Que Maintenant?"]
+FrenchEvents.update({"Done Foraging": FrenchDoneForageText})
+FrenchReturnFoodText= ["Ici Capitaine.", " Emportes les nourriture"]
+FrenchEvents.update({"Return Food": FrenchReturnFoodText})
+
+#Done Hunting
+FrenchDoneHuntText= [ " J'ai chasse.", "J'ai les nourritures"]
+FrenchEvents.update({"Done Hunting": FrenchDoneHuntText})
+FrenchReturnMeatText= ["Ici, la viande","Emportes la viande, plus vite." ]
+FrenchEvents.update({"Return Meat": FrenchReturnMeatText})
+
+# HUngry
+FrenchHungryText= ["J'ai besoin de la nourriture", "J'ai faim"]
+FrenchEvents.update({"Hungry": FrenchHungryText})
+
+#I'm sickk
+
+FrenchSickText= ["Capitaine, Je ne suis pas en forme", "Les jambes m'entrent dans le corps"]
+FrenchNoFoodText= ["Tu n'as pas la nourriture", " Ou est la nourriture? Tu n'as rien"]
+FrenchEvents.update({"No Food": FrenchNoFoodText})
+
+#Thanks
+FrenchThanksText= [" Merci Beaucoup, Capitaine", "Qu'est-ce que je ferais sans toi?"]
+FrenchEvents.update({"Thanks": FrenchThanksText})
+
+#GOODBYE
+FrenchDeadText= ["Au Revoir Capitaine, je vous aime.", " Tu dois vivre sans moi!"]
+FrenchEvents.update({"Dead": FrenchDeadText})
+
+personalities.update({"French": FrenchEvents})
+
